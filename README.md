@@ -3,6 +3,6 @@ Bienvenidos a este lindisimo juego en el que podrás luchar con tu muñeca favor
  %p
 Equipo:
  +  Alba Haro Ballesteros ->
- +  Alfonso Del Pino García ->
+ +  Alfonso Del Pino García -> a.delpino2020@alumnos.urjc.es
  +  Cristina Lozano Bautista ->
- +  Francisco Rodríguez Martínez -> 
+ +  Francisco Rodríguez Martínez -> f.rodriguez.2021@alumnos.urjc.es
