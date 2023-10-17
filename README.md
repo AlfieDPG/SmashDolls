@@ -159,6 +159,8 @@ En esta sección, se detallan las interfaces que formarán parte de Smash Dolls.
 ### - Menú de inicio -
 Es el punto de entrada al juego, desde esta pantalla el jugador podrá acceder a partidas, opciones de configuración y controles… El fondo del menú de inicio será una ilustración de un escaparate de una tienda de muñecas y los botones aparecerán en la puerta y el título del juego en el letrero de la tienda. Al ir desplazándose entre una opción u otra se ampliará una parte del escaparate u otra.
 
+[![inicio.jpg](https://i.postimg.cc/HxWKJ3L8/inicio.jpg)](https://postimg.cc/SX5V36Cm)
+
 ### - Menú “Jugar” -
 En este menú se elige si se quiere jugar con otra persona o contra el ordenador.
 
@@ -166,8 +168,12 @@ Da igual qué botón pulsemos (single player o multiplayer) que irá al menú se
 
 El botón “back” nos llevará de vuelta al menú de inicio.
 
+[![jugar.jpg](https://i.postimg.cc/G3T0v7Qv/jugar.jpg)](https://postimg.cc/RqmbBT20)
+
 ### - Menú de selección de personaje -
 En el modo multijugador primero elegirá personaje el jugador 1 y luego el jugador 2 y cuando elijan ambos se pasará al menú de selección de escenario. Aparecerá una ilustración grande del personaje en 2D y abajo la vida, la energía y las habilidades. 
+
+[![personaje.jpg](https://i.postimg.cc/NjJbJYGF/personaje.jpg)](https://postimg.cc/87vhc26g)
 
 En el modo singleplayer se elige un personaje y el otro se elige a continuación.
 
@@ -176,7 +182,12 @@ En el menú de selección de escenario tendremos un escenario en el centro junto
 
 En esta pantalla encontraremos también los botones “Choose doll” y “Menu” que nos llevarán al menú de elección de personaje o al menú de inicio respectivamente.
 
+[![escenario.jpg](https://i.postimg.cc/1RdmQVWr/escenario.jpg)](https://postimg.cc/Z0rtPnzW)
+
 ### - Pantalla principal -
+
+[![principal.jpg](https://i.postimg.cc/xCcdvvxq/principal.jpg)](https://postimg.cc/ZBzZZdhh)
+
 El escenario donde se encuentran las muñecas se mostrará en pantalla completa.
 
 En las esquinas de la parte superior se muestran las barras de vida de los personajes y cuantos combates lleva ganados cada personaje, quien llegue a 3 combates ganados gana.
