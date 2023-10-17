@@ -1,5 +1,5 @@
 # SmashDolls
-**Grupo XX - M0n3k0's**
+**Grupo 06 - M0n3k0's**
 
  -  Alba Haro Ballesteros -> a.haro.2021@alumnos.urjc.es
    
