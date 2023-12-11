@@ -1,3 +1,5 @@
+import scene1 from "/scenes/scene1.js";
+import mainMenu from "/scenes/mainMenu.js";
 const config = {
   
     parent:"container",
@@ -18,7 +20,7 @@ const config = {
 
     },
 
-    scene: [scene1] // aqui van todas las escenas
+    scene: [mainMenu,scene1] // aqui van todas las escenas
    
 
 }

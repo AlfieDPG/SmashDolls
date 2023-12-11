@@ -10,7 +10,7 @@ function fullScreen(){
     }
 
 }
-class scene1 extends Phaser.Scene {
+export default class scene1 extends Phaser.Scene {
  
 
     constructor(){
@@ -102,7 +102,7 @@ class scene1 extends Phaser.Scene {
         
 
          
-        cursors = this.input.keyboard.createCursorKeys();   
+        var cursors = this.input.keyboard.createCursorKeys();   
          // Configurar colisiones entre las muñecas
          this.physics.add.collider(this.doll1, this.doll2, this.handleCollision, null, this);
          
