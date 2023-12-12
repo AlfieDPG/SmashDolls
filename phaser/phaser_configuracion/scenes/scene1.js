@@ -1,5 +1,4 @@
 
-
 function fullScreen(){
     if(this.scene.scale.isFullscreen == false){
         this.scene.scale.startFullscreen();
@@ -87,6 +86,7 @@ export default class scene1 extends Phaser.Scene {
         //console.log('Tamaño del sprite de doll1:', this.doll1.width, this.doll1.height);
         this.doll1.body.setOffset(20, 0); // Ajustar la posición del cuerpo de colisión
         this.doll1.setCollideWorldBounds(true);
+        this.doll1.setData ('life1',100); //creas la vida de la muñeca
         this.physics.world.setBoundsCollision(true);
         
 
@@ -98,14 +98,19 @@ export default class scene1 extends Phaser.Scene {
         this.doll2.body.setOffset(0, 0); // Ajustar la posición del cuerpo de colisión porque no quedaba en el cuerpo del personaje
         this.doll2.flipX = true; //girar la segunda muñeca para que esté mirando hacia el lado contrario (enfrentándose)
         this.doll2.setCollideWorldBounds(true);
+        this.doll2.setData ('life2',100);
         this.physics.world.setBoundsCollision(true);
         
 
          
         var cursors = this.input.keyboard.createCursorKeys();   
+
+        const keys = Phaser.Input.Keyboard.KeyCodes;
+        this.keyZ = this.input.keyboard.addKey(keys.Z);
          // Configurar colisiones entre las muñecas
          this.physics.add.collider(this.doll1, this.doll2, this.handleCollision, null, this);
          
+
     }
     
     update(time, delta){
@@ -132,19 +137,33 @@ export default class scene1 extends Phaser.Scene {
                 this.doll1.anims.play('running', true);
             }
         }
+
+        else if(this.input.keyboard.addKey('W').isDown && this.doll1.body.blocked.down){ //animación de saltar
+            this.doll1.setVelocityY(-700);
+            this.doll1.anims.play('jumping', true);
+        }
+
+        else if(this.input.keyboard.addKey('E').isDown ){ //animación de ataque básico
+            this.doll1.anims.play('basic', true);
+            console.log('ataque');
+        }
+
+        else if(this.input.keyboard.addKey('R').isDown ){ //animación de ataque especial
+            this.doll1.anims.play('attacking', true);
+           
+        }
+
+        else if(this.input.keyboard.addKey('Q').isDown ){ //animación de daño recibido
+            this.doll1.anims.play('damaged', true);
+            
+        }
         else
         {  
             if (this.doll1.body.blocked.down) { //animación de estar de pie 
                 this.doll1.setVelocityX(0);
                 this.doll1.anims.play('standing', true);
+            }
        }
-           
-            
-        }
-        if(this.input.keyboard.addKey('W').isDown && this.doll1.body.blocked.down){ //animación de saltar
-            this.doll1.setVelocityY(-700);
-            this.doll1.anims.play('jumping', true);
-        }
 
 
         //eventos de teclado para la muñeca 2
@@ -166,6 +185,26 @@ export default class scene1 extends Phaser.Scene {
                 this.doll2.anims.play('running', true);
             }
         }
+        else if(this.input.keyboard.addKey('I').isDown && this.doll2.body.blocked.down){ //animación de saltar
+            this.doll2.setVelocityY(-700);
+            this.doll2.anims.play('jumping', true);
+        }
+
+        else if(this.input.keyboard.addKey('O').isDown ){ //animación de ataque básico
+            this.doll2.anims.play('basic', true);
+            
+        }
+
+        else if(this.input.keyboard.addKey('P').isDown ){ //animación de ataque especial
+            this.doll2.anims.play('attacking', true);
+            
+        }
+
+        else if(this.input.keyboard.addKey('U').isDown ){ //animación de daño recibido
+            this.doll2.anims.play('damaged', true);
+            
+        }
+
         else
         {  
             if (this.doll2.body.blocked.down) { //animación de estar de pie 
@@ -175,10 +214,7 @@ export default class scene1 extends Phaser.Scene {
            
             
         }
-        if(this.input.keyboard.addKey('I').isDown && this.doll2.body.blocked.down){ //animación de saltar
-            this.doll2.setVelocityY(-700);
-            this.doll2.anims.play('jumping', true);
-        }
+       
     
        
     }
@@ -189,7 +225,20 @@ export default class scene1 extends Phaser.Scene {
         // Este método se ejecutará cuando los dos personajes colisionen
         console.log('¡Colisión detectada!');
         // Puedes agregar aquí lógica adicional, como reducir la salud, reproducir un sonido, etc.
-
+        
+        // Obtiene la animación 'basic' de doll1
+        const basicAnimation = this.input.keyboard.addKey('E').isDown;
+        console.log('Animación actual:', basicAnimation);
+    // Verifica si la animación 'basic' está en reproducción en doll1
+    if (basicAnimation == true){
+        console.log('Animación "basic" está en reproducción.');
+        this.restarVidas = 10; //vida restada ataque normal
+            if (this.doll2.getData('life2') - this.restarVidas > 0){
+                this.doll2.setData('life2', this.doll2.getData('life2')- this.restarVidas)
+                console.log ('vida:',this.doll2.getData('life2'));
+            }
+            this.registry.events.emit('vida', this.doll2.getData('life2'))
+        }
 
         //Los jugadores rebotarán un poco hacia el lado al chocar
         if (player1.x < player2.x) {// Verificar si player1 está a la izquierda de player2
@@ -211,5 +260,4 @@ export default class scene1 extends Phaser.Scene {
 
 
 }
-
 
