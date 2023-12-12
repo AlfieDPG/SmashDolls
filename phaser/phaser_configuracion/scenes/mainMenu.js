@@ -29,8 +29,8 @@ export default class mainMenu extends Phaser.Scene {
         background.setScale(3);
 
         //botón para poner pantalla completa
-        let fullScreenButton= this.add.image(100,100,"fullScreenButton"); //imagen del botón y su posición
-        fullScreenButton.setScale(0.2); //escalamos la imagen del botón
+        let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
+        fullScreenButton.setScale(0.16); //escalamos la imagen del botón
         fullScreenButton.setInteractive().on("pointerdown",fullScreen); //al clicar en el botón se pondrá en pantalla completa
  
         //boton jugar en local

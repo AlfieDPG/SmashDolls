@@ -1,5 +1,7 @@
 import scene1 from "/scenes/scene1.js";
 import mainMenu from "/scenes/mainMenu.js";
+import UI from "/scenes/UI.js";
+
 const config = {
   
     parent:"container",
@@ -20,7 +22,7 @@ const config = {
 
     },
 
-    scene: [mainMenu,scene1] // aqui van todas las escenas
+    scene: [mainMenu,scene1,UI] // aqui van todas las escenas
    
 
 }

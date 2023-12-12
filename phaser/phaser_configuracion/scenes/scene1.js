@@ -1,3 +1,4 @@
+import UI from "./UI.js";
 
 function fullScreen(){
     if(this.scene.scale.isFullscreen == false){
@@ -31,6 +32,10 @@ export default class scene1 extends Phaser.Scene {
        this.load.image("fullScreenButton","./assets/pantalla-completa.png");
        
     }
+    //inicia las barras de vida
+    init (){
+        this.scene.launch('UI');
+    }
     
      create(){
         //añadir fondo
@@ -38,13 +43,11 @@ export default class scene1 extends Phaser.Scene {
         background.setScale(6);
 
         //botón para poner pantalla completa
-        let fullScreenButton= this.add.image(100,100,"fullScreenButton"); //imagen del botón y su posición
-        fullScreenButton.setScale(0.2); //escalamos la imagen del botón
+        let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
+        fullScreenButton.setScale(0.16); //escalamos la imagen del botón
         fullScreenButton.setInteractive().on("pointerdown",fullScreen); //al clicar en el botón se pondrá en pantalla completa
         
         
-       
-       
 
 
         //Animaciones de girlie
@@ -58,8 +61,8 @@ export default class scene1 extends Phaser.Scene {
         this.anims.create({
             key: 'running',
             frames: this.anims.generateFrameNames('girlie', {prefix: 'running', end: 7,zeroPad: 4 }),
-            frameRate:10,
-            repeat: -1
+            frameRate:12,
+            repeat: 0
         });
 
         this.anims.create({
@@ -189,27 +192,30 @@ export default class scene1 extends Phaser.Scene {
         }
 
         else if(this.input.keyboard.addKey('E').isDown ){ //animación de ataque básico
-            this.doll1.anims.play('basic', true);
+            this.doll1.anims.play('basic', false);
             console.log('ataque');
         }
 
         else if(this.input.keyboard.addKey('R').isDown ){ //animación de ataque especial
-            this.doll1.anims.play('attacking', true);
+            this.doll1.anims.play('attacking', false);
            
         }
 
         else if(this.input.keyboard.addKey('Q').isDown && this.isShieldActive1 ){ //animación de daño recibido
-            this.doll1.anims.play('shield', true);
+            this.doll1.anims.play('shield', false);
             
         }
-        else
-        {  
-            if (this.doll1.body.blocked.down) { //animación de estar de pie 
-                this.doll1.setVelocityX(0);
-                this.doll1.anims.play('standing', true);
+        else{
+            // Solo ejecutar si ninguna de las animaciones específicas está reproduciéndose
+            if (
+                !this.doll1.anims.isPlaying 
+            ) {
+                if (this.doll1.body.blocked.down) { // Animación de estar de pie solo si está en el suelo
+                    this.doll1.setVelocityX(0);
+                    this.doll1.anims.play('standing', true);
+                }
             }
-       }
-
+        }
 
         //eventos de teclado para la muñeca 2
         if (this.input.keyboard.addKey('J').isDown) //moverse a la izquierda
@@ -236,28 +242,30 @@ export default class scene1 extends Phaser.Scene {
         }
 
         else if(this.input.keyboard.addKey('O').isDown ){ //animación de ataque básico
-            this.doll2.anims.play('basic', true);
+            this.doll2.anims.play('basic', false);
             
         }
 
         else if(this.input.keyboard.addKey('P').isDown ){ //animación de ataque especial
-            this.doll2.anims.play('attacking', true);
+            this.doll2.anims.play('attacking', false);
             
         }
 
         else if(this.input.keyboard.addKey('U').isDown && this.isShieldActive2){ //animación de escudo
-            this.doll2.anims.play('shield', true);
+            this.doll2.anims.play('shield', false);
             
         }
 
-        else
-        {  
-            if (this.doll2.body.blocked.down) { //animación de estar de pie 
-                this.doll2.setVelocityX(0);
-                this.doll2.anims.play('standing', true);
-       }
-           
-            
+        else{
+            // Solo ejecutar si ninguna de las animaciones específicas está reproduciéndose
+            if (
+                !this.doll2.anims.isPlaying 
+            ) {
+                if (this.doll2.body.blocked.down) { // Animación de estar de pie solo si está en el suelo
+                    this.doll2.setVelocityX(0);
+                    this.doll2.anims.play('standing', true);
+                }
+            }
         }
        
     
@@ -308,7 +316,7 @@ export default class scene1 extends Phaser.Scene {
 
             player2.anims.play('damaged', true);
         }
-        this.registry.events.emit('vida', player2.getData('life2'));
+        this.registry.events.emit('vida2', player2.getData('life2'));
         }  
     
     else if (attackingAnimation1 == true && shieldAnimation2==false) { // si la animación de ataque especial de la muñeca 1 y la de escudo de la muñeca 2 está desactivada
@@ -320,7 +328,9 @@ export default class scene1 extends Phaser.Scene {
             
             this.textLife2.setText(` ${player2.getData('life2')}%`);
             player2.anims.play('damaged', true); 
-        }}
+        }
+        this.registry.events.emit('vida2', player2.getData('life2'));
+    }
 
      //SISTEMA DE VIDAS DE LA MUÑECA 2   
     
@@ -360,6 +370,7 @@ export default class scene1 extends Phaser.Scene {
                 this.textLife1.setText(` ${player1.getData('life1')}%`);
                 player1.anims.play('damaged', true);
             }
+            this.registry.events.emit('vida', player1.getData('life1'));
             // Agregar lógica adicional para la animación de ataque especial de doll2
         }
 
