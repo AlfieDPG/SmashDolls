@@ -25,7 +25,7 @@ export default class creditsMenu extends Phaser.Scene {
     
      create(){
         //añadir fondo
-        var background = this.add.image(900,500,"mainBackground");
+        var background = this.add.image(960,540,"mainBackground");
         background.setScale(3);
 
         //botón para poner pantalla completa
@@ -35,7 +35,7 @@ export default class creditsMenu extends Phaser.Scene {
 
 
         //boton salir
-        let exitButton = this.add.image (900,990, "exit" ).setInteractive();
+        let exitButton = this.add.image (960,990, "exit" ).setInteractive();
         exitButton.setScale(2.5);
         exitButton.on("pointerdown", (exitButton) =>{
             this.scene.start("mainMenu");

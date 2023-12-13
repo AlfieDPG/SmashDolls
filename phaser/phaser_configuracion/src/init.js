@@ -27,7 +27,7 @@ const config = {
 
     },
 
-    scene: [mainMenu,creditsMenu,Player1Win,Player2Win,
+    scene: [mainMenu,creditsMenu,Player2Win,Player1Win,
     controlMenu, selectMenu,scene1,UI] // aqui van todas las escenas
    
 

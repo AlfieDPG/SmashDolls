@@ -10,6 +10,10 @@ function fullScreen(){
     }
 
 }
+var jump;
+var attack;
+var attackBela;
+var attackFroppy;
 export default class scene1 extends Phaser.Scene {
  
 
@@ -41,6 +45,10 @@ export default class scene1 extends Phaser.Scene {
        this.load.image("background","./assets/tienda.jpeg");
        this.load.atlas('girlie', 'assets/girlie.png', 'assets/girliesprites.json');
        this.load.image("fullScreenButton","./assets/pantalla-completa.png");
+       this.load.audio("jump", "/assets/sonidos/salto.mp3");
+       this.load.audio("attack", "/assets/sonidos/ataque.mp3");
+       this.load.audio("attackBela", "/assets/sonidos/ataqBela.mp3");
+       this.load.audio("attackFroppy", "/assets/sonidos/ataqFroppy.mp3");
        
     }
     //inicia las barras de vida
@@ -52,6 +60,12 @@ export default class scene1 extends Phaser.Scene {
         //añadir fondo
         var background = this.add.image(950,530,"background");
          background.setScale(1.9);
+
+        //efectos sonidos
+          jump = this.sound.add("jump");
+          attack = this.sound.add("attack");
+          attackBela = this.sound.add("attackBela");
+          attackFroppy = this.sound.add("attackFroppy");
 
         //botón para poner pantalla completa
         let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
@@ -190,11 +204,12 @@ export default class scene1 extends Phaser.Scene {
         else if(this.input.keyboard.addKey('W').isDown && this.doll1.body.blocked.down){ //animación de saltar
             this.doll1.setVelocityY(-700);
             this.doll1.anims.play('jumping', true);
+            jump.play();
         }
 
         else if(this.input.keyboard.addKey('E').isDown ){ //animación de ataque básico
             this.doll1.anims.play('basic', false);
-            
+            attack.play();
             this.doll1.on('animationcomplete', function (animation) {
                 if (animation.key === 'basic') {
                     this.doll1.isAttacking1 = false; // Resetear la bandera cuando la animación completa
@@ -211,7 +226,7 @@ export default class scene1 extends Phaser.Scene {
 
         else if(this.input.keyboard.addKey('R').isDown ){ //animación de ataque especial
             this.doll1.anims.play('attacking', false);
-
+            attackFroppy.play();
             this.doll1.on('animationcomplete', function (animation) {
                 if (animation.key === 'attacking') {
                     this.isSuperAttacking1 = false; // Resetear cuando la animación se completa
@@ -267,11 +282,12 @@ export default class scene1 extends Phaser.Scene {
         else if(this.input.keyboard.addKey('I').isDown && this.doll2.body.blocked.down){ //animación de saltar
             this.doll2.setVelocityY(-700);
             this.doll2.anims.play('jumping', true);
+            jump.play();
         }
 
         else if(this.input.keyboard.addKey('O').isDown ){ //animación de ataque básico
             this.doll2.anims.play('basic', false);
-
+            attack.play();
             this.doll2.on('animationcomplete', function (animation) {
                 if (animation.key === 'basic') {
                     this.isAttacking2 = false; // Resetear la bandera cuando la animación completa
@@ -288,7 +304,7 @@ export default class scene1 extends Phaser.Scene {
 
         else if(this.input.keyboard.addKey('P').isDown ){ //animación de ataque especial
             this.doll2.anims.play('attacking', false);
-            
+            attackBela.play();
             this.doll2.on('animationcomplete', function (animation) {
                 if (animation.key === 'attacking') {
                     this.isSuperAttacking2 = false; // Resetear cuando la animación se completa
