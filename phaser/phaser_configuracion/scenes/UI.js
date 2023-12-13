@@ -12,16 +12,16 @@ export default class UI extends Phaser.Scene{
 
 create(){
     //BARRA DE VIDA DOLL1 
-    const lifeBarWidth= 700;
+    const lifeBarWidth= 650;
     this.actual_life = lifeBarWidth; //variables para actualizar la barra
     this.actual_life2 = lifeBarWidth;
 
 
     this.graphics = this.add.graphics({
-        fillStyle : { color: 0x00000aa}
+        fillStyle : { color: 0x64AA64}
     });
     
-    this.lifeBar = new Phaser.Geom.Rectangle (130,40, lifeBarWidth, 70)
+    this.lifeBar = new Phaser.Geom.Rectangle (320,40, lifeBarWidth, 70)
     //this.graphics.fillStyle(0x00aa00,1);
     //this.graphics.fillRectShape(this.lifeBar);
 
@@ -31,10 +31,10 @@ create(){
      
     //BARRA DE VIDA DOLL2 
     this.graphics2 = this.add.graphics({
-        fillStyle : { color: 0xaa0000}
+        fillStyle : { color: 0x64AA64}
     });
     
-    this.lifeBar2 = new Phaser.Geom.Rectangle (1200,40, lifeBarWidth, 70)
+    this.lifeBar2 = new Phaser.Geom.Rectangle (1250,40, lifeBarWidth, 70)
     //this.graphics2.fillStyle(0x00aa00,1);
     //this.graphics2.fillRectShape(this.lifeBar2);
 

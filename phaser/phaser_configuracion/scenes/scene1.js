@@ -38,7 +38,7 @@ export default class scene1 extends Phaser.Scene {
     }
 
      preload() {
-       this.load.image("background","./assets/Background.png");
+       this.load.image("background","./assets/tienda.jpeg");
        this.load.atlas('girlie', 'assets/girlie.png', 'assets/girliesprites.json');
        this.load.image("fullScreenButton","./assets/pantalla-completa.png");
        
@@ -50,8 +50,8 @@ export default class scene1 extends Phaser.Scene {
     
      create(){
         //añadir fondo
-        var background = this.add.image(500,500,"background");
-        background.setScale(6);
+        var background = this.add.image(950,530,"background");
+         background.setScale(1.9);
 
         //botón para poner pantalla completa
         let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
@@ -134,11 +134,11 @@ export default class scene1 extends Phaser.Scene {
         this.physics.world.setBoundsCollision(true);
 
          // Añadir texto para mostrar las vidas de la muñeca 1
-         this.textLife1 = this.add.text(this.doll1.x - 30, this.doll1.y +50, '100%', { fontFamily: 'Arial', fontSize: 50, color: '#ffffff' });
+         this.textLife1 = this.add.text(130,32, '100%', { fontFamily: 'Arial',fontSize: 74, color: '#000000', backgroundColor: '#ffffff' });
          this.textLife1.setScrollFactor(0); // Para que el texto permanezca fijo al hacer scroll
- 
+
          // Añadir texto para mostrar las vidas de la muñeca 2
-         this.textLife2 = this.add.text(this.doll2.x -30, this.doll2.y +50, '100%', { fontFamily: 'Arial', fontSize: 50, color: '#ffffff' });
+         this.textLife2 = this.add.text(1060,32, '100%', { fontFamily: 'Arial', fontSize: 74, color: '#000000', backgroundColor: '#ffffff' });
          this.textLife2.setScrollFactor(0);
          
         
@@ -162,10 +162,6 @@ export default class scene1 extends Phaser.Scene {
     const doll2X = this.doll2.x;
     const doll2Y = this.doll2.y;
 
-    this.textLife1.setPosition(doll1X , doll1Y -200);
-    this.textLife2.setPosition(doll2X-120 , doll2Y -200);
-
-   
     
 
         //eventos de teclado para la muñeca 1
@@ -366,7 +362,7 @@ export default class scene1 extends Phaser.Scene {
         this.restarVidas = 5; //vida restada ataque normal
         this.isAttacking1=false;
 
-        if (player2.getData('life2') - this.restarVidas > 0) { //la muñeca 2 pierde 5 vidas
+        if (player2.getData('life2') - this.restarVidas > -1) { //la muñeca 2 pierde 5 vidas
             player2.setData('life2', player2.getData('life2') - this.restarVidas);
             
             // Actualizar texto de vidas de la muñeca 1
@@ -375,6 +371,10 @@ export default class scene1 extends Phaser.Scene {
 
             player2.anims.play('damaged', true);
         }
+        else {
+            this.scene.stop("UI");
+            this.scene.start("Player1Win");
+        } 
         this.registry.events.emit('vida2', player2.getData('life2'));
         }  
     
@@ -383,13 +383,17 @@ export default class scene1 extends Phaser.Scene {
             this.restarVidas = 10; //vida restada ataque especial
             this.isSuperAttacking1=false;
 
-        if (player2.getData('life2') - this.restarVidas > 0) {
+        if (player2.getData('life2') - this.restarVidas > -1) {
             player2.setData('life2', player2.getData('life2') - this.restarVidas);//la muñeca 2 pierde 5 vidas
            
             
             this.textLife2.setText(` ${player2.getData('life2')}%`);
             player2.anims.play('damaged', true); 
         }
+        else {
+            this.scene.stop("UI");
+            this.scene.start("Player1Win");
+        } 
         this.registry.events.emit('vida2', player2.getData('life2'));
     }
 
@@ -408,13 +412,17 @@ export default class scene1 extends Phaser.Scene {
             this.restarVidas = 5; //vida restada ataque normal
             this.isAttacking2=false;
             
-        if (player1.getData('life1') - this.restarVidas > 0) {
+        if (player1.getData('life1') - this.restarVidas > -1) {
                 player1.setData('life1', player1.getData('life1') - this.restarVidas);
                 
                 
                 this.textLife1.setText(` ${player1.getData('life1')}%`);
                 player1.anims.play('damaged', true);
             }
+            else {
+                this.scene.stop("UI");
+                this.scene.start("Player2Win");
+            } 
             this.registry.events.emit('vida', player1.getData('life1'));
         } 
     else if (this.isSuperAttacking2 == true && this.isShieldActive1==false) {
@@ -422,13 +430,18 @@ export default class scene1 extends Phaser.Scene {
             this.restarVidas = 10; //vida restada ataque normal
             this.isSuperAttacking2=false;
 
-            if (player1.getData('life1') - this.restarVidas > 0) {
+            if (player1.getData('life1') - this.restarVidas > -1) {
                 player1.setData('life1', player1.getData('life1') - this.restarVidas);
                
                 
                 this.textLife1.setText(` ${player1.getData('life1')}%`);
                 player1.anims.play('damaged', true);
             }
+            else {
+                this.scene.stop("UI");
+                this.scene.start("Player2Win");
+                
+            } 
             this.registry.events.emit('vida', player1.getData('life1'));
             // Agregar lógica adicional para la animación de ataque especial de doll2
         }
@@ -480,4 +493,3 @@ handleShield2(shieldCount2){
 
 
 }
-
