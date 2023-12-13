@@ -254,19 +254,31 @@ A continuación se puede encontrar como es la navegación entre menús de "Smash
 ### - Personajes -
 Actualmente se encuentran disponibles dos personajes, Voodoo Bela y SuperFroppy. Para cada una de ellas se han implementado las siguientes animaciones para sus respectivas acciones, realizadas completamente por el equipo.
 - Voodo Bela:
-  De pie: [![Idle.gif](https://i.postimg.cc/T3Q8W737/Idle.gif)](https://postimg.cc/ZW9sGL3p)
-  Salto: [![Salto.gif](https://i.postimg.cc/xCwBSB6C/Salto.gif)](https://postimg.cc/qhG1sDVV)
-  Caminar: [![Walk.gif](https://i.postimg.cc/kGWzMwHy/Walk.gif)](https://postimg.cc/MfKdd0qc)
-  Ataque: [![Ataque.gif](https://i.postimg.cc/y88Q2V7j/Ataque.gif)](https://postimg.cc/D8RPX3J4)
-  Bloqueo: [![Bloqueo.gif](https://i.postimg.cc/65w1LrSD/Bloqueo.gif)](https://postimg.cc/Jt6qRkRq)
-  Ataque especial: [![Ataque-especial.gif](https://i.postimg.cc/gjytbjwS/Ataque-especial.gif)](https://postimg.cc/n9zGvHGB)
+  De pie:
+  [![Idle.gif](https://i.postimg.cc/T3Q8W737/Idle.gif)](https://postimg.cc/ZW9sGL3p)
+  Salto:
+  [![Salto.gif](https://i.postimg.cc/xCwBSB6C/Salto.gif)](https://postimg.cc/qhG1sDVV)
+  Caminar:
+   [![Walk.gif](https://i.postimg.cc/kGWzMwHy/Walk.gif)](https://postimg.cc/MfKdd0qc)
+  Ataque:
+  [![Ataque.gif](https://i.postimg.cc/y88Q2V7j/Ataque.gif)](https://postimg.cc/D8RPX3J4)
+  Bloqueo:
+   [![Bloqueo.gif](https://i.postimg.cc/65w1LrSD/Bloqueo.gif)](https://postimg.cc/Jt6qRkRq)
+  Ataque especial:
+   [![Ataque-especial.gif](https://i.postimg.cc/gjytbjwS/Ataque-especial.gif)](https://postimg.cc/n9zGvHGB)
 - SuperFroppy:
-  De pie: [![Super-Froggie-Idle.gif](https://i.postimg.cc/bY5KxS8P/Super-Froggie-Idle.gif)](https://postimg.cc/7bgsD6ft)
-  Salto: [![Super-Froggie-Salto-1.gif](https://i.postimg.cc/tRL9XMsF/Super-Froggie-Salto-1.gif)](https://postimg.cc/JtcfxKch)
-  Caminar: [![Super-Froggie-Caminar.gif](https://i.postimg.cc/SKVPJJVw/Super-Froggie-Caminar.gif)](https://postimg.cc/CZB72M3N)
-  Ataque: [![Super-Froggie-Pegar.gif](https://i.postimg.cc/3xh7G0CR/Super-Froggie-Pegar.gif)](https://postimg.cc/ZCw1tRQt)
-  Bloqueo: [![Super-Froggie-Defensa.gif](https://i.postimg.cc/3wSHzSM4/Super-Froggie-Defensa.gif)](https://postimg.cc/d7yXy9Vw)
-  Ataque especial: [![Super-Froggie-Especial.gif](https://i.postimg.cc/9XqjNYL0/Super-Froggie-Especial.gif)](https://postimg.cc/0rx3zDR1)
+  De pie:
+   [![Super-Froggie-Idle.gif](https://i.postimg.cc/bY5KxS8P/Super-Froggie-Idle.gif)](https://postimg.cc/7bgsD6ft)
+  Salto:
+   [![Super-Froggie-Salto-1.gif](https://i.postimg.cc/tRL9XMsF/Super-Froggie-Salto-1.gif)](https://postimg.cc/JtcfxKch)
+  Caminar:
+   [![Super-Froggie-Caminar.gif](https://i.postimg.cc/SKVPJJVw/Super-Froggie-Caminar.gif)](https://postimg.cc/CZB72M3N)
+  Ataque:
+   [![Super-Froggie-Pegar.gif](https://i.postimg.cc/3xh7G0CR/Super-Froggie-Pegar.gif)](https://postimg.cc/ZCw1tRQt)
+  Bloqueo:
+   [![Super-Froggie-Defensa.gif](https://i.postimg.cc/3wSHzSM4/Super-Froggie-Defensa.gif)](https://postimg.cc/d7yXy9Vw)
+  Ataque especial:
+   [![Super-Froggie-Especial.gif](https://i.postimg.cc/9XqjNYL0/Super-Froggie-Especial.gif)](https://postimg.cc/0rx3zDR1)
 
 ### - Escenario -
 Para la realización de este escenario, se utilizó como inspiración una tienda de muñecas, podemos encontrar la versión en pixel art y otra sin pixel art.
@@ -283,11 +295,16 @@ Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como e
 [![TITULO.png](https://i.postimg.cc/g2yztHk8/TITULO.png)](https://postimg.cc/TKwvpmb3)
 
  - Botones:
-      Salir:[![Boton-Salir.png](https://i.postimg.cc/SRzq6WvX/Boton-Salir.png)](https://postimg.cc/RJ9j9n99)
-      Reanudar: [![Boton-Reanudar.png](https://i.postimg.cc/667GjFsZ/Boton-Reanudar.png)](https://postimg.cc/rzkmznwy)
-      Controles: [![Boton-Controles.png](https://i.postimg.cc/W17DqvZB/Boton-Controles.png)](https://postimg.cc/XrpNttQL)
-      Créditos: [![Boton-Creditos.png](https://i.postimg.cc/mgTks5n8/Boton-Creditos.png)](https://postimg.cc/dLSwR4wy)
-      Local: [![Boton-Local.png](https://i.postimg.cc/9fMf4qC9/Boton-Local.png)](https://postimg.cc/872G9cFk)
+      Salir:
+    [![Boton-Salir.png](https://i.postimg.cc/SRzq6WvX/Boton-Salir.png)](https://postimg.cc/RJ9j9n99)
+      Reanudar:
+    [![Boton-Reanudar.png](https://i.postimg.cc/667GjFsZ/Boton-Reanudar.png)](https://postimg.cc/rzkmznwy)
+      Controles:
+    [![Boton-Controles.png](https://i.postimg.cc/W17DqvZB/Boton-Controles.png)](https://postimg.cc/XrpNttQL)
+      Créditos:
+    [![Boton-Creditos.png](https://i.postimg.cc/mgTks5n8/Boton-Creditos.png)](https://postimg.cc/dLSwR4wy)
+      Local:
+    [![Boton-Local.png](https://i.postimg.cc/9fMf4qC9/Boton-Local.png)](https://postimg.cc/872G9cFk)
    
   ## FUNCIONES NO IMPLEMENTADAS
   En esta fase del proyecto no han sido implementadas las siguientes funciones que se indicaban en el documento del vidoejuego:
