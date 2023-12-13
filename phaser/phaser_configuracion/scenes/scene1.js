@@ -18,7 +18,7 @@ export default class scene1 extends Phaser.Scene {
         this.shieldCount1 = 0; // contador de veces que se ha usado el escudo para doll1
         this.shieldCount2 = 0; // contador de veces que se ha usado el escudo para doll2
 
-        this.shieldCooldownTime = 5000; // Tras 5 segundos se puede volver a activar el escudo
+        this.shieldCooldownTime = 10000; // Tras 5 segundos se puede volver a activar el escudo
         this.lastShieldTime1 = 0;
         this.lastShieldTime2 = 0;
 
@@ -97,7 +97,7 @@ export default class scene1 extends Phaser.Scene {
             key: 'shield',
             frames: this.anims.generateFrameNames('girlie', {prefix: 'shield', end: 1, zeroPad: 4 }),
             frameRate:15,
-            repeat: 0
+            repeat: 2
         });
         
          //añadir personaje 1
@@ -144,15 +144,6 @@ export default class scene1 extends Phaser.Scene {
     }
     
     update(time, delta){
-
-    // Llama a la función handleShieldCooldown y actualiza lastShieldTime1 y lastShieldTime2
-    const result1 = this.handleShieldCooldown(this.lastShieldTime1, this.shieldCount1, time);
-    this.lastShieldTime1 = result1.lastShieldTime;
-    this.shieldCount1 = result1.shieldCount;
-
-    const result2 = this.handleShieldCooldown(this.lastShieldTime2, this.shieldCount2, time);
-    this.lastShieldTime2 = result2.lastShieldTime;
-    this.shieldCount2 = result2.shieldCount;
 
     const doll1X = this.doll1.x;
     const doll1Y = this.doll1.y;
@@ -202,7 +193,7 @@ export default class scene1 extends Phaser.Scene {
         }
 
         else if(this.input.keyboard.addKey('Q').isDown && this.isShieldActive1 ){ //animación de daño recibido
-            this.doll1.anims.play('shield', false);
+            this.doll1.anims.play('shield', true);
             
         }
         else{
@@ -252,7 +243,7 @@ export default class scene1 extends Phaser.Scene {
         }
 
         else if(this.input.keyboard.addKey('U').isDown && this.isShieldActive2){ //animación de escudo
-            this.doll2.anims.play('shield', false);
+            this.doll2.anims.play('shield', true);
             
         }
 
@@ -292,18 +283,12 @@ export default class scene1 extends Phaser.Scene {
 
     // SISTEMA DE VIDAS DE LA MUÑECA 1
 
-    if (shieldAnimation1) { //Si la animacion "shield"
+    if (shieldAnimation1 && (basicAnimation2==true || attackingAnimation2==true)) { //Si la animacion "shield"
         console.log('Animación "shield" está en reproducción para doll1.');
-        if (this.shieldCount1 < 3) { // Permitir el uso del escudo solo tres veces
             this.shieldCount1++; //si se ha usado menos de 3 veces se aumenta el contador 
-            this.isShieldActive1 = true; // para permitir que al pulsar Q se active el escudo
             console.log('Contador de escudo para doll1:', this.shieldCount1);
-        } else {
-            // Desactivar el escudo si se ha usado tres veces seguidas
-            this.isShieldActive1 = false;
-            player1.anims.play('standing', true); //activar animación "standing"
-            console.log('Escudo desactivado para doll1.');
-        }}
+            this.handleShield1(this.shieldCount1);
+    }
     else if (basicAnimation1 == true && shieldAnimation2==false){ // si la animación de ataque básico de la muñeca 1 y la de escudo de la muñeca 2 está desactivada
         console.log('Animación "basic" está en reproducción.');
         this.restarVidas = 5; //vida restada ataque normal
@@ -334,17 +319,11 @@ export default class scene1 extends Phaser.Scene {
 
      //SISTEMA DE VIDAS DE LA MUÑECA 2   
     
-    if (shieldAnimation2) {
+    if (shieldAnimation2 && (basicAnimation1==true || attackingAnimation1==true)) {
             console.log('Animación "shield" está en reproducción para doll2.');
-            if (this.shieldCount2 < 3) {
                 this.shieldCount2++;
-                this.isShieldActive1 = true;
                 console.log('Contador de escudo para doll2:', this.shieldCount2);
-            } else {
-                this.isShieldActive1 = false;
-                player2.anims.play('standing', true);
-                console.log('Escudo desactivado para doll2.');
-            }
+                this.handleShield2();
         }    
     
         // Verifica si la animación 'basic' está en reproducción en doll2
@@ -376,7 +355,7 @@ export default class scene1 extends Phaser.Scene {
 
         //REACCIÓN AL COLISIONAR 
 
-        //Los jugadores rebotarán un poco hacia el lado al chocar
+        /*//Los jugadores rebotarán un poco hacia el lado al chocar
         if (player1.x < player2.x) {// Verificar si player1 está a la izquierda de player2
             // Hacer que player1 se mueva hacia la izquierda y player2 hacia la derecha
             player1.setVelocityX(-300);
@@ -385,17 +364,46 @@ export default class scene1 extends Phaser.Scene {
             // Hacer que player1 se mueva hacia la derecha y player2 hacia la izquierda
             player1.setVelocityX(300);
             player2.setVelocityX(-300);
-        }   
+        } */  
+
+        
     }
 
-    //CUANDO PASAN 5 SEGUNDOS DESDE QUE EL CONTADOR DEL ESCUDO ESTÁ A 3 (EL ESCUDO SE USA 3 VECES, ESTE SE RESETEA A 0)
-    handleShieldCooldown(lastShieldTime, shieldCount, currentTime) {
-        const shieldCooldownTime = 5000; 
 
-        if (currentTime - lastShieldTime > shieldCooldownTime) {
-            shieldCount = 0;
-            lastShieldTime = currentTime;
-        } return{lastShieldTime, shieldCount}
+handleShield1(shieldCount1){
+if (shieldCount1 <3){
+this.isShieldActive1=true;
+}
+else{
+    this.isShieldActive1=false;
+    this.time.addEvent({
+        delay:this.shieldCooldownTime,
+        callback: ()=>{
+            this.isShieldActive1=true;
+            this.shieldCount1=0;
+        },
+        callbackContext: this
+    });
+}
+
+}
+
+handleShield2(shieldCount2){
+    if (shieldCount2 <3){
+    this.isShieldActive2=true;
+    }
+    else{
+        this.isShieldActive2=false;
+        this.time.addEvent({
+            delay:this.shieldCooldownTime,
+            callback: ()=>{
+                this.isShieldActive2=true;
+                this.shieldCount2=0;
+            },
+            callbackContext: this
+        });
+    }
+    
     }
 
 
