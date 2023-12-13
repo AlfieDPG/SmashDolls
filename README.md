@@ -218,3 +218,53 @@ El estilo musical será música alegre y llena de energía y cambiará según el
 
 ### - Música menú de inicio -
 La música del menú de inicio se hará simulando una caja de música, ya que aporta personalidad y se asocia a la infancia. Cuando se vaya desplazando el ratón sobre los diferentes botones se escuchará como un sonido de engranaje de caja de música.
+
+## FLUJOGRAMA 
+En este apartado se pueden apreciar los diferentes cambios de escenas y de menús del videojuego, mediante el siguiente flujograma.
+[![Mapa-Conceptual-Esquema-Doodle-Sencillo-Multicolor-6.png](https://i.postimg.cc/Mp90BV2b/Mapa-Conceptual-Esquema-Doodle-Sencillo-Multicolor-6.png)](https://postimg.cc/68GGJ7Qy)
+
+## INSPIRACIONES
+Para la creación de “Smash Dolls” se han tenido en cuenta diferentes videojuegos y obras que ayudaron y aportaron diferentes ideas para la creación del proyecto.
+Algunos juegos del género lucha como, “Mortal Kombat”, “Street Fighter” o “Super Smash Bros.” Gracias a que pertenecen al mismo género, han servido de ayuda a la hora de desarrollar la jugabilidad y las diferentes mecánicas del juego, así como, los diferentes controles implementados.
+Para la creación del GDD y su estructura, se ha tomado como guía el existente GDD “Alice: Asylum Design Bible”, del cual ha servido como referencia para estructurar este documento. También se ha tenido en cuenta el documento de “Sion Tower”.
+
+## REFERENCIAS Y ANEXOS
+1. Midway Games (1992). Mortal Kombat.
+2. Capcom (1987). Street Fighter.
+3. Nintendo (1999). Super Smash Bros.
+4. Patreon. (s. f.). Alice: Asylum Design Bible V1.0 PDF • FREE DOWNLOAD • Development Partner Announcement | American McGee. https://www.patreon.com/posts/alice-asylum-v1-78703655
+5. Dsaltares. (s. f.). sion-tower/doc/gdd/gdd.pdf at Master · dsaltares/sion-tower. GitHub. https://github.com/dsaltares/sion-tower/blob/master/doc/gdd/gdd.pdf
+
+
+
+## PÁGINAS PRINCIPALES
+En este apartado se podrán contemplar todas las páginas principales, cuyas interfaces han sido realizadas en su totalidad por el propio equipo.
+- Menú principal -> Interfaz que redirige al jugador al modo local, online, créditos y guía de controles.
+- Controles -> Breve guía que explica los controles del juego para ambos jugadores.
+- Créditos -> Muestra los nombres de los diseñadores y desarrolladores del videojuego.
+- Elección de personaje -> Muestra el elenco e personaje disponibles para jugar.
+- Juego -> Escenario en el que dará lugar la batalla, muestra una breve interfaz que indica la vida restante de los jugadores. Al final del combate indicará que jugador ha ganado.
+- Menú de pausa -> Permite a los jugadores pausar el combate para consultar la guía de controles o volver al menú principal.
+
+### - Diagrama de navegación -
+
+
+
+## IMPLEMENTACIONES DE LA FASE 2
+
+### - Personajes -
+Actualmente se encuentran disponibles dos personajes, Voodoo Bela y SuperFroppy. Para cada una de ellas se han implementado las siguientes animaciones para sus respectivas acciones, realizadas completamente por el equipo.
+- Voodo Bela:
+  De pie:
+  Salto:
+  Caminar:
+  Ataque:
+  Bloqueo:
+  Ataque especial:
+- SuperFroppy:
+  De pie:
+  Salto:
+  Caminar:
+  Ataque:
+  Bloqueo:
+  Ataque especial:
