@@ -16,7 +16,7 @@ export default class creditsMenu extends Phaser.Scene {
     }
 
      preload() {
-       this.load.image("mainBackground","./assets/mainBackground.png");
+       this.load.image("creditsBackground","./assets/fondos/creditos.jpg");
        this.load.image("fullScreenButton","./assets/pantalla-completa.png");
       
        this.load.image("exit","./assets/Botones/BotonSalir.png");
@@ -25,8 +25,8 @@ export default class creditsMenu extends Phaser.Scene {
     
      create(){
         //añadir fondo
-        var background = this.add.image(960,540,"mainBackground");
-        background.setScale(3);
+        var background = this.add.image(960,540,"creditsBackground");
+        background.setScale(1);
 
         //botón para poner pantalla completa
         let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
@@ -36,7 +36,7 @@ export default class creditsMenu extends Phaser.Scene {
 
         //boton salir
         let exitButton = this.add.image (960,990, "exit" ).setInteractive();
-        exitButton.setScale(2.5);
+        exitButton.setScale(2.2);
         exitButton.on("pointerdown", (exitButton) =>{
             this.scene.start("mainMenu");
         });

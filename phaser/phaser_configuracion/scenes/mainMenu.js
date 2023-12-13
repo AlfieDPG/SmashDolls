@@ -25,6 +25,7 @@ export default class mainMenu extends Phaser.Scene {
        this.load.image("credits","./assets/Botones/BotonCreditos.png");
        this.load.image("control","./assets/Botones/BotonControles.png");
        this.load.image("exit","./assets/Botones/BotonSalir.png");
+       this.load.image("titulo","./assets/fondos/titulo.png");
        this.load.audio("music","/assets/sonidos/musica.mp3")
     }
     
@@ -45,6 +46,9 @@ export default class mainMenu extends Phaser.Scene {
             this.music.play();
         }
         
+        //titulo
+        var title = this.add.image(960,200,"titulo");
+        title.setScale(0.8);
 
         //botón para poner pantalla completa
         let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
@@ -53,28 +57,28 @@ export default class mainMenu extends Phaser.Scene {
  
         //boton jugar en local
         let localButton = this.add.image (960,480, "local" ).setInteractive();
-        localButton.setScale(2.5);
+        localButton.setScale(2.2);
         localButton.on("pointerdown", (localButton) =>{
             this.scene.start("scene1");
         });
 
         //boton creditos
         let creditsButton = this.add.image (960,650, "credits" ).setInteractive();
-        creditsButton.setScale(2.5);
+        creditsButton.setScale(2.2);
         creditsButton.on("pointerdown", (creditsButton) =>{
             this.scene.start("creditsMenu");
         });
 
         //boton controles
         let controlButton = this.add.image (960,820, "control" ).setInteractive();
-        controlButton.setScale(2.5);
+        controlButton.setScale(2.2);
         controlButton.on("pointerdown", (controlButton) =>{
             this.scene.start("controlMenu");
         });
 
         //boton salir
         let exitButton = this.add.image (960,990, "exit" ).setInteractive();
-        exitButton.setScale(2.5);
+        exitButton.setScale(2.2);
 
 
     }
