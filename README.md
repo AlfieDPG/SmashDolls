@@ -98,23 +98,26 @@ En este juego de lucha para evitar un ataque tienes dos opciones; estar fuera de
 ### - Habilidades especiales -
 Smash Dolls se caracteriza por la esencia de los personajes, su historia y habilidades que los hacen únicos respecto al resto de muñecas de la tienda, en está sección contaremos un poco de la historia de cada uno y sus ataques más poderosos:
 
-- SuperFroppy: 
-
+- SuperFroppy:
+  
 Su ataque básico consiste en un puñetazo que hace 40 de daño y es común a todos los personajes (E).
 
-Su habilidad especial es un lenguetazo muy potente (R). Todas las habilidades especiales dañan un 100 de puntos de salud.
+Su habilidad especial es un lenguetazo muy potente que sale de su gorro de rana (R). Todas las habilidades especiales quitan 100 de puntos de salud.
+
 
 - Portea:
 
-Ataque básico: puñetazo (E).
+Ataque básico: puñetazo (X).
 
-Habilidad especial: Porteak lanza un chorro de té hirviendo que daña a sus enemigos. (R)
+Habilidad especial: Porteak lanza un chorro de té hirviendo que daña a sus enemigos (X).
+
 
 - Voodoo Bella:
 
-Ataque básico: puñetazo (E).
+Ataque básico: Bella golpea con su aguja (O).
 
-Habilidad especial: maldición, Bella saca una pequeña muñeca que actúa como el rival y le clava un tornillo de vudú.(R)
+Habilidad especial: maldición, Bella saca una pequeña muñeca que actúa como el rival y le clava un tornillo de vudú (P).
+
 
 ## APARTADO ARTÍSTICO
 En Smash Dolls utilizaremos un estilo artístico de tipo cartoon, creemos que este estilo es el más adecuado para este proyecto ya que al ser este un estilo menos serio y con formas y proporciones más exageradas y al no tener que ser realista, encajaba èrfectamente con la temática linda y coqueta del juego, ademas queda perfecto con la historia bizarra de muñecas que pelean entre sí por ver cuál de ellas merece su puesto en el gran escaparate de la tienda. 
@@ -123,28 +126,22 @@ En Smash Dolls utilizaremos un estilo artístico de tipo cartoon, creemos que es
 Dentro del juego podremos seleccionar entre un elenco de tres muñecas distintas para combatir, cada una de ellas con un diseño propio y una temática distinta, además estas tendrán una forma de combatir y unas habilidades que encajen con sus diseños. 
 
 - SuperFroppy: 
-
 Por un lado está la gran justiciera SuperFroppy, para su diseño se ha tomado inspiración de los trajes clásicos de superheroinas como los de la serie “Sakura, cazadora de cartas” o los de la línea de skins “Star Guardian” del juego “League of Legends”. 
-
-Para darle un tono más dulce a su diseño, SuperFroppy lleva siempre su gorro favorito que simula la cabeza de una rana, además esta rana tiene en sus ojos la forma de un sol y una luna ya que el sueño de SuperFroppy es salir algun dia de la tienda para poder llevar la justicia a todos los rincones del universo.
+Para darle un tono más dulce a su diseño, SuperFroppy lleva siempre su gorro favorito que simula la cabeza de una rana, además esta rana tiene en sus ojos la forma de un sol y una luna ya que el sueño de SuperFroppy es salir algun dia de la tienda para poder llevar la justicia a todos los rincones del universo. En el diseño de SuperFroppy se utilizan muchas tonalidades de verdes ya que este es un color que se relaciona con las ranas y ademas es un color bastante amigable lo cual compagina con la personalidad del personaje. Se puede ver su boceto en la fig 1.
 
 [![Superheroina.png](https://i.postimg.cc/pd9zyCXs/Superheroina.png)](https://postimg.cc/cKSrbQ33)
 
 - Portea:
 
 Por otro lado tenemos a la tranquila Portea, en su diseño hemos querido mostrar un personaje delicado y apacible mediante el uso de formas redondeadas y patrones florales en su armadura. Es una muñeca muy tranquila que adora pasar su tiempo libre tomando el té con sus amigas.
-
-En este  diseño queríamos mezclar el concepto de las tacitas de porcelana con el Kintsugi, que es un arte japonés que consiste en reparar con oro piezas rotas, es por eso que se verán numerosas grietas doradas en su diseño.
+En este  diseño queríamos mezclar el concepto de las tacitas de porcelana con el Kintsugi, que es un arte japonés que consiste en reparar con oro piezas rotas, es por eso que se verán numerosas grietas doradas en su diseño. Además, su diseño contendrá colores blancos, dorados y azules que transmiten sensación de sutileza y riqueza. Se puede ver varias imágenes de inspiración a la hora de crear el personaje en la fig 2.  
 
 [![Captura.png](https://i.postimg.cc/BZdSGCdq/Captura.png)](https://postimg.cc/fkfncYzF)
 
 - Voodoo Bela:
 
-Por último se encuentra Voodoo Bela, una muñeca que tras años de no ser escogida por nadie decidió reconstruirse con piezas de otras muñecas en busca de conseguir ser querida por alguien tal y como se ve en su diseño, en el que podemos apreciar como tiene distintas partes cosidas formando su cuerpo.
-
-Además de esto, al estar inspirada en un muñeco vudú, podemos ver como tiene una serie de agujas clavadas como parte de su diseño.
-
-Este diseño trata de mostrar un personaje mucho más loco que los anteriores pero sin llegar a ser desagradable, sino que conociendo su historia se pueda llegar hasta empatizar con ellas
+Por último se encuentra Voodoo Bela, una muñeca que tras años de no ser escogida por nadie decidió reconstruirse con piezas de otras muñecas en busca de conseguir ser querida por alguien.
+Además de esto, al estar inspirada en un muñeco vudú, podemos ver como utiliza una serie de agujas y tiene una serie de tonalidades negras y violetas como parte de su diseño para crear el aura de oscuridad del personaje.							                                           Este diseño trata de mostrar un personaje mucho más loco que los anteriores pero sin llegar a ser desagradable, sino que conociendo su historia se pueda llegar hasta empatizar con ellas.
 
 [![Captura-2.png](https://i.postimg.cc/y82XmtGM/Captura-2.png)](https://postimg.cc/w1cmHfg2)
 
@@ -254,31 +251,31 @@ A continuación se puede encontrar como es la navegación entre menús de "Smash
 ### - Personajes -
 Actualmente se encuentran disponibles dos personajes, Voodoo Bela y SuperFroppy. Para cada una de ellas se han implementado las siguientes animaciones para sus respectivas acciones, realizadas completamente por el equipo.
 - Voodo Bela:
-  - De pie:
-  [![Idle.gif](https://i.postimg.cc/T3Q8W737/Idle.gif)](https://postimg.cc/ZW9sGL3p)
-  - Salto:
-  [![Salto.gif](https://i.postimg.cc/xCwBSB6C/Salto.gif)](https://postimg.cc/qhG1sDVV)
-  - Caminar:
-   [![Walk.gif](https://i.postimg.cc/kGWzMwHy/Walk.gif)](https://postimg.cc/MfKdd0qc)
-  - Ataque:
-  [![Ataque.gif](https://i.postimg.cc/y88Q2V7j/Ataque.gif)](https://postimg.cc/D8RPX3J4)
-  - Bloqueo:
-   [![Bloqueo.gif](https://i.postimg.cc/65w1LrSD/Bloqueo.gif)](https://postimg.cc/Jt6qRkRq)
-  - Ataque especial:
-   [![Ataque-especial.gif](https://i.postimg.cc/gjytbjwS/Ataque-especial.gif)](https://postimg.cc/n9zGvHGB)
-- SuperFroppy:
-  - De pie:
-   [![Super-Froggie-Idle.gif](https://i.postimg.cc/bY5KxS8P/Super-Froggie-Idle.gif)](https://postimg.cc/7bgsD6ft)
-  - Salto:
-   [![Super-Froggie-Salto-1.gif](https://i.postimg.cc/tRL9XMsF/Super-Froggie-Salto-1.gif)](https://postimg.cc/JtcfxKch)
-  - Caminar:
-   [![Super-Froggie-Caminar.gif](https://i.postimg.cc/SKVPJJVw/Super-Froggie-Caminar.gif)](https://postimg.cc/CZB72M3N)
-  - Ataque:
-   [![Super-Froggie-Pegar.gif](https://i.postimg.cc/3xh7G0CR/Super-Froggie-Pegar.gif)](https://postimg.cc/ZCw1tRQt)
-  - Bloqueo:
-   [![Super-Froggie-Defensa.gif](https://i.postimg.cc/3wSHzSM4/Super-Froggie-Defensa.gif)](https://postimg.cc/d7yXy9Vw)
-  - Ataque especial:
-   [![Super-Froggie-Especial.gif](https://i.postimg.cc/9XqjNYL0/Super-Froggie-Especial.gif)](https://postimg.cc/0rx3zDR1)
+- De pie:   [![Idle.gif](https://i.postimg.cc/T3Q8W737/Idle.gif)](https://postimg.cc/ZW9sGL3p)
+
+- Salto:   [![Salto.gif](https://i.postimg.cc/xCwBSB6C/Salto.gif)](https://postimg.cc/qhG1sDVV)
+
+- Caminar:    [![Walk.gif](https://i.postimg.cc/kGWzMwHy/Walk.gif)](https://postimg.cc/MfKdd0qc)
+
+- Ataque:   [![Ataque.gif](https://i.postimg.cc/y88Q2V7j/Ataque.gif)](https://postimg.cc/D8RPX3J4)
+
+- Bloqueo:    [![Bloqueo.gif](https://i.postimg.cc/65w1LrSD/Bloqueo.gif)](https://postimg.cc/Jt6qRkRq)
+
+- Ataque especial:    [![Ataque-especial.gif](https://i.postimg.cc/gjytbjwS/Ataque-especial.gif)](https://postimg.cc/n9zGvHGB)
+
+- SuperFroppy:    
+
+- De pie:    [![Super-Froggie-Idle.gif](https://i.postimg.cc/bY5KxS8P/Super-Froggie-Idle.gif)](https://postimg.cc/7bgsD6ft)
+
+- Salto: [![Super-Froggie-Salto-1.gif](https://i.postimg.cc/tRL9XMsF/Super-Froggie-Salto-1.gif)](https://postimg.cc/JtcfxKch)
+- Caminar:    [![Super-Froggie-Caminar.gif](https://i.postimg.cc/SKVPJJVw/Super-Froggie-Caminar.gif)](https://postimg.cc/CZB72M3N)
+
+- Ataque:    [![Super-Froggie-Pegar.gif](https://i.postimg.cc/3xh7G0CR/Super-Froggie-Pegar.gif)](https://postimg.cc/ZCw1tRQt)
+
+- Bloqueo:    [![Super-Froggie-Defensa.gif](https://i.postimg.cc/3wSHzSM4/Super-Froggie-Defensa.gif)](https://postimg.cc/d7yXy9Vw)
+
+- Ataque especial:    [![Super-Froggie-Especial.gif](https://i.postimg.cc/9XqjNYL0/Super-Froggie-Especial.gif)](https://postimg.cc/0rx3zDR1)
+
 
 ### - Escenario -
 Para la realización de este escenario, se utilizó como inspiración una tienda de muñecas, podemos encontrar la versión en pixel art y otra sin pixel art.
@@ -295,16 +292,11 @@ Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como e
 [![TITULO.png](https://i.postimg.cc/g2yztHk8/TITULO.png)](https://postimg.cc/TKwvpmb3)
 
  - Botones:
-      Salir:
-    [![Boton-Salir.png](https://i.postimg.cc/SRzq6WvX/Boton-Salir.png)](https://postimg.cc/RJ9j9n99)
-      Reanudar:
-    [![Boton-Reanudar.png](https://i.postimg.cc/667GjFsZ/Boton-Reanudar.png)](https://postimg.cc/rzkmznwy)
-      Controles:
-    [![Boton-Controles.png](https://i.postimg.cc/W17DqvZB/Boton-Controles.png)](https://postimg.cc/XrpNttQL)
-      Créditos:
-    [![Boton-Creditos.png](https://i.postimg.cc/mgTks5n8/Boton-Creditos.png)](https://postimg.cc/dLSwR4wy)
-      Local:
-    [![Boton-Local.png](https://i.postimg.cc/9fMf4qC9/Boton-Local.png)](https://postimg.cc/872G9cFk)
+ - Salir:     [![Boton-Salir.png](https://i.postimg.cc/SRzq6WvX/Boton-Salir.png)](https://postimg.cc/RJ9j9n99)
+ - Reanudar:     [![Boton-Reanudar.png](https://i.postimg.cc/667GjFsZ/Boton-Reanudar.png)](https://postimg.cc/rzkmznwy)
+ - Controles:     [![Boton-Controles.png](https://i.postimg.cc/W17DqvZB/Boton-Controles.png)](https://postimg.cc/XrpNttQL)
+ - Créditos:     [![Boton-Creditos.png](https://i.postimg.cc/mgTks5n8/Boton-Creditos.png)](https://postimg.cc/dLSwR4wy)
+ - Local:     [![Boton-Local.png](https://i.postimg.cc/9fMf4qC9/Boton-Local.png)](https://postimg.cc/872G9cFk)
    
   ## FUNCIONES NO IMPLEMENTADAS
   En esta fase del proyecto no han sido implementadas las siguientes funciones que se indicaban en el documento del vidoejuego:
