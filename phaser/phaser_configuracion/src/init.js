@@ -4,8 +4,11 @@ import UI from "/scenes/UI.js";
 import selectMenu from "/scenes/selectMenu.js";
 import creditsMenu from "/scenes/creditsMenu.js";
 import controlMenu from "/scenes/controlMenu.js";
+import creditsMenu2 from "/scenes/creditsMenu2.js";
+import controlMenu2 from "/scenes/controlMenu2.js";
 import Player1Win from "/scenes/Player1Win.js";
 import Player2Win from "/scenes/Player2Win.js";
+import pauseMenu from "/scenes/pauseMenu.js";
 
 const config = {
   
@@ -27,8 +30,8 @@ const config = {
 
     },
 
-    scene: [mainMenu,creditsMenu,Player2Win,Player1Win,
-    controlMenu, selectMenu,scene1,UI] // aqui van todas las escenas
+    scene: [mainMenu,creditsMenu,creditsMenu2,pauseMenu,Player2Win,Player1Win,
+    controlMenu, controlMenu2,selectMenu,scene1,UI] // aqui van todas las escenas
    
 
 }

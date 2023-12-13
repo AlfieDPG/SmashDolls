@@ -10,26 +10,23 @@ function fullScreen(){
     }
 
 }
-export default class controlMenu extends Phaser.Scene {
+export default class creditsMenu2 extends Phaser.Scene {
     constructor(){
-        super("controlMenu"); //nombre escena
+        super("creditsMenu2"); //nombre escena
     }
 
      preload() {
-       this.load.image("controlBackground","./assets/fondos/Fondo-Azul.jpg");
+       this.load.image("creditsBackground","./assets/fondos/creditos.jpg");
        this.load.image("fullScreenButton","./assets/pantalla-completa.png");
-       this.load.image("controls","./assets/fondos/controles.png");
-       this.load.image("exit","./assets/Botones/BotonSalir.png");
-       
+      
+       this.load.image("exit2","./assets/Botones/BotonSalir.png");
+
     }
     
-     create(data){
+     create(){
         //añadir fondo
-        var background = this.add.image(960,540,"controlBackground");
+        var background = this.add.image(960,540,"creditsBackground");
         background.setScale(1);
-
-        var controls = this.add.image(960,470,"controls");
-        controls.setScale(0.9);
 
         //botón para poner pantalla completa
         let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
@@ -38,11 +35,10 @@ export default class controlMenu extends Phaser.Scene {
 
 
         //boton salir
-        let exitButton = this.add.image (960,990, "exit" ).setInteractive();
-        exitButton.setScale(2.2);
-        exitButton.on("pointerdown", (exitButton) =>{
-            this.scene.start("mainMenu");
-        
+        let exitButton2 = this.add.image (960,990, "exit2" ).setInteractive();
+        exitButton2.setScale(2.2);
+        exitButton2.on("pointerdown", (exitButton2) =>{
+            this.scene.start("pauseMenu");
         });
 
     }

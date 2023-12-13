@@ -175,7 +175,14 @@ export default class scene1 extends Phaser.Scene {
 
     const doll2X = this.doll2.x;
     const doll2Y = this.doll2.y;
-
+        //menu pausa
+        if (this.input.keyboard.addKey('ESC').isDown) //MENU PAUSA
+        {
+            this.scene.sleep("UI");
+            this.scene.sleep("scene1");
+            this.scene.launch("pauseMenu");
+            
+        }
     
 
         //eventos de teclado para la muñeca 1

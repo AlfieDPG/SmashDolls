@@ -10,9 +10,9 @@ function fullScreen(){
     }
 
 }
-export default class controlMenu extends Phaser.Scene {
+export default class controlMenu2 extends Phaser.Scene {
     constructor(){
-        super("controlMenu"); //nombre escena
+        super("controlMenu2"); //nombre escena
     }
 
      preload() {
@@ -41,7 +41,7 @@ export default class controlMenu extends Phaser.Scene {
         let exitButton = this.add.image (960,990, "exit" ).setInteractive();
         exitButton.setScale(2.2);
         exitButton.on("pointerdown", (exitButton) =>{
-            this.scene.start("mainMenu");
+            this.scene.start("pauseMenu");
         
         });
 
