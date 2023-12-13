@@ -237,9 +237,15 @@ Para la creación del GDD y su estructura, se ha tomado como guía el existente 
 ## PÁGINAS PRINCIPALES
 En este apartado se podrán contemplar todas las páginas principales, cuyas interfaces han sido realizadas en su totalidad por el propio equipo.
 - Menú principal -> Interfaz que redirige al jugador al modo local, online, créditos y guía de controles.
+  [![image-3.png](https://i.postimg.cc/7PK1WjZM/image-3.png)](https://postimg.cc/gr66wSRn)
 - Controles -> Breve guía que explica los controles del juego para ambos jugadores.
+  [![image-2.png](https://i.postimg.cc/wM4hRRGb/image-2.png)](https://postimg.cc/0Km6Ljxp)
 - Créditos -> Muestra los nombres de los diseñadores y desarrolladores del videojuego.
+  [![image.png](https://i.postimg.cc/LXNPGZ26/image.png)](https://postimg.cc/PpvNwJCB)
+- Menú de pausa -> Permite a los jugadores pausar el combate para consultar la guía de controles o volver al menú principal.
+  [![image-1.png](https://i.postimg.cc/g2ZvrJqN/image-1.png)](https://postimg.cc/sM3BN3Lh)
 - Juego -> Escenario en el que dará lugar la batalla, muestra una breve interfaz que indica la vida restante de los jugadores. Al final del combate indicará que jugador ha ganado.
+  [![image.png](https://i.postimg.cc/13wqsdsd/image.png)](https://postimg.cc/21j6x2qd)
 
 
 ### - Diagrama de navegación -
@@ -297,9 +303,12 @@ Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como e
  - Controles:     [![Boton-Controles.png](https://i.postimg.cc/W17DqvZB/Boton-Controles.png)](https://postimg.cc/XrpNttQL)
  - Créditos:     [![Boton-Creditos.png](https://i.postimg.cc/mgTks5n8/Boton-Creditos.png)](https://postimg.cc/dLSwR4wy)
  - Local:     [![Boton-Local.png](https://i.postimg.cc/9fMf4qC9/Boton-Local.png)](https://postimg.cc/872G9cFk)
-   
+
+- Fin de partida:
+  [![J1-Gana.png](https://i.postimg.cc/cL0n1mC4/J1-Gana.png)](https://postimg.cc/7ft6mSSp)
+  [![J2-Gana.png](https://i.postimg.cc/kXxSdZnp/J2-Gana.png)](https://postimg.cc/0byjYVKY)
   ## FUNCIONES NO IMPLEMENTADAS
   En esta fase del proyecto no han sido implementadas las siguientes funciones que se indicaban en el documento del vidoejuego:
   - Personaje Portea
   - Menú de seleccion de personaje
-  - Menú de pausa
+
