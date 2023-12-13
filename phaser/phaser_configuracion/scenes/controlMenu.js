@@ -29,7 +29,7 @@ export default class controlMenu extends Phaser.Scene {
         background.setScale(1);
 
         var controls = this.add.image(960,540,"controls");
-        controls.setScale(1.5);
+        controls.setScale(0.9);
 
         //botón para poner pantalla completa
         let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
