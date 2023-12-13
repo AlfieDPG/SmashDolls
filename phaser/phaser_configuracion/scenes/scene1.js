@@ -24,6 +24,17 @@ export default class scene1 extends Phaser.Scene {
 
         this.isShieldActive1 = true;
         this.isShieldActive2 = true;
+
+        this.collisionHandled = false;
+
+        this.isAttacking1 =false;
+        this.isAttacking2 =false;
+
+        this.isSuperAttacking1= false;
+        this.isSuperAttacking2= false;
+
+    
+
     }
 
      preload() {
@@ -104,7 +115,7 @@ export default class scene1 extends Phaser.Scene {
         this.doll1 = this.physics.add.sprite(500,600,"girlie");
         this.doll1.setScale(6);
         this.doll1.body.setSize(22, 50); // Establecer el tamaño del cuerpo de colisión de doll1
-        //console.log('Tamaño del sprite de doll1:', this.doll1.width, this.doll1.height);
+        //console.log('Taomaño del sprite de doll1:', this.doll1.width, this.doll1.height);
         this.doll1.body.setOffset(20, 0); // Ajustar la posición del cuerpo de colisión
         this.doll1.setCollideWorldBounds(true);
         this.doll1.setData ('life1',100); //creas la vida de la muñeca
@@ -154,6 +165,9 @@ export default class scene1 extends Phaser.Scene {
     this.textLife1.setPosition(doll1X , doll1Y -200);
     this.textLife2.setPosition(doll2X-120 , doll2Y -200);
 
+   
+    
+
         //eventos de teclado para la muñeca 1
         if (this.input.keyboard.addKey('A').isDown) //moverse a la izquierda
         {
@@ -184,11 +198,36 @@ export default class scene1 extends Phaser.Scene {
 
         else if(this.input.keyboard.addKey('E').isDown ){ //animación de ataque básico
             this.doll1.anims.play('basic', false);
-            console.log('ataque');
+            
+            this.doll1.on('animationcomplete', function (animation) {
+                if (animation.key === 'basic') {
+                    this.doll1.isAttacking1 = false; // Resetear la bandera cuando la animación completa
+                }
+            }, this);
+    
+            // Verificar si la animación de ataque básico está reproduciéndose
+            if (this.doll1.anims.isPlaying) {
+                this.isAttacking1 = true;
+                
+            }
+            
         }
 
         else if(this.input.keyboard.addKey('R').isDown ){ //animación de ataque especial
             this.doll1.anims.play('attacking', false);
+
+            this.doll1.on('animationcomplete', function (animation) {
+                if (animation.key === 'attacking') {
+                    this.isSuperAttacking1 = false; // Resetear cuando la animación se completa
+                }
+            }, this);
+    
+            // Verificar si la animación de ataque especial está reproduciéndose
+            if (this.doll1.anims.isPlaying) {
+                this.isSuperAttacking1 = true;
+                
+                
+            }
            
         }
 
@@ -204,6 +243,8 @@ export default class scene1 extends Phaser.Scene {
                 if (this.doll1.body.blocked.down) { // Animación de estar de pie solo si está en el suelo
                     this.doll1.setVelocityX(0);
                     this.doll1.anims.play('standing', true);
+                    
+                    
                 }
             }
         }
@@ -234,16 +275,42 @@ export default class scene1 extends Phaser.Scene {
 
         else if(this.input.keyboard.addKey('O').isDown ){ //animación de ataque básico
             this.doll2.anims.play('basic', false);
+
+            this.doll2.on('animationcomplete', function (animation) {
+                if (animation.key === 'basic') {
+                    this.isAttacking2 = false; // Resetear la bandera cuando la animación completa
+                }
+            }, this);
+    
+            // Verificar si la animación de ataque básico está reproduciéndose
+            if (this.doll2.anims.isPlaying) {
+                this.isAttacking2 = true;
+                
+            }
             
         }
 
         else if(this.input.keyboard.addKey('P').isDown ){ //animación de ataque especial
             this.doll2.anims.play('attacking', false);
             
+            this.doll2.on('animationcomplete', function (animation) {
+                if (animation.key === 'attacking') {
+                    this.isSuperAttacking2 = false; // Resetear cuando la animación se completa
+                }
+            }, this);
+    
+            // Verificar si la animación de ataque especial está reproduciéndose
+            if (this.doll2.anims.isPlaying) {
+                this.isSuperAttacking2 = true;
+                
+                
+            }
+            
         }
 
         else if(this.input.keyboard.addKey('U').isDown && this.isShieldActive2){ //animación de escudo
             this.doll2.anims.play('shield', true);
+            
             
         }
 
@@ -255,6 +322,7 @@ export default class scene1 extends Phaser.Scene {
                 if (this.doll2.body.blocked.down) { // Animación de estar de pie solo si está en el suelo
                     this.doll2.setVelocityX(0);
                     this.doll2.anims.play('standing', true);
+                   
                 }
             }
         }
@@ -264,37 +332,43 @@ export default class scene1 extends Phaser.Scene {
     }
 
 
-    // COLISIONES ENTRE LOS JUGADORES
     handleCollision(player1, player2) {
-        // Este método se ejecutará cuando los dos personajes colisionen
-        console.log('¡Colisión detectada!');
-        // Puedes agregar aquí lógica adicional, como reducir la salud, reproducir un sonido, etc.
-       
-        // Obtiene las animaciones doll1
-        const basicAnimation1 = this.input.keyboard.addKey('E').isDown;
-        const shieldAnimation1 = this.input.keyboard.addKey('Q').isDown;
-        const attackingAnimation1 = this.input.keyboard.addKey('R').isDown;
+        if (!this.collisionHandled) {
+            this.collisionHandled = true;
+    
+            this.time.addEvent({
+                delay: 1000, // 1 segundo
+                callback: () => {
+                    this.collisionHandled = false;
+                },
+                callbackContext: this,
+            });
+    
+            this.handleAttacks(player1, player2);
+        }
+    }
 
-        // Obtiene las animaciones de doll2
-        const basicAnimation2 = this.input.keyboard.addKey('O').isDown;
-        const attackingAnimation2 = this.input.keyboard.addKey('P').isDown;
-        const shieldAnimation2 = this.input.keyboard.addKey('U').isDown;
+    // COLISIONES ENTRE LOS JUGADORES
+    handleAttacks(player1, player2) {
 
-
+        // Este método se ejecutará cuando los dos personajes colisionen, se detecta una colision por segundo
+        
     // SISTEMA DE VIDAS DE LA MUÑECA 1
 
-    if (shieldAnimation1 && (basicAnimation2==true || attackingAnimation2==true)) { //Si la animacion "shield"
+    if (this.isShieldActive1==true && (this.isAttacking2==true || this.isSuperAttacking2==true)) { //Si la animacion "shield"
         console.log('Animación "shield" está en reproducción para doll1.');
             this.shieldCount1++; //si se ha usado menos de 3 veces se aumenta el contador 
             console.log('Contador de escudo para doll1:', this.shieldCount1);
             this.handleShield1(this.shieldCount1);
     }
-    else if (basicAnimation1 == true && shieldAnimation2==false){ // si la animación de ataque básico de la muñeca 1 y la de escudo de la muñeca 2 está desactivada
+    else if (this.isAttacking1 == true && this.isShieldActive2==false){ // si la animación de ataque básico de la muñeca 1 y la de escudo de la muñeca 2 está desactivada
         console.log('Animación "basic" está en reproducción.');
         this.restarVidas = 5; //vida restada ataque normal
+        this.isAttacking1=false;
+
         if (player2.getData('life2') - this.restarVidas > 0) { //la muñeca 2 pierde 5 vidas
             player2.setData('life2', player2.getData('life2') - this.restarVidas);
-            console.log('Vida doll2:', player2.getData('life2'));
+            
             // Actualizar texto de vidas de la muñeca 1
             
             this.textLife2.setText(` ${player2.getData('life2')}%`);
@@ -304,12 +378,14 @@ export default class scene1 extends Phaser.Scene {
         this.registry.events.emit('vida2', player2.getData('life2'));
         }  
     
-    else if (attackingAnimation1 == true && shieldAnimation2==false) { // si la animación de ataque especial de la muñeca 1 y la de escudo de la muñeca 2 está desactivada
-            console.log('Animación "attacking" está en reproducción para doll1.');
+    else if (this.isSuperAttacking1 == true && this.isShieldActive2==false) { // si la animación de ataque especial de la muñeca 1 y la de escudo de la muñeca 2 está desactivada
+            
             this.restarVidas = 10; //vida restada ataque especial
+            this.isSuperAttacking1=false;
+
         if (player2.getData('life2') - this.restarVidas > 0) {
             player2.setData('life2', player2.getData('life2') - this.restarVidas);//la muñeca 2 pierde 5 vidas
-            console.log('Vida doll2:', player2.getData('life2'));
+           
             
             this.textLife2.setText(` ${player2.getData('life2')}%`);
             player2.anims.play('damaged', true); 
@@ -319,32 +395,36 @@ export default class scene1 extends Phaser.Scene {
 
      //SISTEMA DE VIDAS DE LA MUÑECA 2   
     
-    if (shieldAnimation2 && (basicAnimation1==true || attackingAnimation1==true)) {
-            console.log('Animación "shield" está en reproducción para doll2.');
+    if (this,this.isShieldActive2==true && (this.isAttacking1==true || this.isSuperAttacking1==true)) {
+            
                 this.shieldCount2++;
                 console.log('Contador de escudo para doll2:', this.shieldCount2);
                 this.handleShield2();
         }    
     
         // Verifica si la animación 'basic' está en reproducción en doll2
-    else if (basicAnimation2 == true && shieldAnimation1==false) {
-            console.log('Animación "basic" esatá en reproducción para doll2.');
+    else if (this.isAttacking2 == true && this.isShieldActive2==false) {
+            
             this.restarVidas = 5; //vida restada ataque normal
+            this.isAttacking2=false;
+            
         if (player1.getData('life1') - this.restarVidas > 0) {
                 player1.setData('life1', player1.getData('life1') - this.restarVidas);
-                console.log('Vida doll1:', player1.getData('life1'));
+                
                 
                 this.textLife1.setText(` ${player1.getData('life1')}%`);
                 player1.anims.play('damaged', true);
             }
             this.registry.events.emit('vida', player1.getData('life1'));
         } 
-    else if (attackingAnimation2 == true && shieldAnimation1==false) {
-            console.log('Animación "attacking" está en reproducción para doll2.');
+    else if (this.isSuperAttacking2 == true && this.isShieldActive1==false) {
+            
             this.restarVidas = 10; //vida restada ataque normal
+            this.isSuperAttacking2=false;
+
             if (player1.getData('life1') - this.restarVidas > 0) {
                 player1.setData('life1', player1.getData('life1') - this.restarVidas);
-                console.log('Vida doll1:', player1.getData('life1'));
+               
                 
                 this.textLife1.setText(` ${player1.getData('life1')}%`);
                 player1.anims.play('damaged', true);
@@ -353,18 +433,7 @@ export default class scene1 extends Phaser.Scene {
             // Agregar lógica adicional para la animación de ataque especial de doll2
         }
 
-        //REACCIÓN AL COLISIONAR 
-
-        /*//Los jugadores rebotarán un poco hacia el lado al chocar
-        if (player1.x < player2.x) {// Verificar si player1 está a la izquierda de player2
-            // Hacer que player1 se mueva hacia la izquierda y player2 hacia la derecha
-            player1.setVelocityX(-300);
-            player2.setVelocityX(300);
-        } else {
-            // Hacer que player1 se mueva hacia la derecha y player2 hacia la izquierda
-            player1.setVelocityX(300);
-            player2.setVelocityX(-300);
-        } */  
+       
 
         
     }
