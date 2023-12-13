@@ -22,12 +22,12 @@ export default class scene1 extends Phaser.Scene {
         this.shieldCount1 = 0; // contador de veces que se ha usado el escudo para doll1
         this.shieldCount2 = 0; // contador de veces que se ha usado el escudo para doll2
 
-        this.shieldCooldownTime = 10000; // Tras 5 segundos se puede volver a activar el escudo
+        this.shieldCooldownTime = 5000; // Tras 5 segundos se puede volver a activar el escudo
         this.lastShieldTime1 = 0;
         this.lastShieldTime2 = 0;
 
-        this.isShieldActive1 = true;
-        this.isShieldActive2 = true;
+        this.isShieldActive1 = false;
+        this.isShieldActive2 = false;
 
         this.collisionHandled = false;
 
@@ -44,6 +44,8 @@ export default class scene1 extends Phaser.Scene {
      preload() {
        this.load.image("background","./assets/tienda.jpeg");
        this.load.atlas('girlie', 'assets/girlie.png', 'assets/girliesprites.json');
+       this.load.atlas('superfroggie', 'assets/superfroggie.png', 'assets/superfroppiesprite.json');
+       this.load.atlas('vudu', 'assets/vudu.png', 'assets/budusprite.json');
        this.load.image("fullScreenButton","./assets/pantalla-completa.png");
        this.load.audio("jump", "/assets/sonidos/salto.mp3");
        this.load.audio("attack", "/assets/sonidos/ataque.mp3");
@@ -73,75 +75,131 @@ export default class scene1 extends Phaser.Scene {
         fullScreenButton.setInteractive().on("pointerdown",fullScreen); //al clicar en el botón se pondrá en pantalla completa
         
         
+//ANIMACIONES DE SUPERFROGGIE
 
-
-        //Animaciones de girlie
+        //Animacion de standing de superfroggie
         this.anims.create({
-            key: 'standing',
-            frames: this.anims.generateFrameNames('girlie', {prefix: 'standing', end: 3,zeroPad: 4 }),
+            key: 'standingf',
+            frames: this.anims.generateFrameNames('superfroggie', {prefix: 'standing', end: 1,zeroPad: 4 }),
             frameRate:5,
             repeat: 0
         });
 
+        //animacion de caminar de superfroggie
         this.anims.create({
-            key: 'running',
-            frames: this.anims.generateFrameNames('girlie', {prefix: 'running', end: 7,zeroPad: 4 }),
+            key: 'walkingf',
+            frames: this.anims.generateFrameNames('superfroggie', {prefix: 'walking', end: 7,zeroPad: 4 }),
             frameRate:12,
             repeat: 0
         });
 
+        //animación de saltar de superfroggie
         this.anims.create({
-            key: 'jumping',
-            frames: this.anims.generateFrameNames('girlie', {prefix: 'jumping', end: 4, zeroPad: 4 }),
+            key: 'jumpingf',
+            frames: this.anims.generateFrameNames('superfroggie', {prefix: 'jumping', end: 3, zeroPad: 4 }),
             frameRate:10,
             repeat: 0
         });
 
+        //animación de atacar de superfroggie
         this.anims.create({
-            key: 'attacking',
-            frames: this.anims.generateFrameNames('girlie', {prefix: 'attacking', end: 5, zeroPad: 4 }),
+            key: 'attackingf',
+            frames: this.anims.generateFrameNames('superfroggie', {prefix: 'attacking', end: 5, zeroPad: 4 }),
             frameRate:10,
-            repeat: 0
-        });
-
-        this.anims.create({
-            key: 'basic',
-            frames: this.anims.generateFrameNames('girlie', {prefix: 'basicattack', end: 5, zeroPad: 4 }),
-            frameRate:10,
-            repeat: 0
-        });
-
-        this.anims.create({
-            key: 'damaged',
-            frames: this.anims.generateFrameNames('girlie', {prefix: 'damaged', end: 2, zeroPad: 4 }),
-            frameRate:10,
-            repeat: 0
-        });
-
-        this.anims.create({
-            key: 'shield',
-            frames: this.anims.generateFrameNames('girlie', {prefix: 'shield', end: 1, zeroPad: 4 }),
-            frameRate:15,
             repeat: 2
         });
+
+        //animacion de basic de superfroggie
+        this.anims.create({
+            key: 'basicf',
+            frames: this.anims.generateFrameNames('superfroggie', {prefix: 'basic', end: 3, zeroPad: 4 }),
+            frameRate:10,
+            repeat: 2
+        });
+
+       //animacion de shield de superfroggie
+        this.anims.create({
+            key: 'shieldf',
+            frames: this.anims.generateFrameNames('superfroggie', {prefix: 'shield',start:1, end: 1, zeroPad: 4 }),
+            frameRate:1,
+            repeat: 0
+        });
+
+
+
+
+        
+
+//ANIMACIONES DE VUDU
+           //Animacion de standing de vudu
+           this.anims.create({
+            key: 'standingv',
+            frames: this.anims.generateFrameNames('vudu', {prefix: 'idle', end: 1,zeroPad: 1 }),
+            frameRate:5,
+            repeat: 0
+        });
+
+        //animacion de caminar de vudu
+        this.anims.create({
+            key: 'walkingv',
+            frames: this.anims.generateFrameNames('vudu', {prefix: 'walk', end: 3,zeroPad: 1 }),
+            frameRate:12,
+            repeat: 0
+        });
+
+        //animación de saltar de vudu
+        this.anims.create({
+            key: 'jumpingv',
+            frames: this.anims.generateFrameNames('vudu', {prefix: 'jump', end: 3, zeroPad: 1 }),
+            frameRate:10,
+            repeat: 0
+        });
+
+        //animación de atacar de vudu
+        this.anims.create({
+            key: 'attackingv',
+            frames: this.anims.generateFrameNames('vudu', {prefix: 'normal', end: 1, zeroPad: 1 }),
+            frameRate:7,
+            repeat: 2
+        });
+
+        //animacion de basic de vudu
+        this.anims.create({
+            key: 'basicv',
+            frames: this.anims.generateFrameNames('vudu', {prefix: 'special', end: 1, zeroPad: 1 }),
+            frameRate:7,
+            repeat: 2
+        });
+
+       //animacion de shield de vudu
+        this.anims.create({
+            key: 'shieldv',
+            frames: this.anims.generateFrameNames('vudu', {prefix: 'block', start: 1, end: 1, zeroPad: 1 }),
+            frameRate:1,
+            repeat: 0
+        });
+        
         
          //añadir personaje 1
-        this.doll1 = this.physics.add.sprite(500,600,"girlie");
-        this.doll1.setScale(6);
-        this.doll1.body.setSize(22, 50); // Establecer el tamaño del cuerpo de colisión de doll1
-        //console.log('Taomaño del sprite de doll1:', this.doll1.width, this.doll1.height);
-        this.doll1.body.setOffset(20, 0); // Ajustar la posición del cuerpo de colisión
+        this.doll1 = this.physics.add.sprite(500,600,"superfroggie");
+        this.doll1.setScale(2);
+        this.doll1.body.setSize(85, 196); // Establecer el tamaño del cuerpo de colisión de doll1
+        //Tamaño del sprite de doll1: 108 196
+        //console.log('Tamaño del sprite de doll1:', this.doll1.width, this.doll1.height);
+        //this.doll1.body.setOffset(20, 0); // Ajustar la posición del cuerpo de colisión
+        this.doll1.flipX = true;
         this.doll1.setCollideWorldBounds(true);
         this.doll1.setData ('life1',100); //creas la vida de la muñeca
         this.physics.world.setBoundsCollision(true);
         
 
         //añadir personaje 2
-        this.doll2 = this.physics.add.sprite(1420,600,"girlie");
-        this.doll2.setScale(6);
-        this.doll2.body.setSize(22, 50); // Establecer el tamaño del cuerpo de colisión de doll1
-        //el tamaño del sprite es (39,50) pero como de X ocupa mucho espacio el pañuelo que en realidad no generaría colisión lo hemos reducido
-        this.doll2.body.setOffset(0, 0); // Ajustar la posición del cuerpo de colisión porque no quedaba en el cuerpo del personaje
+        this.doll2 = this.physics.add.sprite(1420,600,"vudu");
+        this.doll2.setScale(2.1);
+        this.doll2.body.setSize(85, 177); // Establecer el tamaño del cuerpo de colisión de doll1
+        console.log('Tamaño del sprite de doll2:', this.doll2.width, this.doll2.height);
+        //Tamaño del sprite de doll2: 147 177
+        //this.doll2.body.setOffset(0, 0); // Ajustar la posición del cuerpo de colisión porque no quedaba en el cuerpo del personaje
         this.doll2.flipX = true; //girar la segunda muñeca para que esté mirando hacia el lado contrario (enfrentándose)
         this.doll2.setCollideWorldBounds(true);
         this.doll2.setData ('life2',100);
@@ -184,15 +242,13 @@ export default class scene1 extends Phaser.Scene {
             
         }
     
-
         //eventos de teclado para la muñeca 1
         if (this.input.keyboard.addKey('A').isDown) //moverse a la izquierda
         {
             this.doll1.setVelocityX(-300);
             this.doll1.flipX = true;
-            this.doll1.body.setOffset(0, 0); // Ajustar la posición del cuerpo de colisión
             if (this.doll1.body.blocked.down) {
-               this.doll1.anims.play('running',true);
+               this.doll1.anims.play('walkingf',true);
              }
 
             
@@ -202,23 +258,23 @@ export default class scene1 extends Phaser.Scene {
         {
             this.doll1.setVelocityX(300);
             this.doll1.flipX=false;
-            this.doll1.body.setOffset(20, 0); // Ajustar la posición del cuerpo de colisión
             if (this.doll1.body.blocked.down) {
-                this.doll1.anims.play('running', true);
+                this.doll1.anims.play('walkingf', true);
             }
         }
 
         else if(this.input.keyboard.addKey('W').isDown && this.doll1.body.blocked.down){ //animación de saltar
             this.doll1.setVelocityY(-700);
-            this.doll1.anims.play('jumping', true);
+            this.doll1.anims.play('jumpingf', true);
             jump.play();
         }
 
         else if(this.input.keyboard.addKey('E').isDown ){ //animación de ataque básico
-            this.doll1.anims.play('basic', false);
+            this.doll1.body.setOffset(20, 0);
+            this.doll1.anims.play('basicf', false);
             attack.play();
             this.doll1.on('animationcomplete', function (animation) {
-                if (animation.key === 'basic') {
+                if (animation.key === 'basicf') {
                     this.doll1.isAttacking1 = false; // Resetear la bandera cuando la animación completa
                 }
             }, this);
@@ -232,10 +288,11 @@ export default class scene1 extends Phaser.Scene {
         }
 
         else if(this.input.keyboard.addKey('R').isDown ){ //animación de ataque especial
-            this.doll1.anims.play('attacking', false);
+            this.doll1.body.setOffset(30, 0);
+            this.doll1.anims.play('attackingf', false);
             attackFroppy.play();
             this.doll1.on('animationcomplete', function (animation) {
-                if (animation.key === 'attacking') {
+                if (animation.key === 'attackingf') {
                     this.isSuperAttacking1 = false; // Resetear cuando la animación se completa
                 }
             }, this);
@@ -249,8 +306,20 @@ export default class scene1 extends Phaser.Scene {
            
         }
 
-        else if(this.input.keyboard.addKey('Q').isDown && this.isShieldActive1 ){ //animación de daño recibido
-            this.doll1.anims.play('shield', true);
+        else if(this.input.keyboard.addKey('Q').isDown && this.shieldCount1<4){ //animación de daño recibido
+            this.doll1.anims.play('shieldf', false);
+            this.doll2.on('animationcomplete', function (animation) {
+                if (animation.key === 'shieldv') {
+                    this.isShieldActive2 = false; // Resetear la bandera cuando la animación completa
+                }
+            }, this);
+    
+            // Verificar si la animación de ataque básico está reproduciéndose
+            if (this.doll2.anims.isPlaying) {
+                this.isShieldActive2 = true;
+                console.log("shield is active");
+                
+            }
             
         }
         else{
@@ -260,7 +329,7 @@ export default class scene1 extends Phaser.Scene {
             ) {
                 if (this.doll1.body.blocked.down) { // Animación de estar de pie solo si está en el suelo
                     this.doll1.setVelocityX(0);
-                    this.doll1.anims.play('standing', true);
+                    this.doll1.anims.play('standingf', true);
                     
                     
                 }
@@ -272,9 +341,10 @@ export default class scene1 extends Phaser.Scene {
         {
             this.doll2.setVelocityX(-300);
             this.doll2.flipX = true; 
-            this.doll2.body.setOffset(0, 0); // Ajustar la posición del cuerpo de colisión 
+            this.doll2.body.setOffset(30, 0); // Ajustar la posición del cuerpo de colisión 
             if (this.doll2.body.blocked.down) {
-               this.doll2.anims.play('running',true);
+                
+               this.doll2.anims.play('walkingv',true);
              }  
         }
         else if (this.input.keyboard.addKey('L').isDown) //moverse a la derecha
@@ -283,20 +353,21 @@ export default class scene1 extends Phaser.Scene {
             this.doll2.flipX=false;
             this.doll2.body.setOffset(20, 0); // Ajustar la posición del cuerpo de colisión
             if (this.doll2.body.blocked.down) {
-                this.doll2.anims.play('running', true);
+                this.doll2.anims.play('walkingv', true);
             }
         }
         else if(this.input.keyboard.addKey('I').isDown && this.doll2.body.blocked.down){ //animación de saltar
             this.doll2.setVelocityY(-700);
-            this.doll2.anims.play('jumping', true);
+            this.doll2.anims.play('jumpingv', true);
             jump.play();
         }
 
         else if(this.input.keyboard.addKey('O').isDown ){ //animación de ataque básico
-            this.doll2.anims.play('basic', false);
+            this.doll2.body.setOffset(-20, 0);
+            this.doll2.anims.play('attackingv', false);
             attack.play();
             this.doll2.on('animationcomplete', function (animation) {
-                if (animation.key === 'basic') {
+                if (animation.key === 'attackingv') {
                     this.isAttacking2 = false; // Resetear la bandera cuando la animación completa
                 }
             }, this);
@@ -310,10 +381,11 @@ export default class scene1 extends Phaser.Scene {
         }
 
         else if(this.input.keyboard.addKey('P').isDown ){ //animación de ataque especial
-            this.doll2.anims.play('attacking', false);
+            
+            this.doll2.anims.play('basicv', false);
             attackBela.play();
             this.doll2.on('animationcomplete', function (animation) {
-                if (animation.key === 'attacking') {
+                if (animation.key === 'basicv') {
                     this.isSuperAttacking2 = false; // Resetear cuando la animación se completa
                 }
             }, this);
@@ -327,8 +399,19 @@ export default class scene1 extends Phaser.Scene {
             
         }
 
-        else if(this.input.keyboard.addKey('U').isDown && this.isShieldActive2){ //animación de escudo
-            this.doll2.anims.play('shield', true);
+        else if(this.input.keyboard.addKey('U').isDown && (this.shieldCount2<4)){ //animación de escudo
+            this.doll2.anims.play('shieldv', false);
+            this.doll2.on('animationcomplete', function (animation) {
+                if (animation.key === 'shieldv') {
+                    this.isShieldActive2 = false; // Resetear la bandera cuando la animación completa
+                }
+            }, this);
+    
+            if (this.doll2.anims.isPlaying) {
+                this.isShieldActive2 = true;
+                console.log("shield is active");
+                
+            }
             
             
         }
@@ -340,7 +423,7 @@ export default class scene1 extends Phaser.Scene {
             ) {
                 if (this.doll2.body.blocked.down) { // Animación de estar de pie solo si está en el suelo
                     this.doll2.setVelocityX(0);
-                    this.doll2.anims.play('standing', true);
+                    this.doll2.anims.play('standingv', true);
                    
                 }
             }
@@ -376,11 +459,14 @@ export default class scene1 extends Phaser.Scene {
 
     if (this.isShieldActive1==true && (this.isAttacking2==true || this.isSuperAttacking2==true)) { //Si la animacion "shield"
         console.log('Animación "shield" está en reproducción para doll1.');
+        
             this.shieldCount1++; //si se ha usado menos de 3 veces se aumenta el contador 
             console.log('Contador de escudo para doll1:', this.shieldCount1);
-            this.handleShield1(this.shieldCount1);
-    }
-    else if (this.isAttacking1 == true && this.isShieldActive2==false){ // si la animación de ataque básico de la muñeca 1 y la de escudo de la muñeca 2 está desactivada
+        }
+        else{
+            this.handleShield1();}
+    
+     if (this.isAttacking1 == true && this.isShieldActive2==false){ // si la animación de ataque básico de la muñeca 1 y la de escudo de la muñeca 2 está desactivada
         console.log('Animación "basic" está en reproducción.');
         this.restarVidas = 5; //vida restada ataque normal
         this.isAttacking1=false;
@@ -392,7 +478,7 @@ export default class scene1 extends Phaser.Scene {
             
             this.textLife2.setText(` ${player2.getData('life2')}%`);
 
-            player2.anims.play('damaged', true);
+            
         }
         else {
             this.scene.stop("UI");
@@ -411,7 +497,7 @@ export default class scene1 extends Phaser.Scene {
            
             
             this.textLife2.setText(` ${player2.getData('life2')}%`);
-            player2.anims.play('damaged', true); 
+            
         }
         else {
             this.scene.stop("UI");
@@ -422,15 +508,18 @@ export default class scene1 extends Phaser.Scene {
 
      //SISTEMA DE VIDAS DE LA MUÑECA 2   
     
-    if (this,this.isShieldActive2==true && (this.isAttacking1==true || this.isSuperAttacking1==true)) {
+    if (this.isShieldActive2==true && (this.isAttacking1==true || this.isSuperAttacking1==true)) {
             
-                this.shieldCount2++;
-                console.log('Contador de escudo para doll2:', this.shieldCount2);
-                this.handleShield2();
+        
+            this.shieldCount2++; //si se ha usado menos de 3 veces se aumenta el contador 
+            console.log('Contador de escudo para doll2:', this.shieldCount2);}
+        
+        else{
+            this.handleShield2();
         }    
     
         // Verifica si la animación 'basic' está en reproducción en doll2
-    else if (this.isAttacking2 == true && this.isShieldActive2==false) {
+   if (this.isAttacking2 == true && this.isShieldActive2==false) {
             
             this.restarVidas = 5; //vida restada ataque normal
             this.isAttacking2=false;
@@ -440,7 +529,7 @@ export default class scene1 extends Phaser.Scene {
                 
                 
                 this.textLife1.setText(` ${player1.getData('life1')}%`);
-                player1.anims.play('damaged', true);
+                
             }
             else {
                 this.scene.stop("UI");
@@ -458,7 +547,7 @@ export default class scene1 extends Phaser.Scene {
                
                 
                 this.textLife1.setText(` ${player1.getData('life1')}%`);
-                player1.anims.play('damaged', true);
+                
             }
             else {
                 this.scene.stop("UI");
@@ -475,39 +564,27 @@ export default class scene1 extends Phaser.Scene {
     }
 
 
-handleShield1(shieldCount1){
-if (shieldCount1 <3){
-this.isShieldActive1=true;
-}
-else{
-    this.isShieldActive1=false;
+handleShield1(){
+  
     this.time.addEvent({
         delay:this.shieldCooldownTime,
-        callback: ()=>{
-            this.isShieldActive1=true;
-            this.shieldCount1=0;
+        callback: ()=>{ this.shieldCount1=0;
         },
         callbackContext: this
     });
-}
+
 
 }
 
-handleShield2(shieldCount2){
-    if (shieldCount2 <3){
-    this.isShieldActive2=true;
-    }
-    else{
-        this.isShieldActive2=false;
+handleShield2(){
+    
         this.time.addEvent({
             delay:this.shieldCooldownTime,
-            callback: ()=>{
-                this.isShieldActive2=true;
-                this.shieldCount2=0;
+            callback: ()=>{this.shieldCount2=0;
             },
             callbackContext: this
         });
-    }
+    
     
     }
 

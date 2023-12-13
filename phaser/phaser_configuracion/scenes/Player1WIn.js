@@ -6,7 +6,7 @@ export default class Player1Win extends Phaser.Scene{
     }
 preload(){
     this.load.image("mainBackground","./assets/fondos/Fondo-Verde.jpg");
-    this.load.image("j1Gana","./assets/j2Gana.png");
+    this.load.image("j1Gana","./assets/j1Gana.png");
 }
 create(){
     var background = this.add.image(960,540,"mainBackground");
