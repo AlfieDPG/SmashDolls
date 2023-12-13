@@ -243,7 +243,7 @@ En este apartado se podrán contemplar todas las páginas principales, cuyas int
 - Controles -> Breve guía que explica los controles del juego para ambos jugadores.
 - Créditos -> Muestra los nombres de los diseñadores y desarrolladores del videojuego.
 - Juego -> Escenario en el que dará lugar la batalla, muestra una breve interfaz que indica la vida restante de los jugadores. Al final del combate indicará que jugador ha ganado.
-- Menú de pausa -> Permite a los jugadores pausar el combate para consultar la guía de controles o volver al menú principal.
+
 
 ### - Diagrama de navegación -
 A continuación se puede encontrar como es la navegación entre menús de "Smash Dolls"
@@ -254,30 +254,30 @@ A continuación se puede encontrar como es la navegación entre menús de "Smash
 ### - Personajes -
 Actualmente se encuentran disponibles dos personajes, Voodoo Bela y SuperFroppy. Para cada una de ellas se han implementado las siguientes animaciones para sus respectivas acciones, realizadas completamente por el equipo.
 - Voodo Bela:
-  De pie:
+  - De pie:
   [![Idle.gif](https://i.postimg.cc/T3Q8W737/Idle.gif)](https://postimg.cc/ZW9sGL3p)
-  Salto:
+  - Salto:
   [![Salto.gif](https://i.postimg.cc/xCwBSB6C/Salto.gif)](https://postimg.cc/qhG1sDVV)
-  Caminar:
+  - Caminar:
    [![Walk.gif](https://i.postimg.cc/kGWzMwHy/Walk.gif)](https://postimg.cc/MfKdd0qc)
-  Ataque:
+  - Ataque:
   [![Ataque.gif](https://i.postimg.cc/y88Q2V7j/Ataque.gif)](https://postimg.cc/D8RPX3J4)
-  Bloqueo:
+  - Bloqueo:
    [![Bloqueo.gif](https://i.postimg.cc/65w1LrSD/Bloqueo.gif)](https://postimg.cc/Jt6qRkRq)
-  Ataque especial:
+  - Ataque especial:
    [![Ataque-especial.gif](https://i.postimg.cc/gjytbjwS/Ataque-especial.gif)](https://postimg.cc/n9zGvHGB)
 - SuperFroppy:
-  De pie:
+  - De pie:
    [![Super-Froggie-Idle.gif](https://i.postimg.cc/bY5KxS8P/Super-Froggie-Idle.gif)](https://postimg.cc/7bgsD6ft)
-  Salto:
+  - Salto:
    [![Super-Froggie-Salto-1.gif](https://i.postimg.cc/tRL9XMsF/Super-Froggie-Salto-1.gif)](https://postimg.cc/JtcfxKch)
-  Caminar:
+  - Caminar:
    [![Super-Froggie-Caminar.gif](https://i.postimg.cc/SKVPJJVw/Super-Froggie-Caminar.gif)](https://postimg.cc/CZB72M3N)
-  Ataque:
+  - Ataque:
    [![Super-Froggie-Pegar.gif](https://i.postimg.cc/3xh7G0CR/Super-Froggie-Pegar.gif)](https://postimg.cc/ZCw1tRQt)
-  Bloqueo:
+  - Bloqueo:
    [![Super-Froggie-Defensa.gif](https://i.postimg.cc/3wSHzSM4/Super-Froggie-Defensa.gif)](https://postimg.cc/d7yXy9Vw)
-  Ataque especial:
+  - Ataque especial:
    [![Super-Froggie-Especial.gif](https://i.postimg.cc/9XqjNYL0/Super-Froggie-Especial.gif)](https://postimg.cc/0rx3zDR1)
 
 ### - Escenario -
@@ -310,3 +310,4 @@ Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como e
   En esta fase del proyecto no han sido implementadas las siguientes funciones que se indicaban en el documento del vidoejuego:
   - Personaje Portea
   - Menú de seleccion de personaje
+  - Menú de pausa
