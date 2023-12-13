@@ -242,29 +242,54 @@ En este apartado se podrán contemplar todas las páginas principales, cuyas int
 - Menú principal -> Interfaz que redirige al jugador al modo local, online, créditos y guía de controles.
 - Controles -> Breve guía que explica los controles del juego para ambos jugadores.
 - Créditos -> Muestra los nombres de los diseñadores y desarrolladores del videojuego.
-- Elección de personaje -> Muestra el elenco e personaje disponibles para jugar.
 - Juego -> Escenario en el que dará lugar la batalla, muestra una breve interfaz que indica la vida restante de los jugadores. Al final del combate indicará que jugador ha ganado.
 - Menú de pausa -> Permite a los jugadores pausar el combate para consultar la guía de controles o volver al menú principal.
 
 ### - Diagrama de navegación -
-
-
+A continuación se puede encontrar como es la navegación entre menús de "Smash Dolls"
+[![Mapa-Conceptual-Esquema-Doodle-Sencillo-Multicolor-6.png](https://i.postimg.cc/Mp90BV2b/Mapa-Conceptual-Esquema-Doodle-Sencillo-Multicolor-6.png)](https://postimg.cc/68GGJ7Qy)
 
 ## IMPLEMENTACIONES DE LA FASE 2
 
 ### - Personajes -
 Actualmente se encuentran disponibles dos personajes, Voodoo Bela y SuperFroppy. Para cada una de ellas se han implementado las siguientes animaciones para sus respectivas acciones, realizadas completamente por el equipo.
 - Voodo Bela:
-  De pie:
-  Salto:
-  Caminar:
-  Ataque:
-  Bloqueo:
-  Ataque especial:
+  De pie: [![Idle.gif](https://i.postimg.cc/T3Q8W737/Idle.gif)](https://postimg.cc/ZW9sGL3p)
+  Salto: [![Salto.gif](https://i.postimg.cc/xCwBSB6C/Salto.gif)](https://postimg.cc/qhG1sDVV)
+  Caminar: [![Walk.gif](https://i.postimg.cc/kGWzMwHy/Walk.gif)](https://postimg.cc/MfKdd0qc)
+  Ataque: [![Ataque.gif](https://i.postimg.cc/y88Q2V7j/Ataque.gif)](https://postimg.cc/D8RPX3J4)
+  Bloqueo: [![Bloqueo.gif](https://i.postimg.cc/65w1LrSD/Bloqueo.gif)](https://postimg.cc/Jt6qRkRq)
+  Ataque especial: [![Ataque-especial.gif](https://i.postimg.cc/gjytbjwS/Ataque-especial.gif)](https://postimg.cc/n9zGvHGB)
 - SuperFroppy:
-  De pie:
-  Salto:
-  Caminar:
-  Ataque:
-  Bloqueo:
-  Ataque especial:
+  De pie: [![Super-Froggie-Idle.gif](https://i.postimg.cc/bY5KxS8P/Super-Froggie-Idle.gif)](https://postimg.cc/7bgsD6ft)
+  Salto: [![Super-Froggie-Salto-1.gif](https://i.postimg.cc/tRL9XMsF/Super-Froggie-Salto-1.gif)](https://postimg.cc/JtcfxKch)
+  Caminar: [![Super-Froggie-Caminar.gif](https://i.postimg.cc/SKVPJJVw/Super-Froggie-Caminar.gif)](https://postimg.cc/CZB72M3N)
+  Ataque: [![Super-Froggie-Pegar.gif](https://i.postimg.cc/3xh7G0CR/Super-Froggie-Pegar.gif)](https://postimg.cc/ZCw1tRQt)
+  Bloqueo: [![Super-Froggie-Defensa.gif](https://i.postimg.cc/3wSHzSM4/Super-Froggie-Defensa.gif)](https://postimg.cc/d7yXy9Vw)
+  Ataque especial: [![Super-Froggie-Especial.gif](https://i.postimg.cc/9XqjNYL0/Super-Froggie-Especial.gif)](https://postimg.cc/0rx3zDR1)
+
+### - Escenario -
+Para la realización de este escenario, se utilizó como inspiración una tienda de muñecas, podemos encontrar la versión en pixel art y otra sin pixel art.
+[Escenario.jpg](https://postimg.cc/dZLGh5J9)
+[![pxArt.png](https://i.postimg.cc/85QbkDgq/pxArt.png)](https://postimg.cc/jWcfvp5X)
+
+### - Logo -
+También se ha dibujado un logo característico para el equipo de diseño y desarrollo "M0N3K0'S TEAM".
+[![Logo-1.png](https://i.postimg.cc/7LVLhMFw/Logo-1.png)](https://postimg.cc/HJrmP5Wh)
+
+### - Título y botones -
+Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como el texto de los diferentes botones del juego.
+ - Título:
+[![TITULO.png](https://i.postimg.cc/g2yztHk8/TITULO.png)](https://postimg.cc/TKwvpmb3)
+
+ - Botones:
+      Salir:[![Boton-Salir.png](https://i.postimg.cc/SRzq6WvX/Boton-Salir.png)](https://postimg.cc/RJ9j9n99)
+      Reanudar: [![Boton-Reanudar.png](https://i.postimg.cc/667GjFsZ/Boton-Reanudar.png)](https://postimg.cc/rzkmznwy)
+      Controles: [![Boton-Controles.png](https://i.postimg.cc/W17DqvZB/Boton-Controles.png)](https://postimg.cc/XrpNttQL)
+      Créditos: [![Boton-Creditos.png](https://i.postimg.cc/mgTks5n8/Boton-Creditos.png)](https://postimg.cc/dLSwR4wy)
+      Local: [![Boton-Local.png](https://i.postimg.cc/9fMf4qC9/Boton-Local.png)](https://postimg.cc/872G9cFk)
+   
+  ## FUNCIONES NO IMPLEMENTADAS
+  En esta fase del proyecto no han sido implementadas las siguientes funciones que se indicaban en el documento del vidoejuego:
+  - Personaje Portea
+  - Menú de seleccion de personaje
