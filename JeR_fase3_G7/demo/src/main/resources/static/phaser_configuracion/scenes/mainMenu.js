@@ -59,7 +59,7 @@ export default class mainMenu extends Phaser.Scene {
         let localButton = this.add.image (960,550, "local" ).setInteractive();
         localButton.setScale(3);
         localButton.on("pointerdown", (localButton) =>{
-            this.scene.start("scene1");
+            this.scene.start("Lobby");
         });
 
         //boton creditos
