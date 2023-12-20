@@ -1,8 +1,8 @@
-
+var ip = location.host;
 //Load items from server
 function loadItems(callback) {
     $.ajax({
-        url: 'http://localhost:8080/items'
+        url: 'http://'+ ip + '8080/player',
     }).done(function (items) {
         console.log('Items loaded: ' + JSON.stringify(items));
         callback(items);
@@ -13,7 +13,7 @@ function loadItems(callback) {
 function createItem(item, callback) {
     $.ajax({
         method: "POST",
-        url: 'http://localhost:8080/items',
+        url: 'http://'+ ip + '8080/player',
         data: JSON.stringify(item),
         processData: false,
         headers: {
@@ -29,7 +29,7 @@ function createItem(item, callback) {
 function updateItem(item) {
     $.ajax({
         method: 'PUT',
-        url: 'http://localhost:8080/items/' + item.id,
+        url: 'http://'+ ip + '8080/player'+ item.id,
         data: JSON.stringify(item),
         processData: false,
         headers: {
@@ -44,7 +44,7 @@ function updateItem(item) {
 function deleteItem(itemId) {
     $.ajax({
         method: 'DELETE',
-        url: 'http://localhost:8080/items/' + itemId
+        url: 'http://'+ ip + '8080/player' + itemId
     }).done(function (item) {
         console.log("Deleted item " + itemId)
     })

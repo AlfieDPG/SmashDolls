@@ -26,13 +26,13 @@ public class PlayersController {
 	AtomicLong nextId = new AtomicLong(0);
 	
 	@GetMapping
-	public Collection<Player> items() {
+	public Collection<Player> players() {
 		return players.values();
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public Player nuevoItem(@RequestBody Player player) {
+	public Player nuevoPlayer(@RequestBody Player player) {
 
 		long id = nextId.incrementAndGet();
 		player.setId(id);
@@ -57,7 +57,7 @@ public class PlayersController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<Player> getItem(@PathVariable long id) {
+	public ResponseEntity<Player> getPlayer(@PathVariable long id) {
 
 		Player savedPlayer = players.get(id);
 
