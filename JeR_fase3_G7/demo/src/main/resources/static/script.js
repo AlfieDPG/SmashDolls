@@ -1,3 +1,4 @@
+
 //Load items from server
 function loadItems(callback) {
     $.ajax({
