@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+ 	<style>
+		 
+        .row {
+ 			 display: flex;
+			 }
+   		.col1 {
+  			flex: 2; 
+  			table-layout:fixed;
+  			min-width: 300px;
+  			max-width: 300px;
+  			min-height:300px;
+  			max-height:300px;
+  			margin:20px;
+  			border: solid;
+  			color:white;
+  			padding:5px;
+  			background-color:rgba(255,0,0,0.4);
+  			overflow:scroll;
+			}
+		.col2 {
+  			flex: 2; 
+  			table-layout:fixed;
+  			margin:20px;
+  			min-width: 300px;
+  			max-width: 300px;
+  			min-height:300px;
+  			max-height:300px;
+  			border: solid;
+  			padding:5px;
+  			color:white;
+  			background-color:rgba(0,0,255,0.4);
+  			overflow:scroll;
+			}
+			
+			
+    </style>
+</head>
+
+<body>
+	
+	<div class="row">
+  <div class="col1" id="input-form">
+	 <input id='value-input' type='text' name="name">
+	 <button id="add-button">Enviar</button>
+	<div id='chat' name="a" style="font-size:25px"></div>
+  </div>
+  
+  <div class="col2" id='info-players' style="font-size:25px"></div>
+  
+</div>
+	
+</body>
+
+</html>

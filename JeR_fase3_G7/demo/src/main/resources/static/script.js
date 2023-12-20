@@ -1,77 +1,77 @@
 var ip = location.host;
-//Load items from server
-function loadItems(callback) {
+//Load players from server
+function loadPlayer(callback) {
     $.ajax({
         url: 'http://'+ ip + '8080/player',
-    }).done(function (items) {
-        console.log('Items loaded: ' + JSON.stringify(items));
-        callback(items);
+    }).done(function (players) {
+        console.log('Players loaded: ' + JSON.stringify(players));
+        callback(players);
     })
 }
 
-//Create item in server
-function createItem(item, callback) {
+//Create player in server
+function createPlayer(player, callback) {
     $.ajax({
         method: "POST",
         url: 'http://'+ ip + '8080/player',
-        data: JSON.stringify(item),
+        data: JSON.stringify(player),
         processData: false,
         headers: {
             "Content-Type": "application/json"
         }
-    }).done(function (item) {
-        console.log("Item created: " + JSON.stringify(item));
-        callback(item);
+    }).done(function (player) {
+        console.log("Player created: " + JSON.stringify(player));
+        callback(player);
     })
 }
 
-//Update item in server
-function updateItem(item) {
+//Update player in server
+function updatePlayer(player) {
     $.ajax({
         method: 'PUT',
-        url: 'http://'+ ip + '8080/player'+ item.id,
-        data: JSON.stringify(item),
+        url: 'http://'+ ip + '8080/player'+ player.id,
+        data: JSON.stringify(player),
         processData: false,
         headers: {
             "Content-Type": "application/json"
         }
-    }).done(function (item) {
-        console.log("Updated item: " + JSON.stringify(item))
+    }).done(function (player) {
+        console.log("Updated player: " + JSON.stringify(player))
     })
 }
 
-//Delete item from server
-function deleteItem(itemId) {
+//Delete player from server
+function deletePlayer(playerId) {
     $.ajax({
         method: 'DELETE',
-        url: 'http://'+ ip + '8080/player' + itemId
+        url: 'http://'+ ip + '8080/player' + playerId
     }).done(function (item) {
-        console.log("Deleted item " + itemId)
+        console.log("Deleted item " + playerId)
     })
 }
 
-//Show item in page
-function showItem(item) {
+//Show player in page
+function showPlayer(player) {
 
     var checked = '';
     var style = '';
 
-    if (item.checked) {
+    if (player.checked) {
         checked = 'checked';
         style = 'style="text-decoration:line-through"';
     }
 
     $('#info').append(
-        '<div id="item-' + item.id + '"><input type="checkbox" ' + checked + '><span ' + style + '>' + item.description +
+        '<div id="player-' + player.id + '"><input type="checkbox" ' + checked + '><span ' + style + '>' +
         '</span> <button>Delete</button></div>')
 }
 
 $(document).ready(function () {
 
-    loadItems(function (items) {
-        //When items are loaded from server
-        for (var i = 0; i < items.length; i++) {
-            showItem(items[i]);
+    loadPlayer(function (players) {
+        //When players are loaded from server
+        for (var i = 0; i < players.length; i++) {
+            showPlayer(players[i]);
         }
     });
 
@@ -82,38 +82,38 @@ $(document).ready(function () {
     info.click(function (event) {
         var elem = $(event.target);
         if (elem.is('button')) {
-            var itemDiv = elem.parent();
-            var itemId = itemDiv.attr('id').split('-')[1];
-            itemDiv.remove()
-            deleteItem(itemId);
+            var playerDiv = elem.parent();
+            var playerId = playerDiv.attr('id').split('-')[1];
+            playerDiv.remove()
+            deletePlayer(playerId);
         }
     })
 
-    //Handle items checkboxs
+    //Handle players checkboxs
     info.change(function (event) {
 
-        //Get page elements for item
+        //Get page elements for player
         var checkbox = $(event.target);
-        var itemDiv = checkbox.parent();
-        var textSpan = itemDiv.find('span');
+        var playerDiv = checkbox.parent();
+        var textSpan = playerDiv.find('span');
 
         //Read item info from elements
-        var itemDescription = textSpan.text();
-        var itemChecked = checkbox.prop('checked');
-        var itemId = itemDiv.attr('id').split('-')[1];
+        
+        var playerChecked = checkbox.prop('checked');
+        var playerId = playerDiv.attr('id').split('-')[1];
 
         //Create updated item
-        var updatedItem = {
-            id: itemId,
-            description: itemDescription,
-            checked: itemChecked
+        var updatedPlayer = {
+            id: playerId,
+            
+            checked: playerChecked
         }
 
         //Update item in server
-        updateItem(updatedItem);
+        updateItem(updatedPlayer);
 
         //Update page when checked
-        var style = itemChecked ? 'line-through' : 'none';
+        var style = playerChecked ? 'line-through' : 'none';
         textSpan.css('text-decoration', style);
 
     })
@@ -124,14 +124,14 @@ $(document).ready(function () {
         var value = input.val();
         input.val('');
 
-        var item = {
+        var player = {
             description: value,
             checked: false
         }
 
-        createItem(item, function (itemWithId) {
-            //When item with id is returned from server
-            showItem(itemWithId);
+        createPlayer(player, function (playerWithId) {
+            //When player with id is returned from server
+            showPlayer(playerWithId);
         });
     })
 })
