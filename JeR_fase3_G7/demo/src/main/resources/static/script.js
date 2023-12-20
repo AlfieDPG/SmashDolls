@@ -45,7 +45,7 @@ function deletePlayer(playerId) {
     $.ajax({
         method: 'DELETE',
         url: 'http://'+ ip + '8080/player' + playerId
-    }).done(function (item) {
+    }).done(function (player) {
         console.log("Deleted item " + playerId)
     })
 }

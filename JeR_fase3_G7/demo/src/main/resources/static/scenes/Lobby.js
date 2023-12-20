@@ -1,10 +1,10 @@
 var playerCount;
 
 
-export default class pregame extends Phaser.Scene{
+export default class Lobby extends Phaser.Scene{
 
     constructor(){
-        super("pregame"); //nombre escena
+        super("Lobby"); //nombre escena
         
 }
 
@@ -38,7 +38,7 @@ preload() {
      $('#chat').empty();
      $.ajax({
         method: "GET",
-        url: 'http://'+ ip + '8080/player'+ 'pregame'
+        url: 'http://'+ ip + '8080/player'+ 'Lobby'
     }).done(function (chat) {
         for (var i = 0; i < chat.length; i++) {
             var style = '';
@@ -50,7 +50,7 @@ preload() {
  setInterval(function loadPlayers(callback) {
      $('#info-players').empty();
      $.ajax({
-         url: 'http://'+ ip + '8080/player'+ 'pregame'
+         url: 'http://'+ ip + '8080/player'+ 'Lobby'
      }).done(function (Player) {
          console.log('Jugadores Conectados: ' + JSON.stringify(Player));
          for (var i = 0; i < Player.length; i++) {
@@ -62,7 +62,7 @@ preload() {
  function Players(){
      $.ajax({
          method: "GET",
-         url: 'http://'+ ip + '8080/player' + 'pregame/valor',
+         url: 'http://'+ ip + '8080/player' + 'Lobby/valor',
      }).done(function (value) {
          playerCount = value;
          console.log(playerCount);
@@ -75,7 +75,7 @@ preload() {
      console.log(playerCount);
      $.ajax({
          method: "POST",
-         url: 'http://'+ ip + '8080/player' + 'pregame',
+         url: 'http://'+ ip + '8080/player' + 'Lobby',
          data: JSON.stringify(player),
          processData: false,
          headers: {
@@ -112,7 +112,7 @@ preload() {
      for (var i = 0; i <= total; i++) {
          $.ajax({
              method: 'GET',
-             url: 'http://'+ ip + '8080/player' + 'pregame/' + i
+             url: 'http://'+ ip + '8080/player' + 'Lobby/' + i
          }).done(function (player) {
              console.log("Jugador " + JSON.stringify(player))
          })
@@ -127,7 +127,7 @@ preload() {
      playerCount--;
      $.ajax({
          method: 'DELETE',
-         url: 'http://'+ ip + '8080/player' + 'pregame/' + playerId
+         url: 'http://'+ ip + '8080/player' + 'Lobby/' + playerId
      }).done(function (jugador) {
          var style = "";
          this.idOfExitedPlayer = playerId;
