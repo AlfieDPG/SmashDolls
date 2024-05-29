@@ -9,7 +9,7 @@ import controlMenu2 from "/scenes/controlMenu2.js";
 import Player1Win from "/scenes/Player1Win.js";
 import Player2Win from "/scenes/Player2Win.js";
 import pauseMenu from "/scenes/pauseMenu.js";
-import Lobby from "/scenes/Lobby.js";
+import loreScene from "../scenes/loreScene.js";
 
 const config = {
   
@@ -34,7 +34,7 @@ const config = {
         createContainer: true
     },
 
-    scene: [mainMenu,Lobby,creditsMenu,creditsMenu2,pauseMenu,Player2Win,Player1Win,
+    scene: [mainMenu,creditsMenu,creditsMenu2,pauseMenu,Player2Win,Player1Win,loreScene,
     controlMenu, controlMenu2,selectMenu,scene1,UI] // aqui van todas las escenas
    
 

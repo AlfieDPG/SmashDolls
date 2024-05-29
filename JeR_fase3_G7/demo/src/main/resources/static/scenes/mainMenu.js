@@ -1,4 +1,7 @@
-
+function return_IP() {
+    return location.host;
+}
+export {return_IP};
 
 function fullScreen(){
     if(this.scene.scale.isFullscreen == false){
@@ -48,7 +51,7 @@ export default class mainMenu extends Phaser.Scene {
         
         //titulo
         var title = this.add.image(960,200,"titulo");
-        title.setScale(0.8);
+        title.setScale(0.5);
 
         //botón para poner pantalla completa
         let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
@@ -57,23 +60,28 @@ export default class mainMenu extends Phaser.Scene {
  
         //boton jugar en local
         let localButton = this.add.image (960,550, "local" ).setInteractive();
-        localButton.setScale(3);
+        localButton.setScale(1.7);
         localButton.on("pointerdown", (localButton) =>{
-            this.scene.start("Lobby");
+            this.scene.start("scene1");
         });
 
-    
+        //boton lore
+        let loreButton = this.add.image (960,1000, "credits" ).setInteractive();
+        loreButton.setScale(1.7);
+        loreButton.on("pointerdown", (loreButton) =>{
+            this.scene.start("loreScene");
+        });
 
         //boton creditos
-        let creditsButton = this.add.image (960,750, "credits" ).setInteractive();
-        creditsButton.setScale(3);
+        let creditsButton = this.add.image (960,700, "credits" ).setInteractive();
+        creditsButton.setScale(1.7);
         creditsButton.on("pointerdown", (creditsButton) =>{
             this.scene.start("creditsMenu");
         });
 
         //boton controles
-        let controlButton = this.add.image (960,950, "control" ).setInteractive();
-        controlButton.setScale(3);
+        let controlButton = this.add.image (960,850, "control" ).setInteractive();
+        controlButton.setScale(1.7);
         controlButton.on("pointerdown", (controlButton) =>{
             this.scene.start("controlMenu");
         });
