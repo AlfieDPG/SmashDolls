@@ -223,6 +223,8 @@ export default class scene1 extends Phaser.Scene {
          // Configurar colisiones entre las muñecas
          this.physics.add.collider(this.doll1, this.doll2, this.handleCollision, null, this);
          
+            
+
 
     }
     
