@@ -1,4 +1,5 @@
 import UI from "./UI.js";
+import { return_IP } from "./mainMenu.js";
 
 function fullScreen(){
     if(this.scene.scale.isFullscreen == false){
@@ -10,6 +11,15 @@ function fullScreen(){
     }
 
 }
+
+
+var connection = new WebSocket('ws://'+ return_IP() +'/chat');
+	connection.onerror = function(e) {
+		console.log("WS error: " + e);
+	}
+
+
+
 var jump;
 var attack;
 var attackBela;
@@ -241,18 +251,48 @@ export default class scene1 extends Phaser.Scene {
             this.scene.sleep("UI");
             this.scene.sleep("scene1");
             this.scene.launch("pauseMenu");
-            
+            var msg ={
+                type : "pauseOn"
+            }
+            connection.send(JSON.stringify(msg));
         }
-    
+        
+        connection.onmessage = function(msg) {
+            console.log("WS message: " + msg.data);
+            var message = JSON.parse(msg.data)
+            var type = message.type
+            var movA = message.movA
+            if(type == "pauseOn"){
+                this.scene.sleep("UI");
+                this.scene.sleep("scene1");
+                this.scene.launch("pauseMenu");
+            }else if(type == "pauseOf"){
+                this.scene.stop("pauseMenu");
+                this.scene.wake("scene1");
+                this.scene.wake("UI");
+            }
+            if(movA == "A"){
+                this.doll1.setVelocityX(-300);
+                this.doll1.flipX = true;
+                if (this.doll1.body.blocked.down) {
+                   this.doll1.anims.play('walkingf',true);
+                 }
+            }
+        }
         //eventos de teclado para la muñeca 1
         if (this.input.keyboard.addKey('A').isDown) //moverse a la izquierda
         {
+            //connection.send()
             this.doll1.setVelocityX(-300);
             this.doll1.flipX = true;
             if (this.doll1.body.blocked.down) {
                this.doll1.anims.play('walkingf',true);
              }
 
+             var msg ={
+                movA : "A"
+             }
+             connection.send(JSON.stringify(msg));
             
            
         }

@@ -78,7 +78,6 @@ this.textoCuerpo = this.add.text(0, 0, '', {
     wordWrap: { width: 800, useAdvancedWrap: true } // Envolver palabras para ajustar dentro de un ancho especificado
 });
 
-
 // Calcular la posición inicial del texto para centrarlo en la pantalla
 let x = this.cameras.main.width / 2;
 let y = this.cameras.main.height / 2;
@@ -218,38 +217,9 @@ let selectedLore = this.lores[this.currentLoreIndex];
                 }
             });
 
-       // Calculamos las dimensiones y posición del contenedor
-       const containerWidth = 600;
-       const containerHeight = 400;
-       const containerX = this.cameras.main.width / 2 - containerWidth / 2;
-       const containerY = this.cameras.main.height / 2 - containerHeight / 2;
 
-       // Creamos el contenedor gráfico con bordes negros
-       const graphics = this.add.graphics();
-       graphics.fillStyle(0x000000, 1); // Color negro
-       graphics.fillRect(containerX, containerY, containerWidth, containerHeight);
-       graphics.lineStyle(4, 0xffffff); // Bordes blancos
-       graphics.strokeRect(containerX, containerY, containerWidth, containerHeight);
-
-       // Creamos un contenedor DOM para el texto con scroll
-       const divContainer = document.createElement('div');
-       divContainer.style.width = containerWidth + 'px';
-       divContainer.style.height = containerHeight + 'px';
-       divContainer.style.overflowY = 'scroll';
-       divContainer.style.color = '#ffffff'; // Color del texto
-       divContainer.style.position = 'absolute';
-       divContainer.style.left = containerX + 'px';
-       divContainer.style.top = containerY + 'px';
-
-       // Añadimos contenido al contenedor DOM
-       divContainer.innerHTML = `
-           <p>This is a sample text inside the scrollable div.</p>
-           <p>Another line of text.</p>
-           <!-- Puedes agregar más contenido HTML aquí -->
-       `;
-
-       // Añadimos el contenedor DOM al DOM del juego
-       this.game.canvas.parentNode.appendChild(divContainer);
+      
+      
 
     }
 

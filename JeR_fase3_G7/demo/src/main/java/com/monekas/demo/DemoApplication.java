@@ -15,13 +15,13 @@ public class DemoApplication implements WebSocketConfigurer {
 	
 	@Override
 	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-		registry.addHandler(demoHandler(), "/demo")
+		registry.addHandler(createChatHandler(), "/chat")
 			.setAllowedOrigins("*");
 	}
 	
 	@Bean
-	public WebsocketDemoHandler demoHandler() {
-		return new WebsocketDemoHandler();
+	public ChatHandler createChatHandler() {
+		return new ChatHandler();
 	}
 	public static void main(String[] args) {
 		SpringApplication.run(DemoApplication.class, args);
