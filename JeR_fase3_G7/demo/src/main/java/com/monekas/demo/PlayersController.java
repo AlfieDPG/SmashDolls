@@ -19,30 +19,43 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/player")
+@RequestMapping("/players")
 public class PlayersController {
-
+	//almacenamos los jugadores en un hashmap
 	Map<Long, Player> players = new ConcurrentHashMap<>(); 
 	AtomicLong nextId = new AtomicLong(0);
 	
 	@GetMapping
-	public Collection<Player> players() {
+	public Collection<Player> obtenerPlayers() {
 		return players.values();
 	}
 
+	//post para añadir un nuevo jugador
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Player nuevoPlayer(@RequestBody Player player) {
 
-		long id = nextId.incrementAndGet();
-		player.setId(id);
-		players.put(id, player);
+
+		if (players.isEmpty()){
+			//si es el primer jugador que añadimos
+			player.setId(0);
+			players.put(0L, player);
+			System.out.println("Jugador creado con éxito: " + player); 
+		}
+		else{
+			//
+			long id = nextId.incrementAndGet();
+			player.setId(id);
+			players.put(id, player);
+		}
 
 		return player;
 	}
 
+
+	//cambiamos el nombre del jugador a traves de su id
 	@PutMapping("/{id}")
-	public ResponseEntity<Player> actulizaPlayer(@PathVariable long id, @RequestBody Player playerActualizado) {
+	public ResponseEntity<Player> actulizarPlayer(@PathVariable long id, @RequestBody Player playerActualizado) {
 
 		Player savedPlayer = players.get(playerActualizado.getId());
 
@@ -56,6 +69,7 @@ public class PlayersController {
 		}
 	}
 
+	//obtener jugador segun el id que tenga
 	@GetMapping("/{id}")
 	public ResponseEntity<Player> getPlayer(@PathVariable long id) {
 
@@ -67,7 +81,7 @@ public class PlayersController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
-
+	//eliminar el jugador segun su id
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Player> borraPlayer(@PathVariable long id) {
 
