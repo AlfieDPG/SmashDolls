@@ -156,7 +156,7 @@ this.textoCuerpo.setOrigin(0.5, 0.5);
     });
 
         // Añadir botón para agregar nuevo lore
-        let addLoreButton = this.add.text(1700, 990, 'Add Lore', { fontSize: '32px', fill: '#fff' }).setInteractive();
+        let addLoreButton = this.add.text(1700, 990, 'Añadir lore ', { fontSize: '32px', fill: '#fff' }).setInteractive();
         addLoreButton.on("pointerdown", () => {
             // Mostrar formulario emergente para agregar nuevo lore
             let titulo = prompt("Enter title for new lore:");
