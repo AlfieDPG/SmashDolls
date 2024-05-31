@@ -1,6 +1,6 @@
 import scene1 from "./scene1.js";
 console.log('ui cargado');
-export default class UI extends Phaser.Scene{
+export default class UI extends Phaser.Scene { 
     
     constructor(){
         super({key: 'UI'});
