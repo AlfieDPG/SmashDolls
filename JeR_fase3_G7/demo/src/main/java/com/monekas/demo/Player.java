@@ -5,6 +5,10 @@ public class Player {
     private String name;
     private int rounds;
 
+    public Player(long id, String name, int rounds){
+        this.name= name;
+        this.rounds = rounds;
+    }
 
 public long getId() {
         return id;

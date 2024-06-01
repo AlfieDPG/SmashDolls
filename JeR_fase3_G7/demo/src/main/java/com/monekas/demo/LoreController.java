@@ -1,7 +1,13 @@
 package com.monekas.demo;
 
-
+import java.io.BufferedWriter;
+import java.io.File;  // Import the File class
+import java.io.FileWriter;
+import java.io.IOException;  // Import the IOException class to handle errors
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
@@ -27,6 +33,51 @@ public class LoreController {
         Map<Long, Lore> loreMap = new ConcurrentHashMap<>();
         AtomicLong nextId = new AtomicLong(0);
         private static final Lore DEFAULT_LORE = new Lore(0L,"Titulo del Lore", "Texto del lore inicial");
+        private static final String FILE_NAME = "lores.txt";
+          public LoreController() {
+            loadLoresFromFile();
+          }
+
+    // Método para cargar lores desde el fichero
+    private void loadLoresFromFile() {
+        try {
+            File file = new File(FILE_NAME);
+            if (file.exists()) {
+                List<String> lines = Files.readAllLines(Paths.get(FILE_NAME));
+                for (String line : lines) {
+                    String[] parts = line.split(";", 3);
+                    if (parts.length == 3) {
+                        long id = Long.parseLong(parts[0]);
+                        String title = parts[1];
+                        String text = parts[2];
+                        loreMap.put(id, new Lore(id, title, text));
+                        nextId.set(Math.max(nextId.get(), id + 1));
+                    }
+                }
+            } else {
+                Files.createFile(Paths.get(FILE_NAME));
+                // Añadir el lore por defecto si el archivo no existe
+                loreMap.put(DEFAULT_LORE.getId(), DEFAULT_LORE);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    // Método para guardar los lores en el fichero
+    private void saveLoresToFile() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
+            for (Lore lore : loreMap.values()) {
+                writer.write(lore.getId() + ";" + lore.getTitulo() + ";" + lore.getTexto());
+                writer.newLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+        // ^Mirar si existe un fichero que lllama lores.txt, si existe, miro las líneas uqe tiene. y cargo las líneas en la aplicación. Esto sustituye la línea 29. 
+        // Cada vez que se anade un nuevo lore se vuelva en el fichero
+        // Cada vez que se elimina, se elimina la línea del fichero, actualización...
         
         @GetMapping
         public Collection<Lore> obtenerLore() {
@@ -37,27 +88,12 @@ public class LoreController {
         @PostMapping
         @ResponseStatus(HttpStatus.CREATED)
         public Lore añadirLore(@RequestBody Lore nuevoLore) {
-            
-           
-                if (loreMap.isEmpty()) { // Si el mapa de lore está vacío, establece el ID en 0
-                        nuevoLore.setID(0);
-                        loreMap.put(0L, nuevoLore); // Agregar el lore inicial al mapa
-                        System.out.println("Lore inicial creado con éxito: " + nuevoLore); // Imprimir un mensaje indicando que se ha creado el lore inicial
-                        
-                     
-                }
-                else if (nuevoLore.getTitulo().equals("Titulo del Lore") && nuevoLore.getTexto().equals("Texto del lore inicial")) {
-                        // Si el nuevo lore tiene el mismo título y texto que el lore inicial, no lo añadas
-                        System.out.println("El nuevo lore es igual al lore inicial. No se añadirá.");
-                }
-                else {
-                    long id = nextId.incrementAndGet();
-                    nuevoLore.setID(id);
-                    loreMap.put(nuevoLore.getId(), nuevoLore);
-                }
+                long id = nextId.incrementAndGet();
+                nuevoLore.setID(id);
+                loreMap.put(nuevoLore.getId(), nuevoLore);
+                saveLoresToFile();
                 return nuevoLore;
-             
-        }
+            }
     
         // Petición PUT para actualizar el lore del juego
         @PutMapping("/{id}")
@@ -68,6 +104,7 @@ public class LoreController {
                 // Establecer el ID del nuevo lore como el ID del lore existente
                 nuevoLore.setID(id);
                 loreMap.put(id, nuevoLore);
+                saveLoresToFile();
                 return new ResponseEntity<>(nuevoLore, HttpStatus.OK);
             } else {
                 return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -87,6 +124,7 @@ public class LoreController {
                     if (loreMap.isEmpty()) {
                         loreMap.put(0L,DEFAULT_LORE);
                     }
+                    saveLoresToFile();
                     return ResponseEntity.noContent().build(); // Devuelve 204 NO CONTENT si el lore se elimina correctamente
                 } else {
                     return ResponseEntity.notFound().build(); // Devuelve 404 NOT FOUND si el lore no se encuentra
