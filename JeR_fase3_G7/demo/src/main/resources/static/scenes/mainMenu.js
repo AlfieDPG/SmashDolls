@@ -2,6 +2,7 @@ function return_IP() {
     return location.host;
 }
 export {return_IP};
+import { connection } from './websocket.js';
 
 function fullScreen(){
     if(this.scene.scale.isFullscreen == false){
@@ -63,6 +64,10 @@ export default class mainMenu extends Phaser.Scene {
         localButton.setScale(1.7);
         localButton.on("pointerdown", (localButton) =>{
             this.scene.start("scene1");
+            var msg ={
+                type : "play"
+            }
+            connection.send(JSON.stringify(msg));
         });
 
         //boton lore
@@ -85,7 +90,14 @@ export default class mainMenu extends Phaser.Scene {
         controlButton.on("pointerdown", (controlButton) =>{
             this.scene.start("controlMenu");
         });
+        window.addEventListener('ws-message', (event) => {
+            const message = event.detail;
+            const type = message.type;
+            if(type == "play"){
+                this.scene.start("scene1");
 
+            }
+        });
         
     }
     
