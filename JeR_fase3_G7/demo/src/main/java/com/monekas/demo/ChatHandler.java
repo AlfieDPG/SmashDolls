@@ -15,15 +15,22 @@ import com.fasterxml.jackson.databind.node.ObjectNode;
 
 public class ChatHandler extends TextWebSocketHandler {
 
-	private Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
-	private ObjectMapper mapper = new ObjectMapper();
-	
-	@Override
-	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		//Max 2
-		System.out.println("New user: " + session.getId());
-		sessions.put(session.getId(), session);
-	}
+	private static final int MAX_SESSIONS = 2;
+    private Map<String, WebSocketSession> sessions = new ConcurrentHashMap<>();
+    private ObjectMapper mapper = new ObjectMapper();
+    
+    @Override
+    public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+        if (sessions.size() < MAX_SESSIONS) {
+            System.out.println("New user: " + session.getId());
+            sessions.put(session.getId(), session);
+
+			
+        } else {
+            System.out.println("Connection refused: " + session.getId());
+            session.close(CloseStatus.SERVICE_OVERLOAD); // Custom close status for service overload
+        }
+    }
 	
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {

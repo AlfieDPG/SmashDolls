@@ -1,3 +1,12 @@
+/*var connection = new WebSocket('ws://'+ return_IP() +'/chat');
+	connection.onerror = function(e) {
+		console.log("WS error: " + e);
+	}
+    connection.onclose = function() {
+        console.log("Closing socket");
+    }*/
+
+    import connection from './scene1.js'; // Asegúrate de que la ruta del archivo sea correcta
 
 
 function fullScreen(){
@@ -59,18 +68,35 @@ export default class pauseMenu extends Phaser.Scene {
         //boton salir
         let returnButton = this.add.image (960,900, "return" ).setInteractive();
         returnButton.setScale(3);
+        
         returnButton.on("pointerdown", (returnButton) =>{
+            
             this.scene.stop("pauseMenu");
             this.scene.wake("scene1");
             this.scene.wake("UI");
+            var msg ={
+                type : "pauseOff"
+            }
+            connection.send(JSON.stringify(msg));
+            
         });
+        /*connection.onmessage = (msg) => {
+            console.log("WS message: " + msg.data);
+            var message = JSON.parse(msg.data)
+            var type = message.type
+            if(type == "pauseOf"){
+                this.scene.stop("pauseMenu");
+                this.scene.wake("scene1");
+                this.scene.wake("UI");
+            
 
-        
-    }
+        }
+    }*/
+}
     
     update(time, delta){
         
     }
 }
 
-
+     

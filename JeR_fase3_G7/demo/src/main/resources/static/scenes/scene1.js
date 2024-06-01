@@ -17,8 +17,12 @@ var connection = new WebSocket('ws://'+ return_IP() +'/chat');
 	connection.onerror = function(e) {
 		console.log("WS error: " + e);
 	}
+    connection.onclose = function() {
+        console.log("Closing socket");
+    }
 
-
+    
+var playerId = 0;
 
 var jump;
 var attack;
@@ -257,31 +261,11 @@ export default class scene1 extends Phaser.Scene {
             connection.send(JSON.stringify(msg));
         }
         
-        connection.onmessage = function(msg) {
-            console.log("WS message: " + msg.data);
-            var message = JSON.parse(msg.data)
-            var type = message.type
-            var movA = message.movA
-            if(type == "pauseOn"){
-                this.scene.sleep("UI");
-                this.scene.sleep("scene1");
-                this.scene.launch("pauseMenu");
-            }else if(type == "pauseOf"){
-                this.scene.stop("pauseMenu");
-                this.scene.wake("scene1");
-                this.scene.wake("UI");
-            }
-            if(movA == "A"){
-                this.doll1.setVelocityX(-300);
-                this.doll1.flipX = true;
-                if (this.doll1.body.blocked.down) {
-                   this.doll1.anims.play('walkingf',true);
-                 }
-            }
-        }
+       
         //eventos de teclado para la muñeca 1
-        if (this.input.keyboard.addKey('A').isDown) //moverse a la izquierda
+        if (this.input.keyboard.addKey('A').isDown && playerId == 1) //moverse a la izquierda
         {
+            
             //connection.send()
             this.doll1.setVelocityX(-300);
             this.doll1.flipX = true;
@@ -290,25 +274,37 @@ export default class scene1 extends Phaser.Scene {
              }
 
              var msg ={
-                movA : "A"
+                type : "A"
              }
              connection.send(JSON.stringify(msg));
             
            
         }
-        else if (this.input.keyboard.addKey('D').isDown) //moverse a la derecha
+        else if (this.input.keyboard.addKey('D').isDown && playerId == 1) //moverse a la derecha
         {
             this.doll1.setVelocityX(300);
             this.doll1.flipX=false;
             if (this.doll1.body.blocked.down) {
                 this.doll1.anims.play('walkingf', true);
             }
+
+
+            var msg ={
+                type : "D"
+             }
+             connection.send(JSON.stringify(msg));
         }
 
-        else if(this.input.keyboard.addKey('W').isDown && this.doll1.body.blocked.down){ //animación de saltar
+        else if(this.input.keyboard.addKey('W').isDown && this.doll1.body.blocked.down && playerId == 1){ //animación de saltar
             this.doll1.setVelocityY(-700);
             this.doll1.anims.play('jumpingf', true);
             jump.play();
+
+
+            var msg ={
+                type : "W"
+             }
+             connection.send(JSON.stringify(msg));
         }
 
         else if(this.input.keyboard.addKey('E').isDown ){ //animación de ataque básico
@@ -326,6 +322,12 @@ export default class scene1 extends Phaser.Scene {
                 this.isAttacking1 = true;
                 
             }
+            playerId = 1;
+            var msg ={
+                type : "E"
+             }
+             connection.send(JSON.stringify(msg));
+            
             
         }
 
@@ -345,6 +347,10 @@ export default class scene1 extends Phaser.Scene {
                 
                 
             }
+            var msg ={
+                type : "R"
+             }
+             connection.send(JSON.stringify(msg));
            
         }
 
@@ -362,6 +368,10 @@ export default class scene1 extends Phaser.Scene {
                 console.log("shield is active");
                 
             }
+            var msg ={
+                type : "Q"
+             }
+             connection.send(JSON.stringify(msg));
             
         }
         else{
@@ -379,7 +389,7 @@ export default class scene1 extends Phaser.Scene {
         }
 
         //eventos de teclado para la muñeca 2
-        if (this.input.keyboard.addKey('J').isDown) //moverse a la izquierda
+        if (this.input.keyboard.addKey('J').isDown && playerId == 2) //moverse a la izquierda
         {
             this.doll2.setVelocityX(-300);
             this.doll2.flipX = true; 
@@ -388,8 +398,13 @@ export default class scene1 extends Phaser.Scene {
                 
                this.doll2.anims.play('walkingv',true);
              }  
+
+             var msg ={
+                type : "J"
+             }
+             connection.send(JSON.stringify(msg));
         }
-        else if (this.input.keyboard.addKey('L').isDown) //moverse a la derecha
+        else if (this.input.keyboard.addKey('L').isDown && playerId == 2) //moverse a la derecha
         {
             this.doll2.setVelocityX(300);
             this.doll2.flipX=false;
@@ -397,11 +412,21 @@ export default class scene1 extends Phaser.Scene {
             if (this.doll2.body.blocked.down) {
                 this.doll2.anims.play('walkingv', true);
             }
+
+            var msg ={
+                type : "L"
+             }
+             connection.send(JSON.stringify(msg));
         }
-        else if(this.input.keyboard.addKey('I').isDown && this.doll2.body.blocked.down){ //animación de saltar
+        else if(this.input.keyboard.addKey('I').isDown && this.doll2.body.blocked.down && playerId == 2){ //animación de saltar
             this.doll2.setVelocityY(-700);
             this.doll2.anims.play('jumpingv', true);
             jump.play();
+
+            var msg ={
+                type : "I"
+             }
+             connection.send(JSON.stringify(msg));
         }
 
         else if(this.input.keyboard.addKey('O').isDown ){ //animación de ataque básico
@@ -419,6 +444,11 @@ export default class scene1 extends Phaser.Scene {
                 this.isAttacking2 = true;
                 
             }
+            playerId = 2;
+            var msg ={
+                type : "O"
+             }
+             connection.send(JSON.stringify(msg));
             
         }
 
@@ -438,6 +468,10 @@ export default class scene1 extends Phaser.Scene {
                 
                 
             }
+            var msg ={
+                type : "P"
+             }
+             connection.send(JSON.stringify(msg));
             
         }
 
@@ -455,6 +489,10 @@ export default class scene1 extends Phaser.Scene {
                 
             }
             
+            var msg ={
+                type : "U"
+             }
+             connection.send(JSON.stringify(msg));
             
         }
 
@@ -470,7 +508,223 @@ export default class scene1 extends Phaser.Scene {
                 }
             }
         }
-       
+        connection.onmessage = (msg) => {
+            console.log("WS message: " + msg.data);
+            var message = JSON.parse(msg.data)
+            var type = message.type
+
+            if (type == "SessionId") {
+                console.log("Id request succesful. My ID = " + message.content)    
+                assignedPlayer = parseInt(message.content);
+            }
+
+            if(type == "pauseOn"){
+                this.scene.sleep("UI");
+                this.scene.sleep("scene1");
+                this.scene.launch("pauseMenu");
+
+            }else if(type == "pauseOff"){
+                this.scene.stop("pauseMenu");
+                this.scene.wake("scene1");
+                this.scene.wake("UI");
+            }
+            if(type == "A"){
+                this.doll1.setVelocityX(-300);
+                this.doll1.flipX = true;
+                if (this.doll1.body.blocked.down) {
+                   this.doll1.anims.play('walkingf',true);
+                 }
+            }
+            if(type == "W"){
+                this.doll1.setVelocityY(-700);
+                this.doll1.anims.play('jumpingf', true);
+                jump.play();
+                
+            }
+
+            if(type == "D"){
+                this.doll1.setVelocityX(300);
+                this.doll1.flipX=false;
+                if (this.doll1.body.blocked.down) {
+                this.doll1.anims.play('walkingf', true);
+            }
+                
+            }
+            if(type == "J"){
+                this.doll2.setVelocityX(-300);
+                this.doll2.flipX = true; 
+                this.doll2.body.setOffset(30, 0); // Ajustar la posición del cuerpo de colisión 
+                if (this.doll2.body.blocked.down) {
+                this.doll2.anims.play('walkingv',true);
+             }  
+
+            }
+            if(type == "I"){
+                this.doll2.setVelocityY(-700);
+                this.doll2.anims.play('jumpingv', true);
+                jump.play();
+            }
+
+            if(type == "L"){
+                this.doll2.setVelocityX(300);
+                this.doll2.flipX=false;
+                this.doll2.body.setOffset(20, 0); // Ajustar la posición del cuerpo de colisión
+                if (this.doll2.body.blocked.down) {
+                this.doll2.anims.play('walkingv', true);
+            }
+                
+            }
+
+            if(type == "E"){
+                this.doll1.body.setOffset(20, 0);
+                this.doll1.anims.play('basicf', false);
+                attack.play();
+                this.doll1.on('animationcomplete', function (animation) {
+                if (animation.key === 'basicf') {
+                    this.doll1.isAttacking1 = false; // Resetear la bandera cuando la animación completa
+                }
+            }, this);
+    
+            // Verificar si la animación de ataque básico está reproduciéndose
+            if (this.doll1.anims.isPlaying) {
+                this.isAttacking1 = true;
+                
+            }
+
+            }
+                
+            
+            if(type == "R"){
+                this.doll1.body.setOffset(30, 0);
+                this.doll1.anims.play('attackingf', false);
+                attackFroppy.play();
+                this.doll1.on('animationcomplete', function (animation) {
+                if (animation.key === 'attackingf') {
+                    this.isSuperAttacking1 = false; // Resetear cuando la animación se completa
+                }
+            }, this);
+    
+            // Verificar si la animación de ataque especial está reproduciéndose
+            if (this.doll1.anims.isPlaying) {
+                this.isSuperAttacking1 = true;     
+            }
+
+            }
+            if(type == "Q"){
+                this.doll1.anims.play('shieldf', false);
+                this.doll2.on('animationcomplete', function (animation) {
+                if (animation.key === 'shieldv') {
+                    this.isShieldActive2 = false; // Resetear la bandera cuando la animación completa
+                }
+                }, this);
+    
+            // Verificar si la animación de ataque básico está reproduciéndose
+                if (this.doll2.anims.isPlaying) {
+                this.isShieldActive2 = true;
+                console.log("shield is active");
+                
+                }
+
+            }
+            if(type == "O"){
+                this.doll2.body.setOffset(-20, 0);
+            this.doll2.anims.play('attackingv', false);
+            attack.play();
+            this.doll2.on('animationcomplete', function (animation) {
+                if (animation.key === 'attackingv') {
+                    this.isAttacking2 = false; // Resetear la bandera cuando la animación completa
+                }
+            }, this);
+    
+            // Verificar si la animación de ataque básico está reproduciéndose
+            if (this.doll2.anims.isPlaying) {
+                this.isAttacking2 = true;
+                
+            }
+
+            }
+            if(type == "P"){
+                this.doll2.anims.play('basicv', false);
+            attackBela.play();
+            this.doll2.on('animationcomplete', function (animation) {
+                if (animation.key === 'basicv') {
+                    this.isSuperAttacking2 = false; // Resetear cuando la animación se completa
+                }
+            }, this);
+    
+            // Verificar si la animación de ataque especial está reproduciéndose
+            if (this.doll2.anims.isPlaying) {
+                this.isSuperAttacking2 = true;
+                
+                
+            }
+
+            }
+            if(type == "U"){
+                this.doll2.anims.play('shieldv', false);
+            this.doll2.on('animationcomplete', function (animation) {
+                if (animation.key === 'shieldv') {
+                    this.isShieldActive2 = false; // Resetear la bandera cuando la animación completa
+                }
+            }, this);
+    
+            if (this.doll2.anims.isPlaying) {
+                this.isShieldActive2 = true;
+                console.log("shield is active");
+                
+            }
+            
+
+            }
+
+            if(type == "Dano1"){
+                player2.setData('life2', player2.getData('life2') - this.restarVidas);
+            
+                // Actualizar texto de vidas de la muñeca 1
+                
+                this.textLife2.setText(` ${player2.getData('life2')}%`);
+                
+                
+            }
+            if(type == "Danoespecial1"){
+                player2.setData('life2', player2.getData('life2') - this.restarVidas);//la muñeca 2 pierde 5 vidas
+           
+                this.textLife2.setText(` ${player2.getData('life2')}%`);
+                
+                
+            }
+            if(type == "Victoria1"){
+                this.scene.stop("UI");
+                this.scene.start("Player1Win");
+                
+                
+            }
+            if(type == "Dano2"){
+                player1.setData('life1', player1.getData('life1') - this.restarVidas);
+                
+                
+                this.textLife1.setText(` ${player1.getData('life1')}%`);
+                
+                
+            }
+            if(type == "Danoespecial2"){
+                player1.setData('life1', player1.getData('life1') - this.restarVidas);
+               
+                
+                this.textLife1.setText(` ${player1.getData('life1')}%`);
+                
+                
+            }
+            if(type == "Victoria2"){
+
+                this.scene.stop("UI");
+                this.scene.start("Player2Win");
+            }
+
+
+               
+            
+        }
     
        
     }
@@ -519,12 +773,24 @@ export default class scene1 extends Phaser.Scene {
             // Actualizar texto de vidas de la muñeca 1
             
             this.textLife2.setText(` ${player2.getData('life2')}%`);
-
+            //Mensaje daño 1
+            var msg ={
+                type : "Dano1"
+             }
+             connection.send(JSON.stringify(msg));
             
         }
         else {
+
             this.scene.stop("UI");
             this.scene.start("Player1Win");
+
+            //Mensaje victoria
+            var msg ={
+                type : "Victoria1"
+             }
+             connection.send(JSON.stringify(msg));
+
         } 
         this.registry.events.emit('vida2', player2.getData('life2'));
         }  
@@ -537,13 +803,27 @@ export default class scene1 extends Phaser.Scene {
         if (player2.getData('life2') - this.restarVidas > -1) {
             player2.setData('life2', player2.getData('life2') - this.restarVidas);//la muñeca 2 pierde 5 vidas
            
-            
             this.textLife2.setText(` ${player2.getData('life2')}%`);
+
+            //Mensaje daño especial
+            var msg ={
+                type : "Danoespecial1"
+             }
+             connection.send(JSON.stringify(msg));
+
             
         }
         else {
+
             this.scene.stop("UI");
             this.scene.start("Player1Win");
+
+            //Mensaje victoria 1
+            var msg ={
+                type : "Victoria1"
+             }
+             connection.send(JSON.stringify(msg));
+
         } 
         this.registry.events.emit('vida2', player2.getData('life2'));
     }
@@ -571,17 +851,30 @@ export default class scene1 extends Phaser.Scene {
                 
                 
                 this.textLife1.setText(` ${player1.getData('life1')}%`);
+
+                //Mensaje Daño 2
+                var msg ={
+                    type : "Dano2"
+                 }
+                 connection.send(JSON.stringify(msg));
+
                 
             }
             else {
                 this.scene.stop("UI");
                 this.scene.start("Player2Win");
+
+                //Mensaje victoria 2
+                var msg ={
+                    type : "Victoria2"
+                 }
+                 connection.send(JSON.stringify(msg));
             } 
             this.registry.events.emit('vida', player1.getData('life1'));
         } 
     else if (this.isSuperAttacking2 == true && this.isShieldActive1==false) {
             
-            this.restarVidas = 10; //vida restada ataque normal
+            this.restarVidas = 10; //vida restada ataque especial
             this.isSuperAttacking2=false;
 
             if (player1.getData('life1') - this.restarVidas > -1) {
@@ -590,10 +883,21 @@ export default class scene1 extends Phaser.Scene {
                 
                 this.textLife1.setText(` ${player1.getData('life1')}%`);
                 
+                //Mensaje daño especial
+                var msg ={
+                    type : "Danoespecial2"
+                 }
+                 connection.send(JSON.stringify(msg));
             }
             else {
                 this.scene.stop("UI");
                 this.scene.start("Player2Win");
+
+                //Mensaje victoria 2
+                var msg ={
+                    type : "Victoria2"
+                 }
+                 connection.send(JSON.stringify(msg));
                 
             } 
             this.registry.events.emit('vida', player1.getData('life1'));
