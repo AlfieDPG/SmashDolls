@@ -115,7 +115,7 @@ updatePlayer(id, nuevoPlayer, IP) {
 deletePlayer(id, IP) {
 $.ajax({
     method: "DELETE",
-    url: 'http://' + IP + '/players/' + id
+    url: 'http://' + IP + '/players' + id
 }).done(function () {
     console.log("Jugador eliminado con éxito" );
     // Aquí puedes manejar la respuesta del servidor, como actualizar la interfaz de usuario después de eliminar el jugador

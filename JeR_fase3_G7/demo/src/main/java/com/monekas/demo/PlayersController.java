@@ -44,6 +44,7 @@ private void loadPlayersFromFile() {
 		File file = new File(FILE_NAME);
 		if (file.exists()) {
 			List<String> lines = Files.readAllLines(Paths.get(FILE_NAME));
+			
 			for (String line : lines) {
 				String[] parts = line.split(";", 3);
 				if (parts.length == 3) {
@@ -55,7 +56,7 @@ private void loadPlayersFromFile() {
 				}
 			}
 		} else {
-			Files.createFile(Paths.get(FILE_NAME));
+			Files.createFile(Paths.get(FILE_NAME));	
 			
 		}
 	} catch (IOException e) {
@@ -97,22 +98,20 @@ private void saveplayersToFile() {
 		return player;
 	}
 
-
-	//cambiamos el nombre del jugador a traves de su id
-	@PutMapping("/{id}")
-	public ResponseEntity<Player> actulizarPlayer(@PathVariable long id, @RequestBody Player playerActualizado) {
-
-		Player savedPlayer = players.get(playerActualizado.getId());
-
-		if (savedPlayer != null) {
-			playerActualizado.setId(id);
-			players.put(id, playerActualizado);
-			saveplayersToFile();
-			return new ResponseEntity<>(playerActualizado, HttpStatus.OK);
-		} 
-		else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	
+	//cambiamos las rondas a traves de su nombre
+	@PutMapping("/{name}")
+	public ResponseEntity<Player> actualizarRounds(@PathVariable String name, @RequestBody Player playerActualizado) {
+		for (Player player : players.values()) {
+			if (player.getName().equals(name)) {
+				player.setRounds(playerActualizado.getRounds());
+				saveplayersToFile();
+				return new ResponseEntity<>(player, HttpStatus.OK);
+			}
 		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	
+	
 	}
 
 	/*obtener jugador segun el id que tenga
@@ -160,6 +159,11 @@ private void saveplayersToFile() {
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}*/
+
+		// RONDAS 
+		
+
+
 	}
 
 }

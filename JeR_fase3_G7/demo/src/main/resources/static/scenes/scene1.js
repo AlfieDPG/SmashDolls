@@ -1,5 +1,9 @@
-import UI from "./UI.js";
+
 import { return_IP } from "./mainMenu.js";
+import { return_playerName } from "./playerName.js";
+import { return_players } from "./playerName.js";
+
+var serverRequests = new ServerRequests();
 
 function fullScreen(){
     if(this.scene.scale.isFullscreen == false){
@@ -11,7 +15,8 @@ function fullScreen(){
     }
 
 }
-
+var nombrePlayer;
+var rondasGanadas;
 
 var connection = new WebSocket('ws://'+ return_IP() +'/chat');
 	connection.onerror = function(e) {
@@ -73,6 +78,7 @@ export default class scene1 extends Phaser.Scene {
     }
     
      create(){
+        nombrePlayer = return_playerName();
         //añadir fondo
         var background = this.add.image(950,530,"background");
          background.setScale(1.9);
@@ -855,13 +861,15 @@ export default class scene1 extends Phaser.Scene {
                 //Mensaje Daño 2
                 var msg ={
                     type : "Dano2"
-                 }
+                 } 
                  connection.send(JSON.stringify(msg));
 
                 
             }
             else {
                 this.scene.stop("UI");
+                //rondasGanadas=+1;
+                //this.anadirRondas();
                 this.scene.start("Player2Win");
 
                 //Mensaje victoria 2
@@ -891,14 +899,19 @@ export default class scene1 extends Phaser.Scene {
             }
             else {
                 this.scene.stop("UI");
+                //rondasGanadas=+1;
+                //this.anadirRondas();
                 this.scene.start("Player2Win");
-
+              
+                
                 //Mensaje victoria 2
                 var msg ={
                     type : "Victoria2"
                  }
                  connection.send(JSON.stringify(msg));
                 
+
+
             } 
             this.registry.events.emit('vida', player1.getData('life1'));
             // Agregar lógica adicional para la animación de ataque especial de doll2
@@ -934,7 +947,19 @@ handleShield2(){
     
     }
 
-
+anadirRondas(){
+    var Jugador = {
+        nombre : nombrePlayer,
+        rondas : rondasGanadas
+    }
+    serverRequests.updatePlayer(Jugador, return_IP())
+    .then ((updatePlayer)=>{
+        console.log("rondas actualizadas:",updatePlayer );
+        this.return_players();
+    }).fail(() => {
+        console.log('ERROR de conexión, no se pudo agregar las rondas.');
+    });
+}
 
 
 

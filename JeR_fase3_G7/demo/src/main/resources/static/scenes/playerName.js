@@ -4,7 +4,16 @@ var nombreJugador;
 function return_playerName() {
     return nombreJugador;
 }
-export { return_playerName };
+export {return_playerName}
+
+function return_players(){
+    loadPlayersFromServer();
+}
+
+export { return_players };
+
+
+
 // Variables necesarias para realizar funciones con peticiones al servidor
 var serverRequests = new ServerRequests();
 
@@ -153,8 +162,8 @@ export default class playerName extends Phaser.Scene {
                 }).fail(() => {
                     console.log('ERROR de conexión, no se pudo agregar el nuevo jugador.');
                 });
-    
-                this.titulo.setText('');
+                
+                
                 this.namePlayer.setText('');
             }
         }
