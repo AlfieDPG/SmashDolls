@@ -307,9 +307,30 @@ Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como e
 
   ## IMPLEMENTACIONES DE LA FASE 3
   ### - Diagrama de Navegación -
+  Para la fase tres se han añadido dos escenas; la de chat y la de tablón.
   [![Diagrama-de-Navegacion-Fase-3.jpg](https://i.postimg.cc/rsqVB9Z7/Diagrama-de-Navegacion-Fase-3.jpg)](https://postimg.cc/34bQp2TZ)
   
   ### - Diagrama de Clases -
+  A continuación presentamos el diagrama de clases que han sido utilizadas en nuestro proyecto. 
+  El index.html, el server.js donde se establece el servidor y el init.js donde se esablecen las escenas y se inicializa el juego.
+  En amarillo las escenas de juego que albergan todas las pantallas de menus, las pantallas de victoria, y la pantalla de juego con su interfaz. Por otro lado tenemos los archivos .java que
+  se han implementado en el servidor para añadir las siguientes funcionalidades:
+  
+  - Player.java y playerController.java:
+  - Historial de usuarios: Al inicial el juego y pulsar el botón de jugar, se abre un menu que permite escribir el nombre del jugador y se comunica al servidor a través de un metodo POST. Ademas 
+  el servidor permite almacenar estos datos con ayuda de un fichero, por lo que si el jugador ya ha sido registrado previamente, se guarda su información.
+
+  -Chat.java y ChatController.java:
+  - Chat entre jugadores: Se establece una interfaz nueva donde permite a los jugadores mandar mensajes, aqui nos ayudamos de las funciones POST y GET que permiten añadir nuevos mensajes junto con 
+  el nombre del jugador (introducido previamente) que los envia y cargar los mensajes anteriores enviados por otros jugadores.
+
+  - Lore.java y loreController.java:
+  - Tablón de leyendas: Para contar un poco de historia acerca del juego, se ha querido hacer un tablón con información de los personajes. Se desea que puedan aportar ideas los jugadores por lo
+  que, a través de las funciones GET, POST, PUT Y DELETE se puede cargar las historias guardadas,añadir una historia nueva y editar o borrar una existente. Además se pueden ver todas las 
+  leyendas escritas a través de las flechas.
+
+  Se ha gestionado que haya persistencia de estos datos mediante los ficheros .txt mencionados previamente, donde guardan los datos de los jugadores, del tablon de leyendas y el historial del chat.
+  
   [![Diagrama-de-Clases-Fase-3.jpg](https://i.postimg.cc/63cJvxz1/Diagrama-de-Clases-Fase-3.jpg)](https://postimg.cc/MMnrC4Cy)
   
   ## IMPLEMENTACIONES DE LA FASE 4
