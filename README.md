@@ -338,10 +338,10 @@ Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como e
 
   #### Menús
   - Menu Principal:
-  - Menu Pausa:
+  - Menu Pausa: [![MPause.jpg](https://i.postimg.cc/MHT6ZmV4/MPause.jpg)](https://postimg.cc/7GF8m7BM)
   - J1 Gana: [![MJ1Wins.jpg](https://i.postimg.cc/bJVG9Ww3/MJ1Wins.jpg)](https://postimg.cc/ftXTwHX9)
   - J2 Gana: [![MJ2Wins.jpg](https://i.postimg.cc/XNyHybJH/MJ2Wins.jpg)](https://postimg.cc/xqnyWBLM)
-  - Controles:
+  - Controles: [![MControls.jpg](https://i.postimg.cc/FHPszw1s/MControls.jpg)](https://postimg.cc/VJCcHGj3)
   - Créditos: [![MCredits.jpg](https://i.postimg.cc/sXsPNkyz/MCredits.jpg)](https://postimg.cc/SX1zXtJ1)
   - Tablón:
   - Chat:
