@@ -363,7 +363,15 @@ Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como e
   - Créditos: [![MCredits.jpg](https://i.postimg.cc/sXsPNkyz/MCredits.jpg)](https://postimg.cc/SX1zXtJ1)
   - Tablón: ![MTablon](https://github.com/AlfieDPG/SmashDolls/assets/119670014/9a9cf1ce-db3a-4011-818f-fff10b2ab977)
   - Chat: ![image](https://github.com/AlfieDPG/SmashDolls/assets/119670014/7e5b717b-c6e2-48f7-abc8-7ee9d38e4909)
-  
+   ## INSTRUCCIONES DE EJECUCIÓN
+   - Abrir carpeta completa del proyecto.
+   - Abrir el archivo "DemoApplication.java" y pulsar "Run Java".
+   - Abrir la cmd (consola del sistema) y copiar el IPv4.
+   - Abrir el navegador y escribir (IPv4:8080).
+   - Jugar
+     Solo dos personas podrán conectarse al servidor.
+     Si el navegador se muestra en blanco, copiar la carpeta "node_modules" en la carpeta"/target/classes/static". (Algunas veces al descargar el juego, esta carpeta no se descarga lo que provoca que el juego se muestre en blanco)
+
   ## IMPLEMENTACIONES DE LA FASE 4
   En esta fase nos hemos encargado de todo lo relacionado con WebSockets
    
