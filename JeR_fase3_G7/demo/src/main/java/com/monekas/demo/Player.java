@@ -6,6 +6,7 @@ public class Player {
     private int rounds;
 
     public Player(long id, String name, int rounds){
+        this.id=id;
         this.name= name;
         this.rounds = rounds;
     }
@@ -29,11 +30,11 @@ public int getRounds() {
     }
     public void setRounds(int rounds) {
         this.rounds = rounds;
-    }    
+    }
 
     @Override
-	public String toString() {
-		return "Jugador [id:" + id + ", nombre:" + name + ", rondas ganadas" + rounds + "]";
-	}
+    public String toString() {
+        return "Jugador [id:" + id + ", nombre:" + name + ", rondas ganadas" + rounds + "]";
+    }
 
 }

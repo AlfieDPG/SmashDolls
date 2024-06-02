@@ -60,6 +60,34 @@ deleteLore(id, IP) {
         console.log('ERROR de conexión, no se pudo eliminar el lore en el servidor.');       
     });
 }
+
+loadMensajes(IP) {
+    return $.ajax({
+        url: 'http://'+IP+'/mensajes'
+    }).done(function(lores) {
+        console.log('Mensajes cargados: '+ JSON.stringify(lores));
+    }).fail(function() {
+        console.log('ERROR de conexión, los datos no se podrán almacenar en el servidor.');       
+    })
+}
+// Función addLore
+addMensaje(nuevoMensaje, IP) {
+    return $.ajax({
+        method: "POST",
+        url: 'http://' + IP + '/mensajes',
+        data: JSON.stringify(nuevoMensaje),
+        processData: false,
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }).done(function (nuevoMensaje) {
+        console.log("Mensaje: " + JSON.stringify(nuevoMensaje));
+        
+    }).fail(function() {
+        console.log('ERROR de conexión, no se pudo añadir el mensaje al servidor.');
+        throw new Error('Failed to add mensaje to the server.'); // Opcionalmente, puedes lanzar un error
+    });
+}
 //PLAYER
 
 loadPlayers(IP) {
@@ -115,7 +143,7 @@ updatePlayer(id, nuevoPlayer, IP) {
 deletePlayer(id, IP) {
 $.ajax({
     method: "DELETE",
-    url: 'http://' + IP + '/players' + id
+    url: 'http://' + IP + '/players/' + id
 }).done(function () {
     console.log("Jugador eliminado con éxito" );
     // Aquí puedes manejar la respuesta del servidor, como actualizar la interfaz de usuario después de eliminar el jugador
@@ -124,10 +152,3 @@ $.ajax({
 });
 }
 }
-
-
-
-
-
-
-

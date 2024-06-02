@@ -41,28 +41,28 @@ export default class playerName extends Phaser.Scene {
         this.load.image("mainBackground", "./assets/fondos/Fondo-morado.jpg");
         this.load.image("fullScreenButton", "./assets/pantalla-completa.png");
         this.load.image("local", "./assets/Botones/BotonLocal.png");
-        this.load.image("textbox1", "./assets/textbox1.png");
+        this.load.image("exit", "./assets/Botones/BotonSalir.png");
+        this.load.image("textBox", "./assets/Botones/textBox.png");
     }
 
     create() {
         //obtener los jugadores ddel servidor 
         this.loadPlayersFromServer();
+        console.log(this.jugadores);
         // Añadir fondo
         var background = this.add.image(960, 540, "mainBackground");
         background.setScale(1);
+        this.textBox = this.add.image(960, 500,'textBox');
+        this.textBox.setScale(0.6);
 
         // Botón para poner pantalla completa
         let fullScreenButton = this.add.image(70, 70, "fullScreenButton");
         fullScreenButton.setScale(0.16);
         fullScreenButton.setInteractive().on("pointerdown", fullScreen);
 
-        // Texto para introducir el jugador
-        var textbox1 = this.add.image(960, 500, 'textbox1');
-        textbox1.setScale(0.7, 0.3);
-
-        var titulo = this.add.text(650, 400, 'INTRODUCE UN NOMBRE DEL JUGADOR', { fontFamily: 'Courier New, monospace', color: 'white' });
-        titulo.setScale(2);
-        this.namePlayer = this.add.text(690, 480, '', { fontFamily: 'Courier New, monospace', color: 'black' }).setScale(2.5);
+        var titulo = this.add.text(500, 300, 'INTRODUCE UN NOMBRE DEL JUGADOR', { fontFamily: 'Courier New, monospace', color: 'white' });
+        titulo.setScale(3);
+        this.namePlayer = this.add.text(710, 480, '', { fontFamily: 'Courier New, monospace', color: 'white' }).setScale(2.5);
 
         this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -83,16 +83,23 @@ export default class playerName extends Phaser.Scene {
         });
 
         // Botón jugar en local
-        let localButton = this.add.image(960, 1000, "local").setInteractive();
-        localButton.setScale(1.7);
+        let localButton = this.add.image(1100, 990, "local").setInteractive();
+        localButton.setScale(2.2);
         localButton.on("pointerdown", () => {
             this.scene.start("scene1");
         });
+         //boton salir
+         let exitButton = this.add.image (600,990, "exit" ).setInteractive();
+         exitButton.setScale(2.2);
+         exitButton.on("pointerdown", (exitButton) =>{
+             this.scene.start("mainMenu");
+         });
     }
     loadPlayersFromServer() {
-    serverRequests.loadPlayers(return_IP()).done(players => {
-        // Mapear los jugadores cargados desde el servidor y mantener sus IDs originales
-        this.jugadores = players.map(player => ({ id: player.id, name: player.name, rounds: player.rounds }));
+        this.jugadores=[]
+        serverRequests.loadPlayers(return_IP()).done(jugadores => {
+        this.jugadores.push(...jugadores);
+        console.log(this.jugadores);
     }).fail(() => {
         console.log('ERROR de conexión, no se pudieron cargar los jugadores desde el servidor.');
     });
@@ -118,13 +125,11 @@ export default class playerName extends Phaser.Scene {
         if (existingPlayer) {
             // Si el nombre del jugador ya existe, muestra el mensaje de bienvenida y luego inicia directamente la escena "scene1"
             console.log(`Jugador existente: ${JSON.stringify(existingPlayer)}`);
-            const welcomeText = this.add.text(700, 340, 'BIENVENIDO DE NUEVO', { fontFamily: 'Times, serif', color: 'silver' }).setScale(2.5);
+            const welcomeText = this.add.text(650, 340, 'BIENVENIDO DE NUEVO', { fontFamily: 'Courier New, monospace', color: 'white' }).setScale(3.5);
+            nombreJugador = inputName;
             
-            // Establecer un temporizador para esperar unos segundos antes de continuar a "scene1"
-            this.time.delayedCall(3000, () => {
-                welcomeText.destroy(); // Eliminar el mensaje de bienvenida
-                this.scene.start('scene1'); // Iniciar la escena "scene1"
-            });
+            //this.scene.start('chatScene'); // Iniciar la escena del chat
+    
         } else {
             // Si el nombre del jugador no existe, crea un nuevo jugador
             if (this.newPlayer && this.newTry) {
@@ -153,18 +158,20 @@ export default class playerName extends Phaser.Scene {
                 this.jugadores.push({ name: nombreJugador });
     
                 let player = {
-                    
-                    name: nombreJugador
+                    name: nombreJugador,
+                   
                 };
     
                 serverRequests.addPlayers(player, return_IP()).done((player) => {
+                    this.jugadores.push(player);
                     this.loadPlayersFromServer();
                 }).fail(() => {
                     console.log('ERROR de conexión, no se pudo agregar el nuevo jugador.');
                 });
                 
                 
-                this.namePlayer.setText('');
+                
+                //this.namePlayer.setText('');
             }
         }
     }

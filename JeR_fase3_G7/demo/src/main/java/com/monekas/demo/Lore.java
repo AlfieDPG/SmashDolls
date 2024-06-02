@@ -6,6 +6,7 @@ public class Lore {
     private String texto;
 
 public Lore(long id, String titulo, String text){
+    this.id=id;
     this.titulo= titulo;
     this.texto= text;
 
@@ -29,7 +30,7 @@ public void setTitulo(String titulo){
 public String getTexto(){
     return texto;
     }
-    
+
     public void setTexto(String texto){
         this.texto= texto;
     }

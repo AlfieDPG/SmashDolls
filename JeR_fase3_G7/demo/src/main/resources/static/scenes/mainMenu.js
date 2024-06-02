@@ -59,34 +59,39 @@ export default class mainMenu extends Phaser.Scene {
         fullScreenButton.setInteractive().on("pointerdown",fullScreen); //al clicar en el botón se pondrá en pantalla completa
  
         //boton jugar en local
-        let localButton = this.add.image (960,550, "local" ).setInteractive();
-        localButton.setScale(1.7);
+        let localButton = this.add.image (960,500, "local" ).setInteractive();
+        localButton.setScale(2.5);
         localButton.on("pointerdown", (localButton) =>{
             this.scene.start("playerName");
         });
 
         //boton lore
-        let loreButton = this.add.image (960,1000, "credits" ).setInteractive();
-        loreButton.setScale(1.7);
+        let loreButton = this.add.image (730,850, "credits" ).setInteractive();
+        loreButton.setScale(2);
         loreButton.on("pointerdown", (loreButton) =>{
             this.scene.start("loreScene");
         });
 
         //boton creditos
-        let creditsButton = this.add.image (960,700, "credits" ).setInteractive();
-        creditsButton.setScale(1.7);
+        let creditsButton = this.add.image (730,700, "credits" ).setInteractive();
+        creditsButton.setScale(2);
         creditsButton.on("pointerdown", (creditsButton) =>{
             this.scene.start("creditsMenu");
         });
 
         //boton controles
-        let controlButton = this.add.image (960,850, "control" ).setInteractive();
-        controlButton.setScale(1.7);
+        let controlButton = this.add.image (1170,850, "control" ).setInteractive();
+        controlButton.setScale(2);
         controlButton.on("pointerdown", (controlButton) =>{
             this.scene.start("controlMenu");
         });
 
-        
+        //boton chat
+        let chatButton = this.add.image (1170,700, "control" ).setInteractive();
+        chatButton.setScale(2);
+        chatButton.on("pointerdown", (chatButton) =>{
+            this.scene.start("chatScene");
+        });
     }
     
     update(time, delta){

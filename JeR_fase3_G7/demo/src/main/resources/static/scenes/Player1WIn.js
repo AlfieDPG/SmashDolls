@@ -14,6 +14,13 @@ create(){
     var j1Win = this.add.image(960,500,"j1Gana");
         j1Win.setScale(1);
 
+          //boton salir
+          let exitButton = this.add.image (960,990, "exit" ).setInteractive();
+          exitButton.setScale(2.2);
+          exitButton.on("pointerdown", (exitButton) =>{
+              this.scene.start("mainMenu");
+          });
+  
 }
 update(){
 

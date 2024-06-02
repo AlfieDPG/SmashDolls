@@ -1,4 +1,3 @@
-
 import { return_IP } from "./mainMenu.js";
 import { return_playerName } from "./playerName.js";
 import { return_players } from "./playerName.js";
@@ -16,7 +15,7 @@ function fullScreen(){
 
 }
 var nombrePlayer;
-var rondasGanadas;
+var rondasGanadas = { doll1: 0, doll2: 0 };
 
 var connection = new WebSocket('ws://'+ return_IP() +'/chat');
 	connection.onerror = function(e) {
@@ -211,7 +210,7 @@ export default class scene1 extends Phaser.Scene {
         this.doll1.setCollideWorldBounds(true);
         this.doll1.setData ('life1',100); //creas la vida de la muñeca
         this.physics.world.setBoundsCollision(true);
-        
+        this.doll1.setData('Racha',0); 
 
         //añadir personaje 2
         this.doll2 = this.physics.add.sprite(1420,600,"vudu");
@@ -224,6 +223,7 @@ export default class scene1 extends Phaser.Scene {
         this.doll2.setCollideWorldBounds(true);
         this.doll2.setData ('life2',100);
         this.physics.world.setBoundsCollision(true);
+        this.doll2.setData('Racha',0); 
 
          // Añadir texto para mostrar las vidas de la muñeca 1
          this.textLife1 = this.add.text(130,32, '100%', { fontFamily: 'Arial',fontSize: 74, color: '#000000', backgroundColor: '#ffffff' });
@@ -286,7 +286,7 @@ export default class scene1 extends Phaser.Scene {
             
            
         }
-        else if (this.input.keyboard.addKey('D').isDown && playerId == 1) //moverse a la derecha
+        else if (this.input.keyboard.addKey('D').isDown) //moverse a la derecha
         {
             this.doll1.setVelocityX(300);
             this.doll1.flipX=false;
@@ -301,7 +301,7 @@ export default class scene1 extends Phaser.Scene {
              connection.send(JSON.stringify(msg));
         }
 
-        else if(this.input.keyboard.addKey('W').isDown && this.doll1.body.blocked.down && playerId == 1){ //animación de saltar
+        else if(this.input.keyboard.addKey('W').isDown && this.doll1.body.blocked.down ){ //animación de saltar
             this.doll1.setVelocityY(-700);
             this.doll1.anims.play('jumpingf', true);
             jump.play();
@@ -395,7 +395,7 @@ export default class scene1 extends Phaser.Scene {
         }
 
         //eventos de teclado para la muñeca 2
-        if (this.input.keyboard.addKey('J').isDown && playerId == 2) //moverse a la izquierda
+        if (this.input.keyboard.addKey('J').isDown ) //moverse a la izquierda
         {
             this.doll2.setVelocityX(-300);
             this.doll2.flipX = true; 
@@ -410,7 +410,7 @@ export default class scene1 extends Phaser.Scene {
              }
              connection.send(JSON.stringify(msg));
         }
-        else if (this.input.keyboard.addKey('L').isDown && playerId == 2) //moverse a la derecha
+        else if (this.input.keyboard.addKey('L').isDown ) //moverse a la derecha
         {
             this.doll2.setVelocityX(300);
             this.doll2.flipX=false;
@@ -424,7 +424,7 @@ export default class scene1 extends Phaser.Scene {
              }
              connection.send(JSON.stringify(msg));
         }
-        else if(this.input.keyboard.addKey('I').isDown && this.doll2.body.blocked.down && playerId == 2){ //animación de saltar
+        else if(this.input.keyboard.addKey('I').isDown && this.doll2.body.blocked.down ){ //animación de saltar
             this.doll2.setVelocityY(-700);
             this.doll2.anims.play('jumpingv', true);
             jump.play();
@@ -702,6 +702,7 @@ export default class scene1 extends Phaser.Scene {
             if(type == "Victoria1"){
                 this.scene.stop("UI");
                 this.scene.start("Player1Win");
+                rondasGanadas.doll1++;
                 
                 
             }
@@ -725,6 +726,7 @@ export default class scene1 extends Phaser.Scene {
 
                 this.scene.stop("UI");
                 this.scene.start("Player2Win");
+                rondasGanadas.doll2++;
             }
 
 
@@ -948,9 +950,10 @@ handleShield2(){
     }
 
 anadirRondas(){
+   rondasJugador= rondasGanadas.doll1;
     var Jugador = {
         nombre : nombrePlayer,
-        rondas : rondasGanadas
+        rondas : rondasJugador
     }
     serverRequests.updatePlayer(Jugador, return_IP())
     .then ((updatePlayer)=>{

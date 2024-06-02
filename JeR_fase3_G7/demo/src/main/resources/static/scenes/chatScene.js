@@ -1,262 +1,124 @@
-import {return_IP} from "./mainMenu.js";
+import { return_IP } from "./mainMenu.js";
 
+import {return_playerName} from "./playerName.js"
 // Variables necesarias para realizar funciones con peticiones al servidor
 var serverRequests = new ServerRequests();
 
-
-
-//import { return_player_name} from "./Menu.js";
-//import { return_IP } from "./Menu.js";  
-
-
-
-function fullScreen(){
-    if(this.scene.scale.isFullscreen == false){
+function fullScreen() {
+    if (this.scene.scale.isFullscreen == false) {
         this.scene.scale.startFullscreen();
-
-    }
-    else{
+    } else {
         this.scene.scale.stopFullscreen();
     }
-
 }
-export default class loreScene extends Phaser.Scene {
-    constructor(){
-        super("loreScene"); //nombre escena
-        this.currentLoreIndex = 0; // Índice del lore actual
-        this.lores = []; // Array para almacenar los lores obtenidos del servidor
-        this.textoTitulo = null; // Objeto de texto para el título
-        this.textoCuerpo = null; // Objeto de texto para el cuerpo del lore
-         // Verificar si el lore inicial ya se ha creado antes de agregarlo
-        
-            var initialLore= {
-                titulo: "Titulo del Lore",
-                texto: "Texto del lore inicial"
-            };
-            this.lores[0] = initialLore;
-            serverRequests.addLore(this.lores[0], return_IP());
-            
-        }
-        
-        
-    
 
-     preload() {
-       
-       this.load.image("fullScreenButton","./assets/pantalla-completa.png");
-       this.load.image("mainBackground","./assets/fondos/Fondo-morado.jpg");
-       this.load.image("exit","./assets/Botones/BotonSalir.png");
-      
-       
-
+export default class chatScene extends Phaser.Scene {
+    constructor() {
+        super("chatScene"); //nombre escena
+        this.currentMensajeIndex = 0; // Índice del mensaje actual
+        this.mensajes = []; // Array para almacenar los mensajes obtenidos del servidor
+        
     }
-    
-     create(){
-          
-        // Obtener los lores del servidor al iniciar la escena
-        this.loadLoreFromServer();
 
-        //añadir fondo
-        var background = this.add.image(960,540,"mainBackground").setScale(1);
-
-
-       
-// Crear el texto para el título y establecer el estilo en negrita
-this.textoTitulo = this.add.text(0, 0, '', {
-    fontSize: '28px', // Tamaño del título
-    fontStyle: 'bold', // Estilo en negrita
-    fill: '#000', // Color del título
-    align: 'center', // Alinear el texto al centro
-    wordWrap: { width: 800, useAdvancedWrap: true } // Envolver palabras para ajustar dentro de un ancho especificado
-});
-
-// Crear el texto para el cuerpo
-this.textoCuerpo = this.add.text(0, 0, '', {
-    fontSize: '24px', // Tamaño del cuerpo
-    fill: '#000', // Color del cuerpo
-    align: 'center', // Alinear el texto al centro
-    wordWrap: { width: 800, useAdvancedWrap: true } // Envolver palabras para ajustar dentro de un ancho especificado
-});
-
-// Calcular la posición inicial del texto para centrarlo en la pantalla
-let x = this.cameras.main.width / 2;
-let y = this.cameras.main.height / 2;
-
-// Añadir una separación vertical entre el título y el cuerpo
-let separacionVertical = 20;
-
-// Establecer la posición del texto para el cuerpo
-this.textoCuerpo.setPosition(x, y);
-
-// Ajustar la posición del texto para el título un poco encima del cuerpo
-this.textoTitulo.setPosition(x, y - this.textoCuerpo.height  - separacionVertical);
-
-// Centrar ambos textos en la pantalla
-this.textoTitulo.setOrigin(0.5, 0.5);
-this.textoCuerpo.setOrigin(0.5, 0.5);
-
-
-
-        //botón para poner pantalla completa
-        let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
-        fullScreenButton.setScale(0.16); //escalamos la imagen del botón
-        fullScreenButton.setInteractive().on("pointerdown",fullScreen); //al clicar en el botón se pondrá en pantalla completa
-
+    preload() {
+        this.load.image("fullScreenButton", "./assets/pantalla-completa.png");
+        this.load.image("mainBackground", "./assets/fondos/Fondo-morado.jpg");
+        this.load.image("exit", "./assets/Botones/BotonSalir.png");
         
-        let prevButton = this.add.text(100, 800, 'Previous Lore', { fontSize: '32px', fill: '#fff' }).setInteractive();
-        prevButton.on("pointerdown", () => {
-            this.currentLoreIndex = (this.currentLoreIndex - 1 + this.lores.length) % this.lores.length;
-            this.updateLoreText();
-            console.log("loreanterior");
-        });
+    }
 
-        // Añadir botón para cambiar de lore hacia adelante
-        let nextButton = this.add.text(1700, 800, 'Next Lore', { fontSize: '32px', fill: '#fff' }).setInteractive();
-        nextButton.on("pointerdown", () => {
-            this.currentLoreIndex = (this.currentLoreIndex + 1) % this.lores.length;
-            this.updateLoreText();
-            console.log("siguientelore");
-        });
+    create() {
+        // Obtener los mensajes del servidor al iniciar la escena
+        this.loadMensajesFromServer();
 
-        //boton salir
-        let exitButton = this.add.image (960,990, "exit" ).setInteractive();
+        // Añadir fondo
+        var background = this.add.image(960, 540, "mainBackground").setScale(1);
+
+        // Botón para poner pantalla completa
+        let fullScreenButton = this.add.image(70, 70, "fullScreenButton"); // Imagen del botón y su posición
+        fullScreenButton.setScale(0.16); // Escalamos la imagen del botón
+        fullScreenButton.setInteractive().on("pointerdown", fullScreen); // Al clicar en el botón se pondrá en pantalla completa
+
+        // Botón salir
+        let exitButton = this.add.image(960, 990, "exit").setInteractive();
         exitButton.setScale(1.5);
-        exitButton.on("pointerdown", (exitButton) =>{
+        exitButton.on("pointerdown", () => {
             this.shutdown();
             this.scene.start("mainMenu");
         });
 
-      // Añadir botón para editar el lore actual
-    let editButton = this.add.text(1200, 990, 'Edit', { fontSize: '32px', fill: '#fff' }).setInteractive();
-    editButton.on("pointerdown", () => {
-        
-        // Llamando a la función updateLore dentro de tu escena
-        let selectedLore = this.lores[this.currentLoreIndex];
-        let newTitle = prompt("Enter new title for this lore:", selectedLore.titulo);
-        let newText = prompt("Enter new text for this lore:", selectedLore.texto);
+        // Crear un contenedor DOM desplazable para los mensajes
+        this.messageContainer = this.add.dom(960, 450).createFromHTML(`
+            <div id="messageContainer" style="width: 600px; height: 400px; overflow-y: scroll; background-color: rgba(0, 0, 0, 0.4); padding: 10px; border-radius: 10px;">
+                <!-- Los mensajes aparecerán aquí -->
+            </div>
+        `);
 
-        if (newTitle !== null && newText !== null) { // Comprueba si el usuario hizo clic en Cancelar
-            // Actualiza el objeto selectedLore con los nuevos valores
-            selectedLore.titulo = newTitle;
-            selectedLore.texto = newText;
-
-            // Llama a la función updateLore para actualizar el lore en el servidor
-            serverRequests.updateLore(selectedLore.id, { id: selectedLore.id, titulo: newTitle, texto: newText }, return_IP())
-                .then((updatedLore) => {
-                    console.log("Lore updated successfully:", updatedLore);
-                    // Aquí puedes actualizar la interfaz de usuario si es necesario
-                    // Por ejemplo, podrías volver a cargar los lores del servidor para reflejar los cambios
-                    this.loadLoreFromServer();
-                })
-                .catch((error) => {
-                    console.log('ERROR de conexión, no se pudo actualizar el lore en el servidor:', error);
-                });
-        }
-
-    });
-
-        // Añadir botón para agregar nuevo lore
-        let addLoreButton = this.add.text(1700, 990, 'Añadir lore ', { fontSize: '32px', fill: '#fff' }).setInteractive();
-        addLoreButton.on("pointerdown", () => {
-            // Mostrar formulario emergente para agregar nuevo lore
-            let titulo = prompt("Enter title for new lore:");
-            let texto = prompt("Enter text for new lore:");
-
-            if (titulo && texto) {
-                // Crear objeto de nuevo lore
-                let nuevoLore = {
-                    titulo: titulo,
-                    texto: texto
-                };
-
-                  // Enviar solicitud al servidor para agregar nuevo lore
-                  serverRequests.addLore(nuevoLore, return_IP()).done((nuevoLore) => {
-                    this.loadLoreFromServer();
-                }).fail(() => {
-                    console.log('ERROR de conexión, no se pudo agregar el nuevo lore.');
-                });
-            }
+        // Añadir cuadro de texto para ingresar el nuevo mensaje
+        this.inputText = this.add.dom(960, 800).createFromHTML(`
+            <textarea id="messageInput" placeholder="Escribe aquí tu mensaje" style="font-size: 24px; width: 300px; height: 100px; padding: 10px;"></textarea>
+            <button id="sendButton" style="font-size: 24px; padding: 10px;">Enviar mensaje</button>
+        `);
+        document.getElementById('messageInput').addEventListener('keydown', (event) => {
+            event.stopPropagation();
         });
 
-        // Añadir botón para borrar el lore actual
-let deleteButton = this.add.text(10, 990, 'Delete', { fontSize: '32px', fill: '#fff' }).setInteractive();
-deleteButton.on("pointerdown", () => {
-let selectedLore = this.lores[this.currentLoreIndex];
-
-
-    if (selectedLore && selectedLore.hasOwnProperty('id')) {
-        let confirmDelete = confirm("Are you sure you want to delete this lore?");
-        if (confirmDelete) {
-                // Enviar solicitud al servidor para eliminar el lore actual
-            // Captura el valor correcto de "this" en una variable local para usarlo dentro de la función de devolución de llamada
-            var self = this;
-            
-
-
-            $.ajax({
-                url: 'http://' + return_IP() + '/lores'
-            }).done(function () {
-                console.log("Lore borrado correctamente.");
-                // Usa "self" en lugar de "this" para acceder a "lores" y otras propiedades de la clase
-                serverRequests.deleteLore(selectedLore.id, return_IP());
-                self.lores.splice(self.currentLoreIndex, 1);
-                // Si el índice actual es mayor que la longitud del array de lores, ajustar el índice
-                if (self.currentLoreIndex >= self.lores.length) {
-                    self.currentLoreIndex = self.lores.length - 1;
-                }
-                // Actualizar el texto del lore en la interfaz
-                self.loadLoreFromServer();
-                
-                console.log("Lore deleted successfully.");
-            }).fail(function () {
-                console.log('ERROR de conexión, los datos no se podrán almacenar en el servidor.');
-            });
-                    }
-                } else {
-                    console.log('El lore seleccionado no tiene un ID válido para ser borrado.');
-                }
-            });
-
-
-      
-      
-
+        document.getElementById('sendButton').addEventListener('click', this.sendMessage.bind(this));
     }
 
-    loadLoreFromServer() {
-        serverRequests.loadLore(return_IP()).done(lores => {
-            this.lores = lores;
-            this.updateLoreText();
-            // Mostrar el lore inicial en el objeto de texto
-            
+    sendMessage() {
+        let texto = document.getElementById('messageInput').value;
+        let nombreUsuario = return_playerName();
+        console.log(nombreUsuario);
+        if (texto&&nombreUsuario) {
+            let nuevoMensaje = {
+                nombre: return_playerName(),  // Puedes ajustar esto para tomar un nombre de usuario real
+                mensaje: texto
+            };
+
+            // Enviar solicitud al servidor para agregar nuevo mensaje
+            serverRequests.addMensaje(nuevoMensaje, return_IP()).done(() => {
+                this.displayNewMensaje(nuevoMensaje);  // Mostrar el nuevo mensaje inmediatamente
+                document.getElementById('messageInput').value = ''; // Limpiar el campo de texto
+            }).fail(() => {
+                console.log('ERROR de conexión, no se pudo agregar el nuevo mensaje.');
+            });
+        }
+    }
+
+    loadMensajesFromServer() {
+        serverRequests.loadMensajes(return_IP()).done(mensajes => {
+            this.mensajes.push(...mensajes);
+            this.updateMensajes();
+        
         }).fail(() => {
-            console.log('ERROR de conexión, no se pudo cargar el lore del juego.');
+            console.log('ERROR de conexión, no se pudo cargar los mensajes del juego.');
         });
     }
 
-    updateLoreText() {
-        let selectedLore = this.lores[this.currentLoreIndex];
-    
-        if (selectedLore && selectedLore.hasOwnProperty('titulo') && selectedLore.hasOwnProperty('texto')) {
-            // Calcular la posición inicial del texto para centrarlo en la pantalla
-            let x = this.cameras.main.width / 2;
-            let y = this.cameras.main.height / 2;
-            let separacionVertical = 20;
-    
-            // Ajustar la posición del texto para el cuerpo
-            this.textoCuerpo.setText(selectedLore.texto).setPosition(x, y);
-    
-            // Ajustar la posición del texto para el título un poco encima del cuerpo
-            this.textoTitulo.setText(selectedLore.titulo).setPosition(x, y - this.textoCuerpo.height / 2 - separacionVertical);
-        } else {
-            console.log('El lore seleccionado no tiene las propiedades esperadas.');
-        }
-    }
-        
+    updateMensajes() {
+        let messageContainer = document.getElementById('messageContainer');
+        messageContainer.innerHTML = ''; // Limpiar el contenedor antes de agregar los mensajes
 
-    
-    update(time, delta){
-       
+        this.mensajes.forEach(mensaje => {
+            let messageElement = document.createElement('div');
+            messageElement.style.marginBottom = '10px';
+            messageElement.innerHTML = `<strong>${mensaje.nombre}:</strong> ${mensaje.mensaje}`;
+            messageContainer.appendChild(messageElement);
+        });
+
+        // Desplazar hacia abajo para mostrar el último mensaje
+        messageContainer.scrollTop = messageContainer.scrollHeight;
+    }
+
+    displayNewMensaje(nuevoMensaje) {
+        // Añadir el nuevo mensaje al array de mensajes y actualizar el índice actual
+        this.mensajes.push(nuevoMensaje);
+        this.updateMensajes(); // Actualizar la lista de mensajes en el contenedor
+    }
+
+    update(time, delta) {
+        // Este método puede permanecer vacío si no se necesita realizar ninguna acción continua
     }
 
     shutdown() {
@@ -264,8 +126,4 @@ let selectedLore = this.lores[this.currentLoreIndex];
         this.input.keyboard.off('keyup');
         this.events.off('resume', this.handleSceneResume, this);
     }
-
-    
 }
-
-

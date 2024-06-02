@@ -19,25 +19,19 @@ create(){
         background.setScale(1);
         var j2Win = this.add.image(960,500,"j2Gana");
         j2Win.setScale(1);
-        rondasGanadas=+1;
-        this.anadirRondas();
+    
+      //boton salir
+      let exitButton = this.add.image (960,990, "exit" ).setInteractive();
+      exitButton.setScale(2.2);
+      exitButton.on("pointerdown", (exitButton) =>{
+          this.scene.start("mainMenu");
+      });
+
 }
 update(){
     
 }
-anadirRondas(){
-    var Jugador = {
-        nombre : nombrePlayer,
-        rondas : rondasGanadas
-    }
-    serverRequests.updatePlayer(Jugador, return_IP())
-    .then ((updatePlayer)=>{
-        console.log("rondas actualizadas:",updatePlayer );
-        this.return_players();
-    }).fail(() => {
-        console.log('ERROR de conexión, no se pudo agregar las rondas.');
-    });
-}
+
 
 
 }

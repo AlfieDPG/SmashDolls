@@ -1,10 +1,10 @@
 package com.monekas.demo;
 
 import java.io.BufferedWriter;
-import java.io.File;  // Import the File class
-import java.io.FileWriter;
-import java.io.IOException;  // Import the IOException class to handle errors
-import java.nio.file.Files;
+import java.io.File;
+import java.io.FileWriter;  // Import the File class
+import java.io.IOException;
+import java.nio.file.Files;  // Import the IOException class to handle errors
 import java.nio.file.Paths;
 import java.util.Collection;
 import java.util.List;
@@ -12,7 +12,6 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+
+
 
 @RestController
 @RequestMapping("/lores")
@@ -51,13 +52,19 @@ public class LoreController {
                         String title = parts[1];
                         String text = parts[2];
                         loreMap.put(id, new Lore(id, title, text));
-                        nextId.set(Math.max(nextId.get(), id + 1));
+                         
+                    } else {
+                        System.out.println("Formato incorrecto en la línea: " + line);
                     }
+                }
+                if (loreMap.isEmpty()) {
+                    loreMap.put(0L, DEFAULT_LORE);
+                    System.out.println("No se encontraron lores en el archivo, se cargó el lore predeterminado.");
                 }
             } else {
                 Files.createFile(Paths.get(FILE_NAME));
-                // Añadir el lore por defecto si el archivo no existe
-                loreMap.put(DEFAULT_LORE.getId(), DEFAULT_LORE);
+                loreMap.put(0L, DEFAULT_LORE);
+                System.out.println("Archivo de lores no encontrado, se creó uno nuevo con el lore predeterminado.");
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -82,6 +89,7 @@ public class LoreController {
         @GetMapping
         public Collection<Lore> obtenerLore() {
             return loreMap.values();
+            
         }
     
         // Petición POST para añadir nuevo lore
@@ -120,10 +128,7 @@ public class LoreController {
                 Lore loreExistente = loreMap.get(id);
                 if (loreExistente != null) {
                     loreMap.remove(id);
-                    // Si no queda ningún lore después de la eliminación, crea un lore por defecto
-                    if (loreMap.isEmpty()) {
-                        loreMap.put(0L,DEFAULT_LORE);
-                    }
+                
                     saveLoresToFile();
                     return ResponseEntity.noContent().build(); // Devuelve 204 NO CONTENT si el lore se elimina correctamente
                 } else {
@@ -132,5 +137,3 @@ public class LoreController {
             }
         }
     }
-    
-
