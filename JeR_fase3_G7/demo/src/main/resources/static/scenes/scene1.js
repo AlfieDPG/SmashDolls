@@ -192,7 +192,7 @@ export default class scene1 extends Phaser.Scene {
          //añadir personaje 1
         this.doll1 = this.physics.add.sprite(500,600,"superfroggie");
         this.doll1.setScale(2);
-        this.doll1.body.setSize(85, 196); // Establecer el tamaño del cuerpo de colisión de doll1
+        this.doll1.body.setSize(108, 196); // Establecer el tamaño del cuerpo de colisión de doll1
         //Tamaño del sprite de doll1: 108 196
         //console.log('Tamaño del sprite de doll1:', this.doll1.width, this.doll1.height);
         //this.doll1.body.setOffset(20, 0); // Ajustar la posición del cuerpo de colisión
@@ -205,7 +205,7 @@ export default class scene1 extends Phaser.Scene {
         //añadir personaje 2
         this.doll2 = this.physics.add.sprite(1420,600,"vudu");
         this.doll2.setScale(2.1);
-        this.doll2.body.setSize(85, 177); // Establecer el tamaño del cuerpo de colisión de doll1
+        this.doll2.body.setSize(110, 177); // Establecer el tamaño del cuerpo de colisión de doll1
         console.log('Tamaño del sprite de doll2:', this.doll2.width, this.doll2.height);
         //Tamaño del sprite de doll2: 147 177
         //this.doll2.body.setOffset(0, 0); // Ajustar la posición del cuerpo de colisión porque no quedaba en el cuerpo del personaje
@@ -222,8 +222,13 @@ export default class scene1 extends Phaser.Scene {
          this.textLife2 = this.add.text(1060,32, '100%', { fontFamily: 'Arial', fontSize: 74, color: '#000000', backgroundColor: '#ffffff' });
          this.textLife2.setScrollFactor(0);
          
-        
+         this.isAttacking1 = false;
+         this.isSuperAttacking1 = false;
+         this.isAttacking2 = false;
+         this.isSuperAttacking2 = false;
 
+
+        
          
         var cursors = this.input.keyboard.createCursorKeys();   
 
@@ -231,6 +236,7 @@ export default class scene1 extends Phaser.Scene {
         this.keyZ = this.input.keyboard.addKey(keys.Z);
          // Configurar colisiones entre las muñecas
          this.physics.add.collider(this.doll1, this.doll2, this.handleCollision, null, this);
+
          
          window.addEventListener('ws-message', (event) => {
             const message = event.detail;
@@ -253,30 +259,46 @@ export default class scene1 extends Phaser.Scene {
                 this.scene.wake("scene1");
                 this.scene.wake("UI");
             }
-            if(type == "A"){
-                this.doll1.setVelocityX(-300);
+            if(type[0] > 0){
+                if(this.assignedPlayer == 2){
+                    this.doll1.x = Phaser.Math.Linear(this.doll1.x,type[0],0.2)
+                    this.doll1.y = Phaser.Math.Linear(this.doll1.y,type[1],0.2)
+
+                }
+                if(this.assignedPlayer == 1){
+                    this.doll2.x = Phaser.Math.Linear(this.doll2.x,type[0],0.2)
+                    this.doll2.y = Phaser.Math.Linear(this.doll2.y,type[1],0.2)
+                }
+                
+                
+            }
+            
+            if(type == "A" &&  !this.isAttacking1 && !this.isSuperAttacking1){
+                //this.doll1.setVelocityX(-300);
                 this.doll1.flipX = true;
                 if (this.doll1.body.blocked.down) {
                    this.doll1.anims.play('walkingf',true);
                  }
             }
-            if(type == "W"){
-                this.doll1.setVelocityY(-700);
+            if(type == "W" &&  !this.isAttacking1 && !this.isSuperAttacking1){
+                //this.doll1.setVelocityY(-700);
                 this.doll1.anims.play('jumpingf', true);
                 jump.play();
                 
             }
         
-            if(type == "D"){
-                this.doll1.setVelocityX(300);
+            if(type == "D" &&  !this.isAttacking1 && !this.isSuperAttacking1){
+
+                //this.doll1.setVelocityX(300);
                 this.doll1.flipX=false;
                 if (this.doll1.body.blocked.down) {
                 this.doll1.anims.play('walkingf', true);
             }
                 
             }
-            if(type == "J"){
-                this.doll2.setVelocityX(-300);
+            if(type == "J" &&  !this.isAttacking2 && !this.isSuperAttacking2){
+                
+                //this.doll2.setVelocityX(-300);
                 this.doll2.flipX = true; 
                 this.doll2.body.setOffset(30, 0); // Ajustar la posición del cuerpo de colisión 
                 if (this.doll2.body.blocked.down) {
@@ -284,14 +306,14 @@ export default class scene1 extends Phaser.Scene {
              }  
         
             }
-            if(type == "I"){
-                this.doll2.setVelocityY(-700);
+            if(type == "I" &&  !this.isAttacking2 && !this.isSuperAttacking2){
+                //this.doll2.setVelocityY(-700);
                 this.doll2.anims.play('jumpingv', true);
                 jump.play();
             }
         
-            if(type == "L"){
-                this.doll2.setVelocityX(300);
+            if(type == "L" &&  !this.isAttacking2 && !this.isSuperAttacking2){
+                //this.doll2.setVelocityX(300);
                 this.doll2.flipX=false;
                 this.doll2.body.setOffset(20, 0); // Ajustar la posición del cuerpo de colisión
                 if (this.doll2.body.blocked.down) {
@@ -300,7 +322,7 @@ export default class scene1 extends Phaser.Scene {
                 
             }
         
-            if(type == "E"){
+            if(type == "E" &&  !this.isAttacking1 && !this.isSuperAttacking1){
                 this.doll1.body.setOffset(20, 0);
                 this.doll1.anims.play('basicf', false);
                 attack.play();
@@ -309,17 +331,15 @@ export default class scene1 extends Phaser.Scene {
                     this.doll1.isAttacking1 = false; // Resetear la bandera cuando la animación completa
                 }
             }, this);
-        
-            // Verificar si la animación de ataque básico está reproduciéndose
+                            // Verificar si la animación de ataque básico está reproduciéndose
             if (this.doll1.anims.isPlaying) {
                 this.isAttacking1 = true;
                 
             }
+        }
         
-            }
-                
-            
-            if(type == "R"){
+
+            if(type == "R" &&  !this.isAttacking1 && !this.isSuperAttacking1){
                 this.doll1.body.setOffset(30, 0);
                 this.doll1.anims.play('attackingf', false);
                 attackFroppy.play();
@@ -335,7 +355,7 @@ export default class scene1 extends Phaser.Scene {
             }
         
             }
-            if(type == "Q"){
+            if(type == "Q" &&  !this.isAttacking1 && !this.isSuperAttacking1){
                 this.doll1.anims.play('shieldf', false);
                 this.doll2.on('animationcomplete', function (animation) {
                 if (animation.key === 'shieldv') {
@@ -351,7 +371,7 @@ export default class scene1 extends Phaser.Scene {
                 }
         
             }
-            if(type == "O"){
+            if(type == "O" &&  !this.isAttacking2 && !this.isSuperAttacking2){
                 this.doll2.body.setOffset(-20, 0);
             this.doll2.anims.play('attackingv', false);
             attack.play();
@@ -368,7 +388,7 @@ export default class scene1 extends Phaser.Scene {
             }
         
             }
-            if(type == "P"){
+            if(type == "P" &&  !this.isAttacking2 && !this.isSuperAttacking2){
                 this.doll2.anims.play('basicv', false);
             attackBela.play();
             this.doll2.on('animationcomplete', function (animation) {
@@ -385,7 +405,7 @@ export default class scene1 extends Phaser.Scene {
             }
         
             }
-            if(type == "U"){
+            if(type == "U" &&  !this.isAttacking2 && !this.isSuperAttacking2){
                 this.doll2.anims.play('shieldv', false);
             this.doll2.on('animationcomplete', function (animation) {
                 if (animation.key === 'shieldv') {
@@ -403,18 +423,18 @@ export default class scene1 extends Phaser.Scene {
             }
         
             if(type == "Dano1"){
-                doll2.setData('life2', doll2.getData('life2') - this.restarVidas);
+                this.doll2.setData('life2', this.doll2.getData('life2') - 5);
             
                 // Actualizar texto de vidas de la muñeca 1
                 
-                this.textLife2.setText(` ${player2.getData('life2')}%`);
+                this.textLife2.setText(` ${this.doll2.getData('life2')}%`);
                 
                 
             }
             if(type == "Danoespecial1"){
-                doll2.setData('life2', doll2.getData('life2') - this.restarVidas);//la muñeca 2 pierde 5 vidas
+                this.doll2.setData('life2', this.doll2.getData('life2') - 10);//la muñeca 2 pierde 5 vidas
            
-                this.textLife2.setText(` ${doll2.getData('life2')}%`);
+                this.textLife2.setText(` ${this.doll2.getData('life2')}%`);
                 
                 
             }
@@ -428,18 +448,18 @@ export default class scene1 extends Phaser.Scene {
                 
             }
             if(type == "Dano2"){
-                doll1.setData('life1', doll1.getData('life1') - this.restarVidas);
+                this.doll1.setData('life1', this.doll1.getData('life1') - 5);
                 
                 
-                this.textLife1.setText(` ${doll1.getData('life1')}%`);
+                this.textLife1.setText(` ${this.doll1.getData('life1')}%`);
                 
                 
             }
             if(type == "Danoespecial2"){
-                doll1.setData('life1', doll1.getData('life1') - this.restarVidas);
+                this.doll1.setData('life1', this.doll1.getData('life1') - 10);
                
                 
-                this.textLife1.setText(` ${doll1.getData('life1')}%`);
+                this.textLife1.setText(` ${this.doll1.getData('life1')}%`);
                 
                 
             }
@@ -452,15 +472,15 @@ export default class scene1 extends Phaser.Scene {
                 
             }
 
-
         
-        
-         });
+        });
 
 
 
         console.log("Assigned Player ID:", window.assignedPlayer);
         this.assignedPlayer = window.assignedPlayer;
+
+        // this.actPosition = this.time.addEvent({delay : 100, callback: this.actPosition(this.doll1.x,this.doll1.y,this.doll2.x,this.doll2.y), callbackScope: this, loop: true});
 
          
     }
@@ -473,6 +493,7 @@ export default class scene1 extends Phaser.Scene {
 
     const doll2X = this.doll2.x;
     const doll2Y = this.doll2.y;
+    this.actPosition(this.doll1.x,this.doll1.y,this.doll2.x,this.doll2.y);
         //menu pausa
         if (this.input.keyboard.addKey('ESC').isDown) //MENU PAUSA
         {
@@ -486,9 +507,11 @@ export default class scene1 extends Phaser.Scene {
         }
        
         //eventos de teclado para la muñeca 1
-        if (this.input.keyboard.addKey('A').isDown && this.assignedPlayer == 1) //moverse a la izquierda
+        if (this.input.keyboard.addKey('A').isDown && this.assignedPlayer == 1 &&  !this.isAttacking1 && !this.isSuperAttacking1) //moverse a la izquierda
         {
             
+
+            //this.doll1.setPosition
             //connection.send()
             this.doll1.setVelocityX(-300);
             this.doll1.flipX = true;
@@ -503,7 +526,7 @@ export default class scene1 extends Phaser.Scene {
             
            
         }
-        else if (this.input.keyboard.addKey('D').isDown && this.assignedPlayer == 1) //moverse a la derecha
+        else if (this.input.keyboard.addKey('D').isDown && this.assignedPlayer == 1 &&  !this.isAttacking1 && !this.isSuperAttacking1) //moverse a la derecha
         {
             this.doll1.setVelocityX(300);
             this.doll1.flipX=false;
@@ -518,7 +541,7 @@ export default class scene1 extends Phaser.Scene {
              connection.send(JSON.stringify(msg));
         }
 
-        else if(this.input.keyboard.addKey('W').isDown && this.doll1.body.blocked.down && this.assignedPlayer == 1){ //animación de saltar
+        else if(this.input.keyboard.addKey('W').isDown && this.doll1.body.blocked.down && this.assignedPlayer == 1 &&  !this.isAttacking1 && !this.isSuperAttacking1){ //animación de saltar
             this.doll1.setVelocityY(-700);
             this.doll1.anims.play('jumpingf', true);
             jump.play();
@@ -530,7 +553,7 @@ export default class scene1 extends Phaser.Scene {
              connection.send(JSON.stringify(msg));
         }
 
-        else if(this.input.keyboard.addKey('E').isDown && this.assignedPlayer == 1){ //animación de ataque básico
+        else if(this.input.keyboard.addKey('E').isDown && this.assignedPlayer == 1 &&  !this.isAttacking1 && !this.isSuperAttacking1){ //animación de ataque básico
             this.doll1.body.setOffset(20, 0);
             this.doll1.anims.play('basicf', false);
             attack.play();
@@ -554,7 +577,7 @@ export default class scene1 extends Phaser.Scene {
             
         }
 
-        else if(this.input.keyboard.addKey('R').isDown && this.assignedPlayer == 1 ){ //animación de ataque especial
+        else if(this.input.keyboard.addKey('R').isDown && this.assignedPlayer == 1 &&  !this.isAttacking1 && !this.isSuperAttacking1 ){ //animación de ataque especial
             this.doll1.body.setOffset(30, 0);
             this.doll1.anims.play('attackingf', false);
             attackFroppy.play();
@@ -577,7 +600,7 @@ export default class scene1 extends Phaser.Scene {
            
         }
 
-        else if(this.input.keyboard.addKey('Q').isDown && this.shieldCount1<4 && this.assignedPlayer == 1){ //animación de daño recibido
+        else if(this.input.keyboard.addKey('Q').isDown && this.shieldCount1<4 && this.assignedPlayer == 1 &&  !this.isAttacking1 && !this.isSuperAttacking1){ //animación de daño recibido
             this.doll1.anims.play('shieldf', false);
             this.doll2.on('animationcomplete', function (animation) {
                 if (animation.key === 'shieldv') {
@@ -612,7 +635,7 @@ export default class scene1 extends Phaser.Scene {
         }
 
         //eventos de teclado para la muñeca 2
-        if (this.input.keyboard.addKey('J').isDown && this.assignedPlayer == 2) //moverse a la izquierda
+        if (this.input.keyboard.addKey('J').isDown && this.assignedPlayer == 2 &&  !this.isAttacking2 && !this.isSuperAttacking2) //moverse a la izquierda
         {
             this.doll2.setVelocityX(-300);
             this.doll2.flipX = true; 
@@ -627,7 +650,7 @@ export default class scene1 extends Phaser.Scene {
              }
              connection.send(JSON.stringify(msg));
         }
-        else if (this.input.keyboard.addKey('L').isDown && this.assignedPlayer == 2) //moverse a la derecha
+        else if (this.input.keyboard.addKey('L').isDown && this.assignedPlayer == 2 &&  !this.isAttacking2 && !this.isSuperAttacking2) //moverse a la derecha
         {
             this.doll2.setVelocityX(300);
             this.doll2.flipX=false;
@@ -641,7 +664,7 @@ export default class scene1 extends Phaser.Scene {
              }
              connection.send(JSON.stringify(msg));
         }
-        else if(this.input.keyboard.addKey('I').isDown && this.doll2.body.blocked.down && this.assignedPlayer == 2){ //animación de saltar
+        else if(this.input.keyboard.addKey('I').isDown && this.doll2.body.blocked.down && this.assignedPlayer == 2 &&  !this.isAttacking2 && !this.isSuperAttacking2){ //animación de saltar
             this.doll2.setVelocityY(-700);
             this.doll2.anims.play('jumpingv', true);
             jump.play();
@@ -652,7 +675,7 @@ export default class scene1 extends Phaser.Scene {
              connection.send(JSON.stringify(msg));
         }
 
-        else if(this.input.keyboard.addKey('O').isDown && this.assignedPlayer == 2 ){ //animación de ataque básico
+        else if(this.input.keyboard.addKey('O').isDown && this.assignedPlayer == 2 &&  !this.isAttacking2 && !this.isSuperAttacking2){ //animación de ataque básico
             this.doll2.body.setOffset(-20, 0);
             this.doll2.anims.play('attackingv', false);
             attack.play();
@@ -675,7 +698,7 @@ export default class scene1 extends Phaser.Scene {
             
         }
 
-        else if(this.input.keyboard.addKey('P').isDown && this.assignedPlayer == 2 ){ //animación de ataque especial
+        else if(this.input.keyboard.addKey('P').isDown && this.assignedPlayer == 2 &&  !this.isAttacking2 && !this.isSuperAttacking2){ //animación de ataque especial
             
             this.doll2.anims.play('basicv', false);
             attackBela.play();
@@ -698,7 +721,7 @@ export default class scene1 extends Phaser.Scene {
             
         }
 
-        else if(this.input.keyboard.addKey('U').isDown && (this.shieldCount2<4) && this.assignedPlayer == 2){ //animación de escudo
+        else if(this.input.keyboard.addKey('U').isDown && (this.shieldCount2<4) && this.assignedPlayer == 2 &&  !this.isAttacking2 && !this.isSuperAttacking2){ //animación de escudo
             this.doll2.anims.play('shieldv', false);
             this.doll2.on('animationcomplete', function (animation) {
                 if (animation.key === 'shieldv') {
@@ -732,6 +755,7 @@ export default class scene1 extends Phaser.Scene {
             }
         }
 
+        
        
     }
 
@@ -773,12 +797,12 @@ export default class scene1 extends Phaser.Scene {
         this.restarVidas = 5; //vida restada ataque normal
         this.isAttacking1=false;
 
-        if (doll2.getData('life2') - this.restarVidas > -1) { //la muñeca 2 pierde 5 vidas
-            doll2.setData('life2', doll2.getData('life2') - this.restarVidas);
+        if (this.doll2.getData('life2') - this.restarVidas > -1 && this.assignedPlayer==1) { //la muñeca 2 pierde 5 vidas
+            this.doll2.setData('life2', this.doll2.getData('life2') - this.restarVidas);
             
             // Actualizar texto de vidas de la muñeca 1
             
-            this.textLife2.setText(` ${doll2.getData('life2')}%`);
+            this.textLife2.setText(` ${this.doll2.getData('life2')}%`);
             //Mensaje daño 1
             var msg ={
                 type : "Dano1"
@@ -786,7 +810,7 @@ export default class scene1 extends Phaser.Scene {
              connection.send(JSON.stringify(msg));
             
         }
-        else {
+        else if(this.doll2.getData('life2') - this.restarVidas < -1) {
             this.doll1.setData ('life1',100); //creas la vida de la muñeca
             this.doll2.setData ('life2',100); //creas la vida de la muñeca
 
@@ -808,10 +832,10 @@ export default class scene1 extends Phaser.Scene {
             this.restarVidas = 10; //vida restada ataque especial
             this.isSuperAttacking1=false;
 
-        if (doll2.getData('life2') - this.restarVidas > -1) {
-            doll2.setData('life2', doll2.getData('life2') - this.restarVidas);//la muñeca 2 pierde 5 vidas
+        if (this.doll2.getData('life2') - this.restarVidas > -1 && this.assignedPlayer==1 ) {
+            this.doll2.setData('life2', this.doll2.getData('life2') - this.restarVidas);//la muñeca 2 pierde 5 vidas
            
-            this.textLife2.setText(` ${doll2.getData('life2')}%`);
+            this.textLife2.setText(` ${this.doll2.getData('life2')}%`);
 
             //Mensaje daño especial
             var msg ={
@@ -821,7 +845,7 @@ export default class scene1 extends Phaser.Scene {
 
             
         }
-        else {
+        else if(this.doll2.getData('life2') - this.restarVidas < -1) {
             this.doll1.setData ('life1',100); //creas la vida de la muñeca
             this.doll2.setData ('life2',100); //creas la vida de la muñeca
 
@@ -856,8 +880,8 @@ export default class scene1 extends Phaser.Scene {
             this.restarVidas = 5; //vida restada ataque normal
             this.isAttacking2=false;
             
-        if (doll1.getData('life1') - this.restarVidas > -1) {
-                doll1.setData('life1', doll1.getData('life1') - this.restarVidas);
+        if (this.doll1.getData('life1') - this.restarVidas > -1 && this.assignedPlayer==2) {
+            this.doll1.setData('life1', this.doll1.getData('life1') - this.restarVidas);
                 
                 
                 this.textLife1.setText(` ${doll1.getData('life1')}%`);
@@ -870,7 +894,7 @@ export default class scene1 extends Phaser.Scene {
 
                 
             }
-            else {
+            else if (this.doll1.getData('life1') - this.restarVidas < -1){
                 this.doll1.setData ('life1',100); //creas la vida de la muñeca
                 this.doll2.setData ('life2',100); //creas la vida de la muñeca
 
@@ -890,11 +914,11 @@ export default class scene1 extends Phaser.Scene {
             this.restarVidas = 10; //vida restada ataque especial
             this.isSuperAttacking2=false;
 
-            if (doll1.getData('life1') - this.restarVidas > -1) {
-                doll1.setData('life1', doll1.getData('life1') - this.restarVidas);
+            if (this.doll1.getData('life1') - this.restarVidas > -1 && this.assignedPlayer==2) {
+                this.doll1.setData('life1', this.doll1.getData('life1') - this.restarVidas);
                
                 
-                this.textLife1.setText(` ${doll1.getData('life1')}%`);
+                this.textLife1.setText(` ${this.doll1.getData('life1')}%`);
                 
                 //Mensaje daño especial
                 var msg ={
@@ -902,7 +926,7 @@ export default class scene1 extends Phaser.Scene {
                  }
                  connection.send(JSON.stringify(msg));
             }
-            else {
+            else if (this.doll1.getData('life1') - this.restarVidas < -1){
                 this.doll1.setData ('life1',100); //creas la vida de la muñeca
                 this.doll2.setData ('life2',100); //creas la vida de la muñeca
 
@@ -920,7 +944,11 @@ export default class scene1 extends Phaser.Scene {
             // Agregar lógica adicional para la animación de ataque especial de doll2
         }
 
-       
+
+
+
+
+
 
         
     }
@@ -951,7 +979,21 @@ handleShield2(){
     }
 
 
+actPosition(doll1X,doll1Y,doll2X,doll2Y){
+    if(this.assignedPlayer == 1){
+        var msg ={
+            type : [doll1X,doll1Y]
+         }
+         connection.send(JSON.stringify(msg));
+}
+    if(this.assignedPlayer == 2){
+        var msg ={
+            type : [doll2X,doll2Y]
+         }
+         connection.send(JSON.stringify(msg));
+    }
 
+}
 
 
 }

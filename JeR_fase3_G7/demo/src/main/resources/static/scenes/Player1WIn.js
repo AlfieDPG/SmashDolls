@@ -22,8 +22,8 @@ create(){
          let exitButton = this.add.image (960,990, "exit" ).setInteractive();
          exitButton.setScale(2.2);
          exitButton.on("pointerdown", (exitButton) =>{
-             this.scene.start("mainMenu");
-             var msg ={
+            window.location.reload();
+            var msg ={
                 type : "exit"
             }
             connection.send(JSON.stringify(msg));
@@ -32,7 +32,7 @@ create(){
             const message = event.detail;
             const type = message.type;
             if(type == "exit"){
-                this.scene.start("mainMenu");
+                window.location.reload();            
             }
         });
  

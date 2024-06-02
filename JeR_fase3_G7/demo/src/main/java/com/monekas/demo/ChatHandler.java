@@ -65,12 +65,12 @@ public class ChatHandler extends TextWebSocketHandler {
     private void sendOtherParticipants(WebSocketSession session, JsonNode node) throws IOException {
         System.out.println("Message sent: " + node.toString());
 
-        ObjectNode newNode = mapper.createObjectNode();
-        newNode.put("type", node.get("type").asText());
+        //ObjectNode newNode = mapper.createObjectNode();
+        //newNode.put("type", node.get("type").asText());
 
         for (WebSocketSession participant : sessions.values()) {
             if (!participant.getId().equals(session.getId())) {
-                participant.sendMessage(new TextMessage(newNode.toString()));
+                participant.sendMessage(new TextMessage(node.toString()));
             }
         }
     }
