@@ -294,21 +294,60 @@ También se ha dibujado un logo característico para el equipo de diseño y desa
 
 ### - Título y botones -
 Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como el texto de los diferentes botones del juego.
- - Título:
-[![TITULO.png](https://i.postimg.cc/g2yztHk8/TITULO.png)](https://postimg.cc/TKwvpmb3)
+ - Título: [![TITULO.png](https://i.postimg.cc/g2yztHk8/TITULO.png)](https://postimg.cc/TKwvpmb3)
+ - Salir: [![Boton-Salir.png](https://i.postimg.cc/SRzq6WvX/Boton-Salir.png)](https://postimg.cc/RJ9j9n99)
+ - Reanudar: [![Boton-Reanudar.png](https://i.postimg.cc/667GjFsZ/Boton-Reanudar.png)](https://postimg.cc/rzkmznwy)
+ - Controles: [![Boton-Controles.png](https://i.postimg.cc/W17DqvZB/Boton-Controles.png)](https://postimg.cc/XrpNttQL)
+ - Créditos: [![Boton-Creditos.png](https://i.postimg.cc/mgTks5n8/Boton-Creditos.png)](https://postimg.cc/dLSwR4wy)
+ - Local: [![Boton-Local.png](https://i.postimg.cc/9fMf4qC9/Boton-Local.png)](https://postimg.cc/872G9cFk)
 
- - Botones:
- - Salir:     [![Boton-Salir.png](https://i.postimg.cc/SRzq6WvX/Boton-Salir.png)](https://postimg.cc/RJ9j9n99)
- - Reanudar:     [![Boton-Reanudar.png](https://i.postimg.cc/667GjFsZ/Boton-Reanudar.png)](https://postimg.cc/rzkmznwy)
- - Controles:     [![Boton-Controles.png](https://i.postimg.cc/W17DqvZB/Boton-Controles.png)](https://postimg.cc/XrpNttQL)
- - Créditos:     [![Boton-Creditos.png](https://i.postimg.cc/mgTks5n8/Boton-Creditos.png)](https://postimg.cc/dLSwR4wy)
- - Local:     [![Boton-Local.png](https://i.postimg.cc/9fMf4qC9/Boton-Local.png)](https://postimg.cc/872G9cFk)
-
-- Fin de partida:
+#### Fin de Partida
   [![J1-Gana.png](https://i.postimg.cc/cL0n1mC4/J1-Gana.png)](https://postimg.cc/7ft6mSSp)
   [![J2-Gana.png](https://i.postimg.cc/kXxSdZnp/J2-Gana.png)](https://postimg.cc/0byjYVKY)
+
+  ## IMPLEMENTACIONES DE LA FASE 3
+  ### - Diagrama de Navegación -
+  [![Diagrama-de-Navegacion-Fase-3.jpg](https://i.postimg.cc/rsqVB9Z7/Diagrama-de-Navegacion-Fase-3.jpg)](https://postimg.cc/34bQp2TZ)
+  
+  ### - Diagrama de Clases -
+  [![Diagrama-de-Clases-Fase-3.jpg](https://i.postimg.cc/63cJvxz1/Diagrama-de-Clases-Fase-3.jpg)](https://postimg.cc/MMnrC4Cy)
+  
+  ## IMPLEMENTACIONES DE LA FASE 4
+  En esta fase nos hemos encargado de todo lo relacionado con WebSockets
+  
+  ### - Diagrama de Clases -
+
+  ### - Actualizacion del Arte -
+  Se han hecho actualizaciones en el apartado artístico de todos los menus del juego, ademas de haberse añadido nuevos botones para las nuevas zonas.  
+  #### Botones
+  - Jugar: [![JUGAR.png](https://i.postimg.cc/kg9tYH67/JUGAR.png)](https://postimg.cc/N5JM5pkn)
+  - Volver: [![VOLVER.png](https://i.postimg.cc/9QC5XMWH/VOLVER.png)](https://postimg.cc/VdGHDzrK)
+  - Salir: [![SALIR.png](https://i.postimg.cc/fWGdmyMt/SALIR.png)](https://postimg.cc/mhShGbzB)
+  - Borrar: [![BORRAR.png](https://i.postimg.cc/5t4N8dHF/BORRAR.png)](https://postimg.cc/SnPhpPfy)
+  - Añadir: [![A-ADIR.png](https://i.postimg.cc/tgcM6CHT/A-ADIR.png)](https://postimg.cc/WDM8LVzL)
+  - Chat: [![CHAT.png](https://i.postimg.cc/YjBt9JK0/CHAT.png)](https://postimg.cc/K3f6ppYh)
+  - Control: [![CONTROL.png](https://i.postimg.cc/KjMZmmWC/CONTROL.png)](https://postimg.cc/XBnM864g)
+  - Créditos: [![CREDITOS.png](https://i.postimg.cc/hjhD3L1D/CREDITOS.png)](https://postimg.cc/S2FbnzP3)
+  - Editar: [![EDITAR.png](https://i.postimg.cc/76cHv5Kg/EDITAR.png)](https://postimg.cc/LYtKL8KX)
+  - Tablón: [![TABLON.png](https://i.postimg.cc/9XRTDZHH/TABLON.png)](https://postimg.cc/HjmjKJL6)
+
+  #### Otros
+  - Titulo: [![TITULO.png](https://i.postimg.cc/C5VHSsL0/TITULO.png)](https://postimg.cc/JDPBQJkY)
+  - J1 Gana: [![J1-GANA.png](https://i.postimg.cc/FKLLzk6H/J1-GANA.png)](https://postimg.cc/sB3X0xyk)
+  - J2 Gana: [![J2-GANA.png](https://i.postimg.cc/nh6XycLb/J2-GANA.png)](https://postimg.cc/BjBZD3DM)
+
+  #### Menús
+  - Menu Principal:
+  - Menu Pausa:
+  - J1 Gana: [![MJ1Wins.jpg](https://i.postimg.cc/bJVG9Ww3/MJ1Wins.jpg)](https://postimg.cc/ftXTwHX9)
+  - J2 Gana: [![MJ2Wins.jpg](https://i.postimg.cc/XNyHybJH/MJ2Wins.jpg)](https://postimg.cc/xqnyWBLM)
+  - Controles:
+  - Créditos: [![MCredits.jpg](https://i.postimg.cc/sXsPNkyz/MCredits.jpg)](https://postimg.cc/SX1zXtJ1)
+  - Tablón:
+  - Chat:
+  
   ## FUNCIONES NO IMPLEMENTADAS
-  En esta fase del proyecto no han sido implementadas las siguientes funciones que se indicaban en el documento del vidoejuego:
+  En esta fase del proyecto no han sido implementadas las siguientes funciones que se indicaban en el documento del videojuego:
   - Personaje Portea
   - Menú de seleccion de personaje
 
