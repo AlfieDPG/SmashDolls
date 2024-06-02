@@ -320,7 +320,7 @@ Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como e
   - Historial de usuarios: Al inicial el juego y pulsar el botón de jugar, se abre un menu que permite escribir el nombre del jugador y se comunica al servidor a través de un metodo POST. Ademas 
   el servidor permite almacenar estos datos con ayuda de un fichero, por lo que si el jugador ya ha sido registrado previamente, se guarda su información.
 
-  -Chat.java y ChatController.java:
+  - Chat.java y ChatController.java:
   - Chat entre jugadores: Se establece una interfaz nueva donde permite a los jugadores mandar mensajes, aqui nos ayudamos de las funciones POST y GET que permiten añadir nuevos mensajes junto con 
   el nombre del jugador (introducido previamente) que los envia y cargar los mensajes anteriores enviados por otros jugadores.
 
