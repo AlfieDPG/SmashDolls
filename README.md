@@ -391,4 +391,13 @@ Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como e
   En esta fase del proyecto no han sido implementadas las siguientes funciones que se indicaban en el documento del videojuego:
   - Personaje Portea
   - Menú de seleccion de personaje
+   ## INSTRUCCIONES DE EJECUCIÓN
+   - Abrir carpeta completa del proyecto.
+   - Abrir el archivo "DemoApplication.java" y pulsar "Run Java".
+   - Abrir la cmd (consola del sistema) y copiar el IPv4.
+   - Abrir el navegador y escribir (IPv4:8080).
+   - Jugar
+     Solo dos personas podrán conectarse al servidor.
+     Si el navegador se muestra en blanco, copiar la carpeta "node_modules" en la carpeta"/target/classes/static". (Algunas veces al descargar el juego, esta carpeta no se descarga lo que provoca que el juego se muestre en blanco)
+
 
