@@ -15,13 +15,13 @@ export default class creditsMenu extends Phaser.Scene {
         super("creditsMenu"); //nombre escena
     }
 
-     preload() {
-       this.load.image("creditsBackground","./assets/fondos/creditos.jpg");
-       this.load.image("fullScreenButton","./assets/pantalla-completa.png");
-      
-       this.load.image("exit","./assets/Botones/BotonSalir.png");
-
-    }
+    preload() {
+        this.load.image("creditsBackground","./assets/fondos/Creditos.jpg");
+        this.load.image("fullScreenButton","./assets/pantalla-completa.png");
+       
+        this.load.image("exit","./assets/Botones/BotonSalir.png");
+ 
+     }
     
      create(){
         //añadir fondo
@@ -36,7 +36,7 @@ export default class creditsMenu extends Phaser.Scene {
 
         //boton salir
         let exitButton = this.add.image (960,990, "exit" ).setInteractive();
-        exitButton.setScale(2.2);
+        exitButton.setScale(0.5);
         exitButton.on("pointerdown", (exitButton) =>{
             this.scene.start("mainMenu");
         });

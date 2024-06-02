@@ -83,14 +83,14 @@ export default class playerName extends Phaser.Scene {
         });
 
         // Botón jugar en local
-        let localButton = this.add.image(1100, 990, "local").setInteractive();
-        localButton.setScale(2.2);
+        let localButton = this.add.image(1200, 990, "local").setInteractive();
+        localButton.setScale(0.5);
         localButton.on("pointerdown", () => {
             this.scene.start("scene1");
         });
          //boton salir
-         let exitButton = this.add.image (600,990, "exit" ).setInteractive();
-         exitButton.setScale(2.2);
+         let exitButton = this.add.image (700,990, "exit" ).setInteractive();
+         exitButton.setScale(0.5);
          exitButton.on("pointerdown", (exitButton) =>{
              this.scene.start("mainMenu");
          });
@@ -168,9 +168,7 @@ export default class playerName extends Phaser.Scene {
                 }).fail(() => {
                     console.log('ERROR de conexión, no se pudo agregar el nuevo jugador.');
                 });
-                
-                
-                
+              
                 //this.namePlayer.setText('');
             }
         }

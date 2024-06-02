@@ -26,13 +26,13 @@ export default class pauseMenu extends Phaser.Scene {
 }
 
      preload() {
-       this.load.image("pauseBackground","./assets/fondos/Fondo-morado.jpg");
-       this.load.image("fullScreenButton","./assets/pantalla-completa.png");
-      
-       this.load.image("credits2","./assets/Botones/BotonCreditos.png");
-       this.load.image("control2","./assets/Botones/BotonControles.png");
-       this.load.image("pausa","./assets/MenuPausa.png");
-       this.load.image("return","./assets/Botones/BotonReanudar.png");
+    this.load.image("pauseBackground","./assets/fondos/FondoPC.jpg");
+    this.load.image("fullScreenButton","./assets/pantalla-completa.png");
+   
+    this.load.image("credits2","./assets/Botones/BotonCreditos.png");
+    this.load.image("control2","./assets/Botones/BotonControles.png");
+    this.load.image("pausa","./assets/MenuPausa.png");
+    this.load.image("return","./assets/Botones/BotonReanudar.png");
     }
     
      create(){
@@ -43,7 +43,7 @@ export default class pauseMenu extends Phaser.Scene {
         
         //titulo
         var title = this.add.image(960,200,"pausa");
-        title.setScale(1.2);
+        title.setScale(1.0);
 
         //botón para poner pantalla completa
         let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
@@ -54,21 +54,20 @@ export default class pauseMenu extends Phaser.Scene {
 
         //boton creditos
         let creditsButton = this.add.image (960,500, "credits2" ).setInteractive();
-        creditsButton.setScale(3);
+        creditsButton.setScale(0.5);
         creditsButton.on("pointerdown", (creditsButton) =>{
             this.scene.start("creditsMenu2");
         });
 
         //boton controles
         let controlButton = this.add.image (960,700, "control2" ).setInteractive();
-        controlButton.setScale(3);
+        controlButton.setScale(0.5);
         controlButton.on("pointerdown", (controlButton) =>{
             this.scene.start("controlMenu2");
         });
         //boton salir
         let returnButton = this.add.image (960,900, "return" ).setInteractive();
-        returnButton.setScale(3);
-        
+        returnButton.setScale(0.5);  
         returnButton.on("pointerdown", (returnButton) =>{
             
             this.scene.stop("pauseMenu");

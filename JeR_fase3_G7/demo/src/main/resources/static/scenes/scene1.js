@@ -269,7 +269,7 @@ export default class scene1 extends Phaser.Scene {
         
        
         //eventos de teclado para la muñeca 1
-        if (this.input.keyboard.addKey('A').isDown && playerId == 1) //moverse a la izquierda
+        if (this.input.keyboard.addKey('A').isDown) //moverse a la izquierda
         {
             
             //connection.send()

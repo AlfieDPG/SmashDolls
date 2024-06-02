@@ -5,8 +5,9 @@ export default class Player1Win extends Phaser.Scene{
         super("Player1Win"); //nombre escena
     }
 preload(){
-    this.load.image("mainBackground","./assets/fondos/Fondo-Verde.jpg");
+    this.load.image("mainBackground","./assets/fondos/FondoPC.jpg");
     this.load.image("j1Gana","./assets/j1Gana.png");
+    this.load.image("exit","./assets/Botones/BotonSalir.png");
 }
 create(){
     var background = this.add.image(960,540,"mainBackground");
@@ -16,7 +17,7 @@ create(){
 
           //boton salir
           let exitButton = this.add.image (960,990, "exit" ).setInteractive();
-          exitButton.setScale(2.2);
+          exitButton.setScale(0.5);
           exitButton.on("pointerdown", (exitButton) =>{
               this.scene.start("mainMenu");
           });

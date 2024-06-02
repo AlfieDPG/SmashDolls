@@ -10,8 +10,9 @@ export default class Player2Win extends Phaser.Scene{
         super("Player2Win"); //nombre escena
     }
 preload(){
-    this.load.image("mainBackground","./assets/fondos/Fondo-Rosa.jpg");
+    this.load.image("mainBackground","./assets/fondos/FondoPC.jpg");
     this.load.image("j2Gana","./assets/j2Gana.png");
+    this.load.image("exit","./assets/Botones/BotonSalir.png");
 }
 create(){
     nombrePlayer = return_playerName();
@@ -22,7 +23,7 @@ create(){
     
       //boton salir
       let exitButton = this.add.image (960,990, "exit" ).setInteractive();
-      exitButton.setScale(2.2);
+      exitButton.setScale(0.5);
       exitButton.on("pointerdown", (exitButton) =>{
           this.scene.start("mainMenu");
       });

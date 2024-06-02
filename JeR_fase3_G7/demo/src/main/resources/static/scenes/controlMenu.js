@@ -15,13 +15,13 @@ export default class controlMenu extends Phaser.Scene {
         super("controlMenu"); //nombre escena
     }
 
-     preload() {
-       this.load.image("controlBackground","./assets/fondos/Fondo-Azul.jpg");
-       this.load.image("fullScreenButton","./assets/pantalla-completa.png");
-       this.load.image("controls","./assets/fondos/controles.png");
-       this.load.image("exit","./assets/Botones/BotonSalir.png");
-       
-    }
+    preload() {
+        this.load.image("controlBackground","./assets/fondos/FondoPC.jpg");
+        this.load.image("fullScreenButton","./assets/pantalla-completa.png");
+        this.load.image("controls","./assets/fondos/controles.png");
+        this.load.image("exit","./assets/Botones/BotonSalir.png");
+        
+     }
     
      create(data){
         //añadir fondo
@@ -39,12 +39,10 @@ export default class controlMenu extends Phaser.Scene {
 
         //boton salir
         let exitButton = this.add.image (960,990, "exit" ).setInteractive();
-        exitButton.setScale(2.2);
+        exitButton.setScale(0.5);
         exitButton.on("pointerdown", (exitButton) =>{
-            this.scene.start("mainMenu");
-        
+            this.scene.start("mainMenu");       
         });
-
     }
     
     update(time, delta){

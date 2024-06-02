@@ -21,15 +21,17 @@ export default class mainMenu extends Phaser.Scene {
         this.musicIsPlaying=false;
 }
 
-     preload() {
-       this.load.image("mainBackground","./assets/fondos/Fondo-morado.jpg");
-       this.load.image("fullScreenButton","./assets/pantalla-completa.png");
-       this.load.image("local","./assets/Botones/BotonLocal.png");
-       this.load.image("credits","./assets/Botones/BotonCreditos.png");
-       this.load.image("control","./assets/Botones/BotonControles.png");
-      
-       this.load.image("titulo","./assets/fondos/titulo.png");
-       this.load.audio("music","/assets/sonidos/musica.mp3")
+    preload() {
+    this.load.image("mainBackground","./assets/fondos/FondoPC.jpg");
+    this.load.image("fullScreenButton","./assets/pantalla-completa.png");
+    this.load.image("local","./assets/Botones/BotonLocal.png");
+    this.load.image("credits","./assets/Botones/BotonCreditos.png");
+    this.load.image("control","./assets/Botones/BotonControles.png");
+    this.load.image("lore","./assets/Botones/BotonTablon.png");
+    this.load.image("chat","./assets/Botones/BotonChat.png");
+
+    this.load.image("titulo","./assets/fondos/titulo.png");
+    this.load.audio("music","/assets/sonidos/musica.mp3")
     }
     
      create(){
@@ -50,8 +52,8 @@ export default class mainMenu extends Phaser.Scene {
         }
         
         //titulo
-        var title = this.add.image(960,200,"titulo");
-        title.setScale(0.5);
+        var title = this.add.image(960,165,"titulo");
+        title.setScale(0.6);
 
         //botón para poner pantalla completa
         let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
@@ -59,36 +61,36 @@ export default class mainMenu extends Phaser.Scene {
         fullScreenButton.setInteractive().on("pointerdown",fullScreen); //al clicar en el botón se pondrá en pantalla completa
  
         //boton jugar en local
-        let localButton = this.add.image (960,500, "local" ).setInteractive();
-        localButton.setScale(2.5);
+        let localButton = this.add.image (960,400, "local" ).setInteractive();
+        localButton.setScale(0.5);
         localButton.on("pointerdown", (localButton) =>{
             this.scene.start("playerName");
         });
 
         //boton lore
-        let loreButton = this.add.image (730,850, "credits" ).setInteractive();
-        loreButton.setScale(2);
+        let loreButton = this.add.image (960,850, "lore" ).setInteractive();
+        loreButton.setScale(0.5);
         loreButton.on("pointerdown", (loreButton) =>{
             this.scene.start("loreScene");
         });
 
         //boton creditos
-        let creditsButton = this.add.image (730,700, "credits" ).setInteractive();
-        creditsButton.setScale(2);
+        let creditsButton = this.add.image (960,550, "credits" ).setInteractive();
+        creditsButton.setScale(0.5);
         creditsButton.on("pointerdown", (creditsButton) =>{
             this.scene.start("creditsMenu");
         });
 
         //boton controles
-        let controlButton = this.add.image (1170,850, "control" ).setInteractive();
-        controlButton.setScale(2);
+        let controlButton = this.add.image (960,700, "control" ).setInteractive();
+        controlButton.setScale(0.5);
         controlButton.on("pointerdown", (controlButton) =>{
             this.scene.start("controlMenu");
         });
 
         //boton chat
-        let chatButton = this.add.image (1170,700, "control" ).setInteractive();
-        chatButton.setScale(2);
+        let chatButton = this.add.image (960,1000, "chat" ).setInteractive();
+        chatButton.setScale(0.5);
         chatButton.on("pointerdown", (chatButton) =>{
             this.scene.start("chatScene");
         });

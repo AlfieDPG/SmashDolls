@@ -21,11 +21,15 @@ export default class chatScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image("fullScreenButton", "./assets/pantalla-completa.png");
-        this.load.image("mainBackground", "./assets/fondos/Fondo-morado.jpg");
-        this.load.image("exit", "./assets/Botones/BotonSalir.png");
-        
-    }
+        this.load.image("fullScreenButton","./assets/pantalla-completa.png");
+        this.load.image("mainBackground","./assets/fondos/FondoPC.jpg");
+        this.load.image("exit","./assets/Botones/BotonSalir.png");
+        this.load.image("edit","./assets/Botones/BotonEditar.png");
+        this.load.image("delete","./assets/Botones/BotonBorrar.png");
+        this.load.image("add","./assets/Botones/BotonAnadir.png");
+        this.load.image("arrowRight","./assets/Botones/BotonFlechaDcha.png");
+        this.load.image("arrowLeft","./assets/Botones/BotonFlechaIzqda.png");
+     }
 
     create() {
         // Obtener los mensajes del servidor al iniciar la escena
@@ -39,17 +43,17 @@ export default class chatScene extends Phaser.Scene {
         fullScreenButton.setScale(0.16); // Escalamos la imagen del botón
         fullScreenButton.setInteractive().on("pointerdown", fullScreen); // Al clicar en el botón se pondrá en pantalla completa
 
-        // Botón salir
-        let exitButton = this.add.image(960, 990, "exit").setInteractive();
-        exitButton.setScale(1.5);
-        exitButton.on("pointerdown", () => {
+        //boton salir
+        let exitButton = this.add.image (960,990, "exit" ).setInteractive();
+        exitButton.setScale(0.5);
+        exitButton.on("pointerdown", (exitButton) =>{
             this.shutdown();
             this.scene.start("mainMenu");
         });
 
         // Crear un contenedor DOM desplazable para los mensajes
         this.messageContainer = this.add.dom(960, 450).createFromHTML(`
-            <div id="messageContainer" style="width: 600px; height: 400px; overflow-y: scroll; background-color: rgba(0, 0, 0, 0.4); padding: 10px; border-radius: 10px;">
+            <div id="messageContainer" style="width: 600px; height: 400px; overflow-y: scroll; background-color: rgba(199, 81, 178, 0.5); padding: 10px; border-radius: 10px;">
                 <!-- Los mensajes aparecerán aquí -->
             </div>
         `);

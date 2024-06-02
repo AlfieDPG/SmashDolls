@@ -33,18 +33,17 @@ export default class loreScene extends Phaser.Scene {
             
         }
         
-        
-    
-
-     preload() {
+      preload() {
        
-       this.load.image("fullScreenButton","./assets/pantalla-completa.png");
-       this.load.image("mainBackground","./assets/fondos/Fondo-morado.jpg");
-       this.load.image("exit","./assets/Botones/BotonSalir.png");
-      
-       
-
-    }
+            this.load.image("fullScreenButton","./assets/pantalla-completa.png");
+            this.load.image("mainBackground","./assets/fondos/FondoPC.jpg");
+            this.load.image("exit","./assets/Botones/BotonSalir.png");
+            this.load.image("edit","./assets/Botones/BotonEditar.png");
+            this.load.image("delete","./assets/Botones/BotonBorrar.png");
+            this.load.image("add","./assets/Botones/BotonAnadir.png");
+            this.load.image("arrowRight","./assets/Botones/BotonFlechaDcha.png");
+            this.load.image("arrowLeft","./assets/Botones/BotonFlechaIzqda.png");
+        }
     
      create(){
           
@@ -54,8 +53,6 @@ export default class loreScene extends Phaser.Scene {
 
         //añadir fondo
         var background = this.add.image(960,540,"mainBackground").setScale(1);
-
-
        
 // Crear el texto para el título y establecer el estilo en negrita
 this.textoTitulo = this.add.text(0, 0, '', {
@@ -97,17 +94,19 @@ this.textoCuerpo.setOrigin(0.5, 0.5);
         let fullScreenButton= this.add.image(70,70,"fullScreenButton"); //imagen del botón y su posición
         fullScreenButton.setScale(0.16); //escalamos la imagen del botón
         fullScreenButton.setInteractive().on("pointerdown",fullScreen); //al clicar en el botón se pondrá en pantalla completa
-
-        
-        let prevButton = this.add.text(100, 800, 'Previous Lore', { fontSize: '32px', fill: '#fff' }).setInteractive();
+ 
+        //botón flecha izquierda
+        let prevButton = this.add.image (120,790, "arrowLeft" ).setInteractive();
+        prevButton.setScale(0.5);
         prevButton.on("pointerdown", () => {
             this.currentLoreIndex = (this.currentLoreIndex - 1 + this.lores.length) % this.lores.length;
             this.updateLoreText();
             console.log("loreanterior");
         });
 
-        // Añadir botón para cambiar de lore hacia adelante
-        let nextButton = this.add.text(1700, 800, 'Next Lore', { fontSize: '32px', fill: '#fff' }).setInteractive();
+        //botón flecha derecha
+        let nextButton = this.add.image (1800,800, "arrowRight" ).setInteractive();
+        nextButton.setScale(0.5);       
         nextButton.on("pointerdown", () => {
             this.currentLoreIndex = (this.currentLoreIndex + 1) % this.lores.length;
             this.updateLoreText();
@@ -116,15 +115,16 @@ this.textoCuerpo.setOrigin(0.5, 0.5);
 
         //boton salir
         let exitButton = this.add.image (960,990, "exit" ).setInteractive();
-        exitButton.setScale(1.5);
+        exitButton.setScale(0.5);
         exitButton.on("pointerdown", (exitButton) =>{
             this.shutdown();
             this.scene.start("mainMenu");
         });
 
-      // Añadir botón para editar el lore actual
-    let editButton = this.add.text(1200, 990, 'Edit', { fontSize: '32px', fill: '#fff' }).setInteractive();
-    editButton.on("pointerdown", () => {
+        // Añadir botón para editar el lore actual
+        let editButton = this.add.image (1300,990, "edit" ).setInteractive();
+        editButton.setScale(0.2);
+        editButton.on("pointerdown", () => {
         
         // Llamando a la función updateLore dentro de tu escena
         let selectedLore = this.lores[this.currentLoreIndex];
@@ -152,7 +152,8 @@ this.textoCuerpo.setOrigin(0.5, 0.5);
     });
 
         // Añadir botón para agregar nuevo lore
-        let addLoreButton = this.add.text(1700, 990, 'Añadir lore ', { fontSize: '32px', fill: '#fff' }).setInteractive();
+        let addLoreButton = this.add.image (1700,990, "add" ).setInteractive();
+        addLoreButton.setScale(0.4);  
         addLoreButton.on("pointerdown", () => {
             // Mostrar formulario emergente para agregar nuevo lore
             let titulo = prompt("Enter title for new lore:");
@@ -175,9 +176,10 @@ this.textoCuerpo.setOrigin(0.5, 0.5);
         });
 
         // Añadir botón para borrar el lore actual
-let deleteButton = this.add.text(10, 990, 'Delete', { fontSize: '32px', fill: '#fff' }).setInteractive();
-deleteButton.on("pointerdown", () => {
-let selectedLore = this.lores[this.currentLoreIndex];
+        let deleteButton = this.add.image (210,990, "delete" ).setInteractive();
+        deleteButton.setScale(0.4);
+        deleteButton.on("pointerdown", () => {
+        let selectedLore = this.lores[this.currentLoreIndex];
 
 
     if (selectedLore && selectedLore.hasOwnProperty('id')) {
@@ -212,11 +214,6 @@ let selectedLore = this.lores[this.currentLoreIndex];
                     console.log('El lore seleccionado no tiene un ID válido para ser borrado.');
                 }
             });
-
-
-      
-      
-
     }
 
     loadLoreFromServer() {
