@@ -127,9 +127,11 @@ export default class playerName extends Phaser.Scene {
             console.log(`Jugador existente: ${JSON.stringify(existingPlayer)}`);
             const welcomeText = this.add.text(650, 340, 'BIENVENIDO DE NUEVO', { fontFamily: 'Courier New, monospace', color: 'white' }).setScale(3.5);
             nombreJugador = inputName;
-            
-            //this.scene.start('chatScene'); // Iniciar la escena del chat
-    
+            // Establecer un temporizador para esperar unos segundos antes de continuar a "scene1"
+            this.time.delayedCall(3000, () => {
+                welcomeText.destroy(); // Eliminar el mensaje de bienvenida
+                //this.scene.start('scene1'); // Iniciar la escena "scene1"
+            });
         } else {
             // Si el nombre del jugador no existe, crea un nuevo jugador
             if (this.newPlayer && this.newTry) {
@@ -168,7 +170,9 @@ export default class playerName extends Phaser.Scene {
                 }).fail(() => {
                     console.log('ERROR de conexión, no se pudo agregar el nuevo jugador.');
                 });
-              
+                
+                
+                
                 //this.namePlayer.setText('');
             }
         }

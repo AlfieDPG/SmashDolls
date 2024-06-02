@@ -1,2 +1,6 @@
 0;Titulo del Lore;Texto del lore inicial
-1;SuperFroppy;Se dice que sombrero de SuperFroppy era un sombrero normal, pero qeu un dia le pidió un deseo a una estrella y cobró vida. Desde entonces son inseparables
+1;hola;hola
+2;adios adios;adios
+3;asdadada;asdasdad
+4;qqqqqqqqqqqq;qqqqqqqqqqqqqqqq
+5;asdadsadas;dasdaddadsad

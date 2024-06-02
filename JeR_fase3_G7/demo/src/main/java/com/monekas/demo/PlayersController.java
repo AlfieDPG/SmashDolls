@@ -12,14 +12,12 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicLong;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -29,9 +27,8 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/players")
 public class PlayersController {
 	//almacenamos los jugadores en un hashmap
-	Map<Long, Player> players = new ConcurrentHashMap<>(); 
+	Map<Long, Player> playerMap = new ConcurrentHashMap<>(); 
 	AtomicLong nextId = new AtomicLong(0);
-	private static final Player DEFAULT_PLAYER = new Player(0L,"Jugador por defecto", 0);
 	private static final String FILE_NAME = "players.txt";
 	
 	public PlayersController() {
@@ -43,20 +40,30 @@ private void loadPlayersFromFile() {
 	try {
 		File file = new File(FILE_NAME);
 		if (file.exists()) {
-			List<String> lines = Files.readAllLines(Paths.get(FILE_NAME));
-			
-			for (String line : lines) {
-				String[] parts = line.split(";", 3);
-				if (parts.length == 3) {
-					long id = Long.parseLong(parts[0]);
-					String name = parts[1];
-					int rounds = Integer.parseInt(parts[2]);
-					players.put(id, new Player(id, name, rounds));
-					nextId.set(Math.max(nextId.get(), id + 1));
+            List<String> lines = Files.readAllLines(Paths.get(FILE_NAME));
+            long maxId = 0;
+            System.out.println("File found, reading players...");
+            for (String line : lines) {
+                System.out.println("Processing line: " + line);
+                String[] parts = line.split(";", 3);
+                if (parts.length == 3) {
+                    try {
+                        long id = Long.parseLong(parts[0]);
+                        String name = parts[1];
+                        int rounds = Integer.parseInt(parts[2]);
+                        playerMap.put(id, new Player(id, name, rounds));
+                        System.out.println("Player loaded: ID=" + id + ", Name=" + name + ", Rounds=" + rounds);
+                        if (id > maxId) {
+                            maxId = id;
+                        }
+					} catch (NumberFormatException e) {
+                        System.err.println("Invalid number format in line: " + line);
+                    }
 				}
 			}
+			nextId.set(maxId);
 		} else {
-			Files.createFile(Paths.get(FILE_NAME));	
+			Files.createFile(Paths.get(FILE_NAME));
 			
 		}
 	} catch (IOException e) {
@@ -67,7 +74,7 @@ private void loadPlayersFromFile() {
 // Método para guardar los players en el fichero
 private void saveplayersToFile() {
 	try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME))) {
-		for (Player player : players.values()) {
+		for (Player player : playerMap.values()) {
 			writer.write(player.getId() + ";" + player.getName() + ";" + player.getRounds());
 			writer.newLine();
 		}
@@ -82,66 +89,40 @@ private void saveplayersToFile() {
 
 	@GetMapping
 	public Collection<Player> obtenerPlayers() {
-		return players.values();
+		return playerMap.values();
 	}
 
 	//post para añadir un nuevo jugador
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
 	public Player nuevoPlayer(@RequestBody Player player) {
-		
-			long id = nextId.incrementAndGet();
-			player.setId(id);
-			players.put(player.getId(), player);
-			saveplayersToFile();
-		
+		long id;
+		if (playerMap.isEmpty()) {
+			id = 0;
+			nextId.set(id);
+		} else {
+			id = nextId.incrementAndGet();
+		}
+		player.setId(id);
+		playerMap.put(player.getId(), player);
+		saveplayersToFile();
 		return player;
 	}
 
 	
-	//cambiamos las rondas a traves de su nombre
-	@PutMapping("/{name}")
-	public ResponseEntity<Player> actualizarRounds(@PathVariable String name, @RequestBody Player playerActualizado) {
-		for (Player player : players.values()) {
-			if (player.getName().equals(name)) {
-				player.setRounds(playerActualizado.getRounds());
-				saveplayersToFile();
-				return new ResponseEntity<>(player, HttpStatus.OK);
-			}
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	
-	
-	}
-
-	/*obtener jugador segun el id que tenga
-	@GetMapping("/{id}")
-	public ResponseEntity<Player> getPlayer(@PathVariable long id) {
-
-		Player savedPlayer = players.get(id);
-
-		if (savedPlayer != null) {
-			return new ResponseEntity<>(savedPlayer, HttpStatus.OK);
-		} else {
-			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-		}
-	}*/
 
 	//eliminar el jugador segun su id
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Player> borraPlayer(@PathVariable long id) {
-		if (players.size() == 1 && players.containsKey(id)) {
+		if (playerMap.size() == 1 && playerMap.containsKey(id)) {
 
 			// Si este jugador es el único en el sistema, no lo elimines
 			return ResponseEntity.status(HttpStatus.FORBIDDEN).build(); // Devuelve 403 FORBIDDEN ya que no se puede eliminar el único jugador
 		} else {
-			Player playerExistente = players.get(id);
+			Player playerExistente = playerMap.get(id);
 			if (playerExistente != null) {
-				players.remove(id);
-				// Si no queda ningún jugador tras la eliminacion pone el jugador por defecto
-				if (players.isEmpty()) {
-					players.put(0L,DEFAULT_PLAYER);
-				}
+				playerMap.remove(id);
+				
 				saveplayersToFile();
 				return ResponseEntity.noContent().build(); // Devuelve 204 NO CONTENT si el jugador se elimina correctamente
 			} else {

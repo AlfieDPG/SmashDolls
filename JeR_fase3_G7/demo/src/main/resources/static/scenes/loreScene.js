@@ -126,30 +126,30 @@ this.textoCuerpo.setOrigin(0.5, 0.5);
         editButton.setScale(0.2);
         editButton.on("pointerdown", () => {
         
-        // Llamando a la función updateLore dentro de tu escena
-        let selectedLore = this.lores[this.currentLoreIndex];
-        let newTitle = prompt("Enter new title for this lore:", selectedLore.titulo);
-        let newText = prompt("Enter new text for this lore:", selectedLore.texto);
-
-        if (newTitle !== null && newText !== null) { // Comprueba si el usuario hizo clic en Cancelar
-            // Actualiza el objeto selectedLore con los nuevos valores
-            selectedLore.titulo = newTitle;
-            selectedLore.texto = newText;
-
-            // Llama a la función updateLore para actualizar el lore en el servidor
-            serverRequests.updateLore(selectedLore.id, { id: selectedLore.id, titulo: newTitle, texto: newText }, return_IP())
-                .then((updatedLore) => {
-                    console.log("Lore updated successfully:", updatedLore);
-                    // Aquí puedes actualizar la interfaz de usuario si es necesario
-                    // Por ejemplo, podrías volver a cargar los lores del servidor para reflejar los cambios
-                    this.loadLoreFromServer();
-                })
-                .catch((error) => {
-                    console.log('ERROR de conexión, no se pudo actualizar el lore en el servidor:', error);
-                });
-        }
-
-    });
+            // Llamando a la función updateLore dentro de tu escena
+            let selectedLore = this.lores[this.currentLoreIndex];
+            let newTitle = prompt("Enter new title for this lore:", selectedLore.titulo);
+            let newText = prompt("Enter new text for this lore:", selectedLore.texto);
+    
+            if (newTitle !== null && newText !== null) { // Comprueba si el usuario hizo clic en Cancelar
+                // Actualiza el objeto selectedLore con los nuevos valores
+                selectedLore.titulo = newTitle;
+                selectedLore.texto = newText;
+    
+                // Llama a la función updateLore para actualizar el lore en el servidor
+                serverRequests.updateLore(selectedLore.id, { id: selectedLore.id, titulo: newTitle, texto: newText }, return_IP())
+                    .then((updatedLore) => {
+                        console.log("Lore updated successfully:", updatedLore);
+                        // Aquí puedes actualizar la interfaz de usuario si es necesario
+                        // Por ejemplo, podrías volver a cargar los lores del servidor para reflejar los cambios
+                        this.loadLoreFromServer();
+                    })
+                    .catch((error) => {
+                        console.log('ERROR de conexión, no se pudo actualizar el lore en el servidor:', error);
+                    });
+            }
+    
+        });
 
         // Añadir botón para agregar nuevo lore
         let addLoreButton = this.add.image (1700,990, "add" ).setInteractive();
@@ -179,85 +179,91 @@ this.textoCuerpo.setOrigin(0.5, 0.5);
         let deleteButton = this.add.image (210,990, "delete" ).setInteractive();
         deleteButton.setScale(0.4);
         deleteButton.on("pointerdown", () => {
-        let selectedLore = this.lores[this.currentLoreIndex];
-
-
-    if (selectedLore && selectedLore.hasOwnProperty('id')) {
-        let confirmDelete = confirm("Are you sure you want to delete this lore?");
-        if (confirmDelete) {
-                // Enviar solicitud al servidor para eliminar el lore actual
-            // Captura el valor correcto de "this" en una variable local para usarlo dentro de la función de devolución de llamada
-            var self = this;
+            let selectedLore = this.lores[this.currentLoreIndex];
             
-
-
-            $.ajax({
-                url: 'http://' + return_IP() + '/lores'
-            }).done(function () {
-                console.log("Lore borrado correctamente.");
-                // Usa "self" en lugar de "this" para acceder a "lores" y otras propiedades de la clase
-                serverRequests.deleteLore(selectedLore.id, return_IP());
-                self.lores.splice(self.currentLoreIndex, 1);
-                // Si el índice actual es mayor que la longitud del array de lores, ajustar el índice
-                if (self.currentLoreIndex >= self.lores.length) {
-                    self.currentLoreIndex = self.lores.length - 1;
+            
+                if (selectedLore && selectedLore.hasOwnProperty('id')) {
+                    let confirmDelete = confirm("Are you sure you want to delete this lore?");
+                    if (confirmDelete) {
+                            // Enviar solicitud al servidor para eliminar el lore actual
+                        // Captura el valor correcto de "this" en una variable local para usarlo dentro de la función de devolución de llamada
+                        var self = this;
+                        
+            
+            
+                        $.ajax({
+                            url: 'http://' + return_IP() + '/lores'
+                        }).done(function () {
+                            console.log("Lore borrado correctamente.");
+                            // Usa "self" en lugar de "this" para acceder a "lores" y otras propiedades de la clase
+                            serverRequests.deleteLore(selectedLore.id, return_IP());
+                            self.lores.splice(self.currentLoreIndex, 1);
+                            // Si el índice actual es mayor que la longitud del array de lores, ajustar el índice
+                            if (self.currentLoreIndex >= self.lores.length) {
+                                self.currentLoreIndex = self.lores.length - 1;
+                            }
+                            // Actualizar el texto del lore en la interfaz
+                            self.loadLoreFromServer();
+                            
+                            console.log("Lore deleted successfully.");
+                        }).fail(function () {
+                            console.log('ERROR de conexión, los datos no se podrán almacenar en el servidor.');
+                        });
+                                }
+                            } else {
+                                console.log('El lore seleccionado no tiene un ID válido para ser borrado.');
+                            }
+                        });
+            
+            
+                  
+                  
+            
                 }
-                // Actualizar el texto del lore en la interfaz
-                self.loadLoreFromServer();
+            
+                loadLoreFromServer() {
+                    serverRequests.loadLore(return_IP()).done(lores => {
+                        this.lores.push(...lores);
+                        this.updateLoreText();
+                        console.log(this.lores);
+                        // Mostrar el lore inicial en el objeto de texto
+                        
+                    }).fail(() => {
+                        console.log('ERROR de conexión, no se pudo cargar el lore del juego.');
+                    });
+                }
+            
+                updateLoreText() {
+                    let selectedLore = this.lores[this.currentLoreIndex];
                 
-                console.log("Lore deleted successfully.");
-            }).fail(function () {
-                console.log('ERROR de conexión, los datos no se podrán almacenar en el servidor.');
-            });
+                    if (selectedLore && selectedLore.hasOwnProperty('titulo') && selectedLore.hasOwnProperty('texto')) {
+                        // Calcular la posición inicial del texto para centrarlo en la pantalla
+                        let x = this.cameras.main.width / 2;
+                        let y = this.cameras.main.height / 2;
+                        let separacionVertical = 20;
+                
+                        // Ajustar la posición del texto para el cuerpo
+                        this.textoCuerpo.setText(selectedLore.texto).setPosition(x, y);
+                
+                        // Ajustar la posición del texto para el título un poco encima del cuerpo
+                        this.textoTitulo.setText(selectedLore.titulo).setPosition(x, y - this.textoCuerpo.height / 2 - separacionVertical);
+                    } else {
+                        console.log('El lore seleccionado no tiene las propiedades esperadas.');
                     }
-                } else {
-                    console.log('El lore seleccionado no tiene un ID válido para ser borrado.');
                 }
-            });
-    }
-
-    loadLoreFromServer() {
-        serverRequests.loadLore(return_IP()).done(lores => {
-            this.lores.push(...lores);
-            this.updateLoreText();
-            console.log(this.lores);
-            // Mostrar el lore inicial en el objeto de texto
+                    
             
-        }).fail(() => {
-            console.log('ERROR de conexión, no se pudo cargar el lore del juego.');
-        });
-    }
-
-    updateLoreText() {
-        let selectedLore = this.lores[this.currentLoreIndex];
-    
-        if (selectedLore && selectedLore.hasOwnProperty('titulo') && selectedLore.hasOwnProperty('texto')) {
-            // Calcular la posición inicial del texto para centrarlo en la pantalla
-            let x = this.cameras.main.width / 2;
-            let y = this.cameras.main.height / 2;
-            let separacionVertical = 20;
-    
-            // Ajustar la posición del texto para el cuerpo
-            this.textoCuerpo.setText(selectedLore.texto).setPosition(x, y);
-    
-            // Ajustar la posición del texto para el título un poco encima del cuerpo
-            this.textoTitulo.setText(selectedLore.titulo).setPosition(x, y - this.textoCuerpo.height / 2 - separacionVertical);
-        } else {
-            console.log('El lore seleccionado no tiene las propiedades esperadas.');
-        }
-    }
-        
-
-    
-    update(time, delta){
-       
-    }
-
-    shutdown() {
-        this.input.keyboard.off('keydown');
-        this.input.keyboard.off('keyup');
-        this.events.off('resume', this.handleSceneResume, this);
-    }
-
-    
-}
+                
+                update(time, delta){
+                   
+                }
+            
+                shutdown() {
+                    this.input.keyboard.off('keydown');
+                    this.input.keyboard.off('keyup');
+                    this.events.off('resume', this.handleSceneResume, this);
+                }
+            
+                
+            }
+            

@@ -45,6 +45,7 @@ public class LoreController {
             File file = new File(FILE_NAME);
             if (file.exists()) {
                 List<String> lines = Files.readAllLines(Paths.get(FILE_NAME));
+                long maxId = 0;
                 for (String line : lines) {
                     String[] parts = line.split(";", 3);
                     if (parts.length == 3) {
@@ -52,7 +53,10 @@ public class LoreController {
                         String title = parts[1];
                         String text = parts[2];
                         loreMap.put(id, new Lore(id, title, text));
-                         
+                        if (id > maxId) {
+                            maxId = id;
+                        }
+                        nextId.set(maxId);
                     } else {
                         System.out.println("Formato incorrecto en la línea: " + line);
                     }
@@ -96,7 +100,13 @@ public class LoreController {
         @PostMapping
         @ResponseStatus(HttpStatus.CREATED)
         public Lore añadirLore(@RequestBody Lore nuevoLore) {
-                long id = nextId.incrementAndGet();
+            long id;
+            if (loreMap.isEmpty()) {
+                id = 0;
+                nextId.set(id);
+            } else {
+                id = nextId.incrementAndGet();
+            }
                 nuevoLore.setID(id);
                 loreMap.put(nuevoLore.getId(), nuevoLore);
                 saveLoresToFile();

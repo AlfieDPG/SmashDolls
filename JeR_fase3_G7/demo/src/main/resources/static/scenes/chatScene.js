@@ -69,7 +69,6 @@ export default class chatScene extends Phaser.Scene {
 
         document.getElementById('sendButton').addEventListener('click', this.sendMessage.bind(this));
     }
-
     sendMessage() {
         let texto = document.getElementById('messageInput').value;
         let nombreUsuario = return_playerName();
