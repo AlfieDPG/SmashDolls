@@ -333,29 +333,8 @@ Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como e
   
   [![Diagrama-de-Clases-Fase-3.jpg](https://i.postimg.cc/63cJvxz1/Diagrama-de-Clases-Fase-3.jpg)](https://postimg.cc/MMnrC4Cy)
   
-  ## IMPLEMENTACIONES DE LA FASE 4
-  En esta fase nos hemos encargado de todo lo relacionado con WebSockets
-   
-  ### - Diagrama de Clases - 
-  A continuación se puede observar el nuevo diagrama de clases, al cual se le han agregado dos clases más. Ahora, el programa contará con un servidor asíncrono, el cual se mantendra encendido, siempre y cuando, no se cierre a voluntad.
-  Ahora, "DemoApplication" llama al manejador de los websockets "ChatHandler" para crearlo y darle permisos, y así crear el servidor.
-  
-  - ChatHandler: El manejador del servidor. Clase que establece que ocurre en caso de conexión con un usuario("afterConnectioEstablished), desconexión("afterConnectionClosed") o petición de enviar algún mensaje("handleTextMessage"). El servidor solo permitirá la conexión simultánea de dos jugadores, si se conecta alguno más, podrá jugar al juego pero no con otro jugador.
-  - Websocket: Este archivo de javascript se encarga de regular las conexiones de los clientes. Cuando alguien quiere enviar un mensaje se activa la función "onmessage", cuando alguien cierra su conexion, "onerror" y cuando alguien obtiene algún error de conexión "onerror". De esta clase, se ha exportado la variable "connection", la cual trata los estados anteriormente nombrados, y ha sido importada a las clases que requieren de algún websocket mediante un "EventListener", que permite reproducir la función "onmessage".
+  ### - Instrucciones para ejecutar la aplicacion -
 
-    
-  ![Diagrama-de-Clases-Fase-4.jpg](https://github.com/AlfieDPG/SmashDolls/assets/103380398/f5a80f33-6238-4dc6-b002-299d0a4a7066)
-
-  ### - Protocolo WebSocket - 
-  Gracias a los websockets hemos implementado las siguientes funcionalidades:
-  - Creación de un servidor asíncrono.
-  - Gestión de los estados de los clientes mediante la clase "websocket.js".
-  - La variable que controla el estado de conexión, "connection", se exporta de la anterior clase y es importada en aquellas que requieren acciones simultáneas en ambos clientes.
-  - Inicio de la partida simultánea al pusar el botón jugar en un cliente.
-  - Asignación de un id, a parte de un número (1 o 2), por parte del servidor a los clientes para asignarles un personaje del juego a cada uno y bloquear los controles del personaje que no les ha sido asignado.
-  - El juego se pausa en ambos clientes.
-  - El juego se puede reanudar en ambos clientes.
-  - Cuando un personaje se queda sin vida, la pantalla del jugador ganador salta en ambos cliente, esta tiene un botón para volver al menú principal, si algún jugador lo pulsa, ambos serán mandados al menú principal.
   ### - Actualizacion del Arte -
   Se han hecho actualizaciones en el apartado artístico de todos los menus del juego, ademas de haberse añadido nuevos botones para las nuevas zonas.  
   #### Botones
@@ -376,15 +355,38 @@ Siguiendo con la fuente "BIG APPLE 3PM" se han diseñado tanto el título como e
   - J2 Gana: [![J2-GANA.png](https://i.postimg.cc/nh6XycLb/J2-GANA.png)](https://postimg.cc/BjBZD3DM)
 
   #### Menús
-  - Menu Principal:
+  - Menu Principal: ![MPrincipal](https://github.com/AlfieDPG/SmashDolls/assets/119670014/6aac64b0-70d4-4984-b822-a02e854109f3)
   - Menu Pausa: [![MPause.jpg](https://i.postimg.cc/MHT6ZmV4/MPause.jpg)](https://postimg.cc/7GF8m7BM)
   - J1 Gana: [![MJ1Wins.jpg](https://i.postimg.cc/bJVG9Ww3/MJ1Wins.jpg)](https://postimg.cc/ftXTwHX9)
   - J2 Gana: [![MJ2Wins.jpg](https://i.postimg.cc/XNyHybJH/MJ2Wins.jpg)](https://postimg.cc/xqnyWBLM)
   - Controles: [![MControls.jpg](https://i.postimg.cc/FHPszw1s/MControls.jpg)](https://postimg.cc/VJCcHGj3)
   - Créditos: [![MCredits.jpg](https://i.postimg.cc/sXsPNkyz/MCredits.jpg)](https://postimg.cc/SX1zXtJ1)
-  - Tablón:
-  - Chat:
+  - Tablón: ![MTablon](https://github.com/AlfieDPG/SmashDolls/assets/119670014/9a9cf1ce-db3a-4011-818f-fff10b2ab977)
+  - Chat: ![image](https://github.com/AlfieDPG/SmashDolls/assets/119670014/7e5b717b-c6e2-48f7-abc8-7ee9d38e4909)
   
+  ## IMPLEMENTACIONES DE LA FASE 4
+  En esta fase nos hemos encargado de todo lo relacionado con WebSockets
+   
+  ### - Diagrama de Clases - 
+  A continuación se puede observar el nuevo diagrama de clases, al cual se le han agregado dos clases más. Ahora, el programa contará con un servidor asíncrono, el cual se mantendra encendido, siempre y cuando, no se cierre a voluntad.
+  Ahora, "DemoApplication" llama al manejador de los websockets "ChatHandler" para crearlo y darle permisos, y así crear el servidor.
+  
+  - ChatHandler: El manejador del servidor. Clase que establece que ocurre en caso de conexión con un usuario("afterConnectioEstablished), desconexión("afterConnectionClosed") o petición de enviar algún mensaje("handleTextMessage"). El servidor solo permitirá la conexión simultánea de dos jugadores, si se conecta alguno más, podrá jugar al juego pero no con otro jugador.
+  - Websocket: Este archivo de javascript se encarga de regular las conexiones de los clientes. Cuando alguien quiere enviar un mensaje se activa la función "onmessage", cuando alguien cierra su conexion, "onerror" y cuando alguien obtiene algún error de conexión "onerror". De esta clase, se ha exportado la variable "connection", la cual trata los estados anteriormente nombrados, y ha sido importada a las clases que requieren de algún websocket mediante un "EventListener", que permite reproducir la función "onmessage".
+    
+  ![Diagrama-de-Clases-Fase-4.jpg](https://github.com/AlfieDPG/SmashDolls/assets/103380398/f5a80f33-6238-4dc6-b002-299d0a4a7066)
+
+  ### - Protocolo WebSocket - 
+  Gracias a los websockets hemos implementado las siguientes funcionalidades:
+  - Creación de un servidor asíncrono.
+  - Gestión de los estados de los clientes mediante la clase "websocket.js".
+  - La variable que controla el estado de conexión, "connection", se exporta de la anterior clase y es importada en aquellas que requieren acciones simultáneas en ambos clientes.
+  - Inicio de la partida simultánea al pusar el botón jugar en un cliente.
+  - Asignación de un id, a parte de un número (1 o 2), por parte del servidor a los clientes para asignarles un personaje del juego a cada uno y bloquear los controles del personaje que no les ha sido asignado.
+  - El juego se pausa en ambos clientes.
+  - El juego se puede reanudar en ambos clientes.
+  - Cuando un personaje se queda sin vida, la pantalla del jugador ganador salta en ambos cliente, esta tiene un botón para volver al menú principal, si algún jugador lo pulsa, ambos serán mandados al menú principal.
+    
   ## FUNCIONES NO IMPLEMENTADAS
   En esta fase del proyecto no han sido implementadas las siguientes funciones que se indicaban en el documento del videojuego:
   - Personaje Portea
