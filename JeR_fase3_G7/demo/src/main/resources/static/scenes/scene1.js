@@ -328,7 +328,7 @@ export default class scene1 extends Phaser.Scene {
                 attack.play();
                 this.doll1.on('animationcomplete', function (animation) {
                 if (animation.key === 'basicf') {
-                    this.doll1.isAttacking1 = false; // Resetear la bandera cuando la animación completa
+                    this.isAttacking1 = false; // Resetear la bandera cuando la animación completa
                 }
             }, this);
                             // Verificar si la animación de ataque básico está reproduciéndose
@@ -559,7 +559,7 @@ export default class scene1 extends Phaser.Scene {
             attack.play();
             this.doll1.on('animationcomplete', function (animation) {
                 if (animation.key === 'basicf') {
-                    this.doll1.isAttacking1 = false; // Resetear la bandera cuando la animación completa
+                    this.isAttacking1 = false; // Resetear la bandera cuando la animación completa
                 }
             }, this);
     
