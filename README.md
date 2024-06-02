@@ -9,6 +9,9 @@
    
  -  Francisco Rodríguez Martínez -> f.rodriguez.2021@alumnos.urjc.es
 
+## VIDEO DE YOUTUBE
+https://www.youtube.com/watch?v=mYGx6_WEH_g
+
 ## INTRODUCCION
 Bienvenido al documento de diseño de videojuego de Smash Dolls, creado por el estudio de videojuegos “M0n3k0’s”. Smash Dolls  es un videojuego para PC del que se explicarán y analizarán cada uno de los aspectos y características que lo componen, así como, sus detalles principales, muestras del apartado artístico, mecánicas que lo caracterizan, el sonido que lo ambientará y finalmente las distintas interfaces que se podrán encontrar.
 
