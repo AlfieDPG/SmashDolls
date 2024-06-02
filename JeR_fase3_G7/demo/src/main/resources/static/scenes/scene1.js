@@ -403,18 +403,18 @@ export default class scene1 extends Phaser.Scene {
             }
         
             if(type == "Dano1"){
-                doll2.setData('life2', doll2.getData('life2') - this.restarVidas);
+                this.doll2.setData('life2', this.doll2.getData('life2') - 5);
             
                 // Actualizar texto de vidas de la muñeca 1
                 
-                this.textLife2.setText(` ${player2.getData('life2')}%`);
+                this.textLife2.setText(` ${this.doll2.getData('life2')}%`);
                 
                 
             }
             if(type == "Danoespecial1"){
-                doll2.setData('life2', doll2.getData('life2') - this.restarVidas);//la muñeca 2 pierde 5 vidas
+                this.doll2.setData('life2', this.doll2.getData('life2') - 10);//la muñeca 2 pierde 5 vidas
            
-                this.textLife2.setText(` ${doll2.getData('life2')}%`);
+                this.textLife2.setText(` ${this.doll2.getData('life2')}%`);
                 
                 
             }
@@ -428,18 +428,18 @@ export default class scene1 extends Phaser.Scene {
                 
             }
             if(type == "Dano2"){
-                doll1.setData('life1', doll1.getData('life1') - this.restarVidas);
+                this.doll1.setData('life1', this.doll1.getData('life1') - 5);
                 
                 
-                this.textLife1.setText(` ${doll1.getData('life1')}%`);
+                this.textLife1.setText(` ${this.doll1.getData('life1')}%`);
                 
                 
             }
             if(type == "Danoespecial2"){
-                doll1.setData('life1', doll1.getData('life1') - this.restarVidas);
+                this.doll1.setData('life1', this.doll1.getData('life1') - 10);
                
                 
-                this.textLife1.setText(` ${doll1.getData('life1')}%`);
+                this.textLife1.setText(` ${this.doll1.getData('life1')}%`);
                 
                 
             }
@@ -452,7 +452,6 @@ export default class scene1 extends Phaser.Scene {
                 
             }
 
-
         
         
          });
@@ -461,6 +460,8 @@ export default class scene1 extends Phaser.Scene {
 
         console.log("Assigned Player ID:", window.assignedPlayer);
         this.assignedPlayer = window.assignedPlayer;
+
+
 
          
     }
@@ -732,6 +733,7 @@ export default class scene1 extends Phaser.Scene {
             }
         }
 
+        
        
     }
 
@@ -773,12 +775,12 @@ export default class scene1 extends Phaser.Scene {
         this.restarVidas = 5; //vida restada ataque normal
         this.isAttacking1=false;
 
-        if (doll2.getData('life2') - this.restarVidas > -1) { //la muñeca 2 pierde 5 vidas
-            doll2.setData('life2', doll2.getData('life2') - this.restarVidas);
+        if (this.doll2.getData('life2') - this.restarVidas > -1) { //la muñeca 2 pierde 5 vidas
+            this.doll2.setData('life2', this.doll2.getData('life2') - this.restarVidas);
             
             // Actualizar texto de vidas de la muñeca 1
             
-            this.textLife2.setText(` ${doll2.getData('life2')}%`);
+            this.textLife2.setText(` ${this.doll2.getData('life2')}%`);
             //Mensaje daño 1
             var msg ={
                 type : "Dano1"
@@ -808,10 +810,10 @@ export default class scene1 extends Phaser.Scene {
             this.restarVidas = 10; //vida restada ataque especial
             this.isSuperAttacking1=false;
 
-        if (doll2.getData('life2') - this.restarVidas > -1) {
-            doll2.setData('life2', doll2.getData('life2') - this.restarVidas);//la muñeca 2 pierde 5 vidas
+        if (this.doll2.getData('life2') - this.restarVidas > -1) {
+            this.doll2.setData('life2', this.doll2.getData('life2') - this.restarVidas);//la muñeca 2 pierde 5 vidas
            
-            this.textLife2.setText(` ${doll2.getData('life2')}%`);
+            this.textLife2.setText(` ${this.doll2.getData('life2')}%`);
 
             //Mensaje daño especial
             var msg ={
@@ -856,8 +858,8 @@ export default class scene1 extends Phaser.Scene {
             this.restarVidas = 5; //vida restada ataque normal
             this.isAttacking2=false;
             
-        if (doll1.getData('life1') - this.restarVidas > -1) {
-                doll1.setData('life1', doll1.getData('life1') - this.restarVidas);
+        if (this.doll1.getData('life1') - this.restarVidas > -1) {
+            this.doll1.setData('life1', this.doll1.getData('life1') - this.restarVidas);
                 
                 
                 this.textLife1.setText(` ${doll1.getData('life1')}%`);
@@ -890,11 +892,11 @@ export default class scene1 extends Phaser.Scene {
             this.restarVidas = 10; //vida restada ataque especial
             this.isSuperAttacking2=false;
 
-            if (doll1.getData('life1') - this.restarVidas > -1) {
-                doll1.setData('life1', doll1.getData('life1') - this.restarVidas);
+            if (this.doll1.getData('life1') - this.restarVidas > -1) {
+                this.doll1.setData('life1', this.doll1.getData('life1') - this.restarVidas);
                
                 
-                this.textLife1.setText(` ${doll1.getData('life1')}%`);
+                this.textLife1.setText(` ${this.doll1.getData('life1')}%`);
                 
                 //Mensaje daño especial
                 var msg ={
@@ -919,8 +921,6 @@ export default class scene1 extends Phaser.Scene {
             this.registry.events.emit('vida', doll1.getData('life1'));
             // Agregar lógica adicional para la animación de ataque especial de doll2
         }
-
-       
 
         
     }
